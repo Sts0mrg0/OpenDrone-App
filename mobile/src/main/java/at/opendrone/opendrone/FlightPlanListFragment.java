@@ -68,16 +68,14 @@ public class FlightPlanListFragment extends Fragment {
         } catch (Exception e) {
             Toast.makeText(getContext(), getResources().getString(R.string.exception_sorry), Toast.LENGTH_LONG).show();
         }
-        btn_AddFP.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SharedPreferences sp = getActivity().getSharedPreferences("at.opendrone.opendrone", Context.MODE_PRIVATE);
-                sp.edit().remove(OpenDroneUtils.SP_FLIGHTPLAN_HOLDER).apply();
-                FlightPlaner fp = new FlightPlaner();
-                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-                ft.replace(R.id.frameLayout_FragmentContainer, fp);
-                ft.commit();
-            }
+        btn_AddFP.setOnClickListener(v -> {
+            SharedPreferences sp1 = getActivity().getSharedPreferences("at.opendrone.opendrone", Context.MODE_PRIVATE);
+            sp1.edit().putString(OpenDroneUtils.SP_FLIGHTPLAN_NAME, "").apply();
+            sp1.edit().putString(OpenDroneUtils.SP_FLIGHTPLAN_DESC, "").apply();
+            FlightPlaner fp = new FlightPlaner();
+            FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.frameLayout_FragmentContainer, fp);
+            ft.commit();
         });
 
 

@@ -96,33 +96,23 @@ public class FlightPlanRecyclerViewAdapter extends RecyclerView.Adapter<FlightPl
             flightplan_description = itemView.findViewById(R.id.textView_FlightPlan);
             btn_deleteFlightplan = itemView.findViewById(R.id.imgBtn_Delete_Flightplan);
             btn_editFlightplan = itemView.findViewById(R.id.btn_Settings_flightplan);
-            btn_editFlightplan.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    SharedPreferences sp = activity.getSharedPreferences("at.opendrone.opendrone", Context.MODE_PRIVATE);
-                    Gson gson = new Gson();
+            btn_editFlightplan.setOnClickListener(v -> {
+                SharedPreferences sp = activity.getSharedPreferences("at.opendrone.opendrone", Context.MODE_PRIVATE);
+                sp.edit().putString(OpenDroneUtils.SP_FLIGHTPLAN_NAME, flightplan.getName()).apply();
+                sp.edit().putString(OpenDroneUtils.SP_FLIGHTPLAN_DESC, flightplan.getDescription()).apply();
 
-                    sp.edit().remove(OpenDroneUtils.SP_FLIGHTPLAN_HOLDER).apply();
-
-                    String object = gson.toJson(flightplan);
-                    sp.edit().putString(OpenDroneUtils.SP_FLIGHTPLAN_HOLDER, object).apply();
-
-                    FlightPlanSaveFragment fp = new FlightPlanSaveFragment(flightplan.getName(), flightplan.getDescription(), flightplan.getCoordinates(), position);
-                    FragmentTransaction ft = activity.getSupportFragmentManager().beginTransaction();
-                    ft.replace(R.id.frameLayout_FragmentContainer, fp);
-                    ft.commit();
-                }
+                FlightPlanSaveFragment fp = new FlightPlanSaveFragment(flightplan.getName(), flightplan.getDescription(), flightplan.getCoordinates(), position);
+                FragmentTransaction ft = activity.getSupportFragmentManager().beginTransaction();
+                ft.replace(R.id.frameLayout_FragmentContainer, fp);
+                ft.commit();
             });
-            btn_deleteFlightplan.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Toast.makeText(activity, position + "", Toast.LENGTH_LONG).show();
-                    fragment.deletePosition(position);
-                    FlightPlanListFragment fp = new FlightPlanListFragment();
-                    FragmentTransaction ft = activity.getSupportFragmentManager().beginTransaction();
-                    ft.replace(R.id.frameLayout_FragmentContainer, fp);
-                    ft.commit();
-                }
+            btn_deleteFlightplan.setOnClickListener(v -> {
+                Toast.makeText(activity, position + "", Toast.LENGTH_LONG).show();
+                fragment.deletePosition(position);
+                FlightPlanListFragment fp = new FlightPlanListFragment();
+                FragmentTransaction ft = activity.getSupportFragmentManager().beginTransaction();
+                ft.replace(R.id.frameLayout_FragmentContainer, fp);
+                ft.commit();
             });
         }
     }
