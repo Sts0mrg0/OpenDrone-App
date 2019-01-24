@@ -247,26 +247,27 @@ public class FlightPlaner extends Fragment {
         saveFAB.setVisibility(View.VISIBLE);
     }
 
-    private void addMarker(GeoPoint p, double position){
+    private void addMarker(GeoPoint p, double position) {
         Marker startMarker = new Marker(mMapView);
         startMarker.setPosition(p);
         startMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
         startMarker.setEnableTextLabelsWhenNoImage(true);
 
-        Object index = points.size()+1;
+        Object index = points.size() + 1;
 
-        if( points.size()+1 <= 1){
+        if (points.size() + 1 <= 1) {
             index = getString(R.string.flight_plan_start_txt).toUpperCase();
         }
 
         if ((position != Math.floor(position))) {
-            if(Math.floor(position)== 0){
-                index = getString(R.string.flight_plan_start_txt)+"&"+getString(R.string.flight_plan_end_txt);
-            }else{
-                index = index.toString()+"&"+getString(R.string.flight_plan_end_txt);
+            canAddMarker = false;
+            if (Math.floor(position) == 0) {
+                index = getString(R.string.flight_plan_start_txt) + "&" + getString(R.string.flight_plan_end_txt);
+            } else {
+                index = index.toString() + "&" + getString(R.string.flight_plan_end_txt);
             }
             Log.i(TAG, "Cant add marker");
-            canAddMarker = false;
+            startMarker = markers.get((int)Math.floor(position));
         }
 
         startMarker.setIcon(getIconDrawable(index));
@@ -279,7 +280,7 @@ public class FlightPlaner extends Fragment {
     }
 
     private void addMarker(GeoPoint p) {
-        addMarker(p, points.size()+0.0d);
+        addMarker(p, points.size() + 0.0d);
         /*Marker startMarker = new Marker(mMapView);
         startMarker.setPosition(p);
         startMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
@@ -304,15 +305,16 @@ public class FlightPlaner extends Fragment {
     private void drawLine() {
         List<GeoPoint> pointList = new LinkedList<GeoPoint>((points.values()));
         line.setPoints(new ArrayList<>(pointList));
+        Log.i(TAG, points.entrySet().toString());
         //Do nothing on click
         line.setOnClickListener((polyline, mapView, eventPos) -> false);
         mMapView.getOverlayManager().remove(line);
-        mMapView.getOverlayManager().add(0,line);
+        mMapView.getOverlayManager().add(0, line);
         mMapView.invalidate();
     }
 
     private void addToLine(double index, GeoPoint p) {
-        Log.i(TAG, "Adding: "+index);
+        Log.i(TAG, "Adding: " + index);
         points.put(index + 0d, p);
     }
 
@@ -410,7 +412,7 @@ public class FlightPlaner extends Fragment {
 
     private double getKeyAtIndex(int index) {
         List<Double> keys = new ArrayList<Double>(points.keySet());
-        Log.i(TAG, ""+keys.size());
+        Log.i(TAG, "" + keys.size());
         return keys.get(index);
     }
 
@@ -448,7 +450,7 @@ public class FlightPlaner extends Fragment {
             }
         });
         marker.setOnMarkerClickListener((marker1, mapView) -> {
-            if(!canAddMarker){
+            if (!canAddMarker) {
                 return true;
             }
             canAddMarker = false;
@@ -456,9 +458,9 @@ public class FlightPlaner extends Fragment {
             int index = pointList.lastIndexOf(marker1.getPosition());
             double key = getKeyAtIndex(index);
 
-            Object text = (index+1)+"&"+getString(R.string.flight_plan_end_txt).toUpperCase();
-            if(index == 0){
-                text = getString(R.string.flight_plan_start_txt)+"&"+getString(R.string.flight_plan_end_txt).toUpperCase();
+            Object text = (index + 1) + "&" + getString(R.string.flight_plan_end_txt).toUpperCase();
+            if (index == 0) {
+                text = getString(R.string.flight_plan_start_txt) + "&" + getString(R.string.flight_plan_end_txt).toUpperCase();
             }
             marker1.setIcon(getIconDrawable(text));
 
@@ -483,7 +485,7 @@ public class FlightPlaner extends Fragment {
                 double lastKey = getKeyAtIndex(lastIndex);
                 points.put(originalPosition, marker.getPosition());
                 points.put(lastKey, marker.getPosition());
-                Log.i(TAG, ""+lastIndex+" / "+originalPosition+" / "+draggedPosition + " / "+lastKey);
+                Log.i(TAG, " / " + originalPosition + " / " + draggedPosition + " / " + lastKey);
             } else {
                 points.put(draggedPosition + 0d, marker.getPosition());
             }
@@ -495,8 +497,8 @@ public class FlightPlaner extends Fragment {
     private void removeMarker(Marker marker) {
         int lastIndex = points.size() - 1;
         Double originalPosition = Math.floor(getKeyAtIndex(lastIndex));
-        if(!canAddMarker){
-            if(draggedPosition == originalPosition || draggedPosition == lastIndex){
+        if (!canAddMarker) {
+            if (draggedPosition == originalPosition || draggedPosition == lastIndex) {
                 double lastKey = getKeyAtIndex(lastIndex);
                 removeFromMarkers(lastIndex);
                 removeFromMarkers(originalPosition.intValue());
@@ -504,31 +506,31 @@ public class FlightPlaner extends Fragment {
                 removeFromPoints(originalPosition);
                 updateKeys(originalPosition);
                 canAddMarker = true;
-            }else{
+            } else {
                 removeFromMarkers(draggedPosition);
-                removeFromPoints(draggedPosition+0d);
-                updateKeys(draggedPosition+0d);
+                removeFromPoints(draggedPosition + 0d);
+                updateKeys(draggedPosition + 0d);
             }
-        }else{
+        } else {
             removeFromMarkers(draggedPosition);
-            removeFromPoints(draggedPosition+0d);
-            updateKeys(draggedPosition+0d);
+            removeFromPoints(draggedPosition + 0d);
+            updateKeys(draggedPosition + 0d);
         }
         updateIcons();
         drawLine();
     }
 
-    private void updateIcons(){
+    private void updateIcons() {
         HashMap<GeoPoint, String> alreadyUpdated = new HashMap();
-        for(int i = 0; i<markers.size(); i++){
+        for (int i = 0; i < markers.size(); i++) {
             Marker m = markers.get(i);
-            Object text = i+1;
+            Object text = i + 1;
 
-            if(alreadyUpdated.containsKey(m.getPosition())){
-                text = alreadyUpdated.get(m.getPosition())+"&"+getString(R.string.flight_plan_end_txt);
+            if (alreadyUpdated.containsKey(m.getPosition())) {
+                text = alreadyUpdated.get(m.getPosition()) + "&" + getString(R.string.flight_plan_end_txt);
             }
 
-            if(i == 0){
+            if (i == 0) {
                 text = getString(R.string.flight_plan_start_txt).toUpperCase();
             }
             m.setIcon(getIconDrawable(text));
@@ -536,12 +538,12 @@ public class FlightPlaner extends Fragment {
         }
     }
 
-    private void updateKeys(double start){
+    private void updateKeys(double start) {
         LinkedHashMap<Double, GeoPoint> newPoints = new LinkedHashMap<>();
-        for(Map.Entry<Double, GeoPoint> entry : points.entrySet()){
+        for (Map.Entry<Double, GeoPoint> entry : points.entrySet()) {
             double key = entry.getKey();
-            if(key > start){
-                key = key -1;
+            if (key > start) {
+                key = key - 1;
             }
             newPoints.put(key, entry.getValue());
         }
@@ -554,7 +556,7 @@ public class FlightPlaner extends Fragment {
         mMapView.invalidate();
     }
 
-    private void removeFromPoints(double key){
+    private void removeFromPoints(double key) {
         points.remove(key);
         mMapView.invalidate();
     }
@@ -566,24 +568,24 @@ public class FlightPlaner extends Fragment {
         return outRect.contains(x, y);
     }
 
-    private void clearLists(){
+    private void clearLists() {
         points.clear();
         markers.clear();
     }
 
     private void drawExistingPoints() {
+        if(existingPoints.size() <= 0){
+            return;
+        }
         clearLists();
-        /*List<GeoPoint> pointList = new LinkedList<>(existingPoints.values());
-        for (int i = 0; i < pointList.size(); i++) {
-            addMarker(pointList.get(i));
-        }*/
-        for(Map.Entry<Double, GeoPoint> entry: existingPoints.entrySet()){
-            Log.i(TAG, "Existing: "+entry.getKey());
+        for (Map.Entry<Double, GeoPoint> entry : existingPoints.entrySet()) {
+            Log.i(TAG, "Existing: " + entry.getKey());
             addMarker(entry.getValue(), entry.getKey());
         }
+        existingPoints.clear();
     }
 
-    private Drawable getIconDrawable(Object number){
+    private Drawable getIconDrawable(Object number) {
         TextDrawable drawable = TextDrawable.builder()
                 .beginConfig()
                 .width(100)
