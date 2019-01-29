@@ -51,7 +51,6 @@ public class FlightPlanSaveFragment extends Fragment {
 
     private String name = "";
     private String desc = "";
-    private int position = -1;
     private LinkedHashMap<Double, GeoPoint> points = new LinkedHashMap<>();
     private List<Flightplan> flightplans = new LinkedList<>();
     private FlightPlaner planer;
@@ -72,11 +71,10 @@ public class FlightPlanSaveFragment extends Fragment {
     }
 
     @SuppressLint("ValidFragment")
-    public FlightPlanSaveFragment(String name, String desc, LinkedHashMap<Double, GeoPoint> points, int position) {
+    public FlightPlanSaveFragment(String name, String desc, LinkedHashMap<Double, GeoPoint> points) {
         this.name = name;
         this.desc = desc;
         this.points = points;
-        this.position = position;
     }
 
     private void findViews() {
@@ -164,18 +162,27 @@ public class FlightPlanSaveFragment extends Fragment {
             nameTxt.setError(getString(R.string.flight_plan_save_error_name_empty));
             return;
         }
+        String savedFPString = sp.getString(OpenDroneUtils.SP_FLIGHTPLANS, "");
+        if(!savedFPString.equals("")){
+            Flightplan[] flightPlanAr = gson.fromJson(savedFPString, Flightplan[].class);
+            flightplans = new LinkedList<>(Arrays.asList(flightPlanAr));
+        }
         Flightplan fp = new Flightplan();
         fp.setName(nameTxt.getText().toString());
         fp.setDescription(descTxt.getText().toString());
         fp.setCoordinates(points);
 
+        int position = sp.getInt(OpenDroneUtils.SP_FLIGHTPLAN_POSITION, -1);
+
         if(position != -1){
+            flightplans.remove(position);
             flightplans.add(position, fp);
         }else{
             flightplans.add(fp);
         }
 
         String serialized = gson.toJson(flightplans.toArray());
+        Log.i(TAG, serialized);
         sp.edit().putString(OpenDroneUtils.SP_FLIGHTPLANS, serialized).apply();
 
         FlightPlanListFragment fragment = new FlightPlanListFragment();
@@ -184,11 +191,11 @@ public class FlightPlanSaveFragment extends Fragment {
 
     private void updateFragment(Fragment fragment){
         FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-        Log.i(TAG, "After FragmentTransaction: "+planer.existingPoints.size());
+        //Log.i(TAG, "After FragmentTransaction: "+planer.existingPoints.size());
         ft.replace(R.id.frameLayout_FragmentContainer, fragment);
-        Log.i(TAG, "After replace: "+planer.existingPoints.size());
+        //Log.i(TAG, "After replace: "+planer.existingPoints.size());
         ft.commit();
-        Log.i(TAG, "After commit: "+planer.existingPoints.size());
+        //Log.i(TAG, "After commit: "+planer.existingPoints.size());
     }
 
     public void setAttributes() {

@@ -126,6 +126,7 @@
         app:layout_constraintTop_toBottomOf="@+id/txt_MF_Height" />
 
     <RelativeLayout
+        android:id="@+id/relativeLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -148,21 +149,40 @@
             android:id="@+id/changeViewBtn"
             android:layout_width="80dp"
             android:layout_height="80dp"
+            android:layout_toEndOf="@id/homeBtn"
             android:background="#00ffffff"
             android:padding="20dp"
             android:scaleType="fitCenter"
-            android:src="@drawable/ic_view_map"
-            android:layout_toEndOf="@id/homeBtn"/>
+            android:src="@drawable/ic_view_map" />
 
         <ImageButton
             android:id="@+id/stopRotorBtn"
             android:layout_width="80dp"
             android:layout_height="80dp"
+            android:layout_toEndOf="@id/changeViewBtn"
             android:background="#00ffffff"
             android:padding="20dp"
             android:scaleType="fitCenter"
-            android:layout_toEndOf="@id/changeViewBtn"
             android:src="@drawable/ic_stoprotor" />
     </RelativeLayout>
+
+    <TextView
+        android:id="@+id/errorTxtView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="#FC6666"
+        android:text="@string/error_txt"
+        android:textAlignment="center"
+        android:textAllCaps="true"
+        android:textColor="#A00000"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

@@ -100,8 +100,9 @@ public class FlightPlanRecyclerViewAdapter extends RecyclerView.Adapter<FlightPl
                 SharedPreferences sp = activity.getSharedPreferences("at.opendrone.opendrone", Context.MODE_PRIVATE);
                 sp.edit().putString(OpenDroneUtils.SP_FLIGHTPLAN_NAME, flightplan.getName()).apply();
                 sp.edit().putString(OpenDroneUtils.SP_FLIGHTPLAN_DESC, flightplan.getDescription()).apply();
+                sp.edit().putInt(OpenDroneUtils.SP_FLIGHTPLAN_POSITION, position).apply();
 
-                FlightPlanSaveFragment fp = new FlightPlanSaveFragment(flightplan.getName(), flightplan.getDescription(), flightplan.getCoordinates(), position);
+                FlightPlanSaveFragment fp = new FlightPlanSaveFragment(flightplan.getName(), flightplan.getDescription(), flightplan.getCoordinates());
                 FragmentTransaction ft = activity.getSupportFragmentManager().beginTransaction();
                 ft.replace(R.id.frameLayout_FragmentContainer, fp);
                 ft.commit();

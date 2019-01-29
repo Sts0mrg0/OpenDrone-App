@@ -13,6 +13,7 @@ public class OpenDroneUtils {
     //public static String SP_FLIGHTPLAN_HOLDER = "sp_flightplan";
     public static String SP_FLIGHTPLAN_NAME = "sp_flightplan_name";
     public static String SP_FLIGHTPLAN_DESC = "sp_flightplan_desc";
+    public static String SP_FLIGHTPLAN_POSITION = "sp_flightplan_pos";
     public static final double DEFAULT_LAT = 48.2468036;
     public static final double DEFAULT_LNG = 14.6199875;
     public static final String THROTTLE_UP = "THRT_UP";
@@ -40,6 +41,7 @@ public class OpenDroneUtils {
     public static final byte CODE_GO_HOME= (byte) 9;
     public static final byte CODE_ABORT= (byte) 10;
 
+    public static final int CODE_LOCAL_FAIL = -1;
     public static final int CODE_CONTROLLER_TEMP = 1;
     public static final int CODE_AIR_TEMP = 2;
     public static final int CODE_POSITTION = 3;

@@ -54,6 +54,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import at.opendrone.opendrone.raspistats.RaspiStatParser;
+
 public class FlightPlaner extends Fragment {
 
     private static final String TAG = "FlightPlany";
@@ -264,7 +266,7 @@ public class FlightPlaner extends Fragment {
             if (Math.floor(position) == 0) {
                 index = getString(R.string.flight_plan_start_txt) + "&" + getString(R.string.flight_plan_end_txt);
             } else {
-                index = index.toString() + "&" + getString(R.string.flight_plan_end_txt);
+                index = (int)(Math.floor(position)+1) + "&" + getString(R.string.flight_plan_end_txt);
             }
             Log.i(TAG, "Cant add marker");
             startMarker = markers.get((int)Math.floor(position));
@@ -281,25 +283,6 @@ public class FlightPlaner extends Fragment {
 
     private void addMarker(GeoPoint p) {
         addMarker(p, points.size() + 0.0d);
-        /*Marker startMarker = new Marker(mMapView);
-        startMarker.setPosition(p);
-        startMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
-        startMarker.setEnableTextLabelsWhenNoImage(true);
-
-        Object index = points.size()+1;
-
-        if( points.size()+1 <= 1){
-            index = getString(R.string.flight_plan_start_txt).toUpperCase();
-        }
-
-        startMarker.setIcon(getIconDrawable(index));
-
-        addListenersToMarker(startMarker);
-        mMapView.getOverlays().add(startMarker);
-        markers.add(startMarker);
-        addToLine(points.size(), startMarker.getPosition());
-        drawLine();
-        showFAB();*/
     }
 
     private void drawLine() {
@@ -399,11 +382,19 @@ public class FlightPlaner extends Fragment {
         loadConfig();
         View view = inflater.inflate(R.layout.fragment_flightplaner, container, false);
         findViews(view);
+        configureMap();
         initSP();
         addListeners();
         initMapView();
         showFAB();
         return view;
+    }
+
+    private void configureMap(){
+        mMapView.setMinZoomLevel(7.0);
+        mMapView.setHorizontalMapRepetitionEnabled(true);
+        mMapView.setVerticalMapRepetitionEnabled(false);
+        mMapView.setScrollableAreaLimitLatitude(MapView.getTileSystem().getMaxLatitude(), MapView.getTileSystem().getMinLatitude(), 0);
     }
 
     public void setExistingPoints(LinkedHashMap<Double, GeoPoint> existingPoints) {

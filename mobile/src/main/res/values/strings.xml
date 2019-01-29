@@ -78,4 +78,5 @@
     <string name="flight_plan_start_txt">S</string>
     <string name="flight_plan_end_txt">E</string>
     <string name="flight_plan_could_not_load">Could not load flightplan</string>
+    <string name="error_txt">Fatal Error!\nCrash in Progress (%1$d)</string>
 </resources>
