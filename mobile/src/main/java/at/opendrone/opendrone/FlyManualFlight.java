@@ -5,7 +5,6 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -20,6 +19,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -39,14 +40,13 @@ import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.Marker;
-import org.osmdroid.views.overlay.Overlay;
-import org.osmdroid.views.overlay.OverlayItem;
-import org.osmdroid.views.overlay.Polyline;
 
 import java.util.ArrayList;
 
 import at.opendrone.opendrone.network.OpenDroneFrame;
 import at.opendrone.opendrone.network.TCPHandler;
+import at.opendrone.opendrone.raspistats.RaspiStat;
+import at.opendrone.opendrone.raspistats.RaspiStatParser;
 import io.github.controlwear.virtual.joystick.android.JoystickView;
 
 /**
@@ -58,12 +58,13 @@ public class FlyManualFlight extends Fragment {
     private JoystickView throttle;
     private JoystickView direction;
 
-    private TextView positionTxtView;
+    /*private TextView positionTxtView;
     private TextView heightTxtView;
     private TextView airTempTxtView;
     private TextView controllerTempTxtView;
     private TextView statusTxtView;
-    private TextView velocityTxtView;
+    private TextView velocityTxtView;*/
+    private TextView errorTxtView;
     private ImageButton homeBtn;
     private ImageButton stopRotorBtn;
     private ImageButton changeViewBtn;
@@ -78,12 +79,14 @@ public class FlyManualFlight extends Fragment {
     private static final String TAG = "manualFlighty";
     private static final String TAG_ERROR = "errortcpreceive";
 
-    private String positionTxt = "";
+    /*private String positionTxt = "";
     private String heightTxt = "";
     private String airTempTxt = "";
     private String controllerTempTxt = "";
     private String statusTxt = "";
-    private String velocityTxt = "";
+    private String velocityTxt = "";*/
+
+    private RaspiStatParser parser;
 
     private Location droneLocation;
     private Location userLocation;
@@ -131,12 +134,21 @@ public class FlyManualFlight extends Fragment {
             mapView.onPause();
         }
 
+        Log.i(TAG, "OnPause");
+
         stopLocationUpdates();
     }
 
     private void loadConfig() {
         Context ctx = getActivity().getApplicationContext();
         Configuration.getInstance().load(ctx, PreferenceManager.getDefaultSharedPreferences(ctx));
+    }
+
+    private void configureMap(){
+        mapView.setMinZoomLevel(7.0);
+        mapView.setHorizontalMapRepetitionEnabled(true);
+        mapView.setVerticalMapRepetitionEnabled(false);
+        mapView.setScrollableAreaLimitLatitude(MapView.getTileSystem().getMaxLatitude(), MapView.getTileSystem().getMinLatitude(), 0);
     }
 
 
@@ -146,12 +158,14 @@ public class FlyManualFlight extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_fly_manual_flight, container, false);
         loadConfig();
-        initStrings();
+        //initStrings();
         setRetainInstance(true);
         findViews();
+        configureMap();
         setValues();
         initJoysticks();
 
+        stopAnimateErrorText();
         //Try to connect!
         //new ConnectTask().execute("");
 
@@ -196,14 +210,14 @@ public class FlyManualFlight extends Fragment {
         Log.i(TAG, mapView.getOverlayManager().size()+"");
     }
 
-    private void initStrings() {
+    /*private void initStrings() {
         positionTxt = getString(R.string.manual_flight_TxtView_Position);
         heightTxt = getString(R.string.manual_flight_TxtView_Height);
         airTempTxt = getString(R.string.manual_flight_TxtView_AirTemp);
         controllerTempTxt = getString(R.string.manual_flight_TxtView_ControllerTemp);
         statusTxt = getString(R.string.manual_flight_TxtView_Status);
         velocityTxt = getString(R.string.manual_flight_TxtView_Velocity);
-    }
+    }*/
 
     private void fillCodeArray(byte... codes){
         this.codes = codes;
@@ -265,9 +279,12 @@ public class FlyManualFlight extends Fragment {
         return ar.toArray(new String[ar.size()]);
     }
 
-    private void extractData(String raw) {
-        String[] dataAr = raw.split(";");
-        String[] values = null;
+    private void interpretData(String raw) {
+        RaspiStat stat = parser.parse(raw);
+        stat.doStuff();
+
+        /*String[] dataAr = raw.split(";");
+        String[] values;
         int code = 0;
 
         try {
@@ -278,7 +295,7 @@ public class FlyManualFlight extends Fragment {
             return;
         }
 
-        TextView txtView = null;
+        TextView txtView;
         String format = "";
         switch (code) {
             case OpenDroneUtils.CODE_CONTROLLER_TEMP:
@@ -319,7 +336,7 @@ public class FlyManualFlight extends Fragment {
                 return;
         }
 
-        updateTextViews(txtView, format, values);
+        updateTextViews(txtView, format, values);*/
     }
 
     private void showErrorMessage(String text){
@@ -346,28 +363,30 @@ public class FlyManualFlight extends Fragment {
     }
 
     private void setValues() {
-        positionTxtView.setText(String.format(positionTxt, "40°5324324234", "34°5243542352354"));
+        /*positionTxtView.setText(String.format(positionTxt, "40°5324324234", "34°5243542352354"));
         //positionTxtView.setText(positionTxtView.getText() + "\nLat: 40°5324324234\nLong: 34°5243542352354");
         heightTxtView.setText(String.format(heightTxt, "120"));
         airTempTxtView.setText(String.format(airTempTxt, "14.8"));
         controllerTempTxtView.setText(String.format(controllerTempTxt, "120"));
         statusTxtView.setText(String.format(statusTxt, "OK"));
-        velocityTxtView.setText(String.format(velocityTxt, "302"));
+        velocityTxtView.setText(String.format(velocityTxt, "302"));*/
     }
 
     private void findViews() {
-        positionTxtView = view.findViewById(R.id.txt_MF_Position);
+        /*positionTxtView = view.findViewById(R.id.txt_MF_Position);
         heightTxtView = view.findViewById(R.id.txt_MF_Height);
         airTempTxtView = view.findViewById(R.id.txt_MF_AirTemp);
         controllerTempTxtView = view.findViewById(R.id.txt_MF_ControllerTemp);
         statusTxtView = view.findViewById(R.id.txt_MF_Connection);
-        velocityTxtView = view.findViewById(R.id.txt_MF_Velocity);
+        velocityTxtView = view.findViewById(R.id.txt_MF_Velocity);*/
         homeBtn = view.findViewById(R.id.homeBtn);
         changeViewBtn = view.findViewById(R.id.changeViewBtn);
         stopRotorBtn = view.findViewById(R.id.stopRotorBtn);
         mapView = view.findViewById(R.id.mapView);
         cameraView = view.findViewById(R.id.cameraView);
+        errorTxtView = view.findViewById(R.id.errorTxtView);
 
+        parser = new RaspiStatParser(view, getContext());
 
         homeBtn.setOnClickListener(v -> displayHomeConfirmationDialog());
         stopRotorBtn.setOnClickListener(v -> displayStopRotorDialog());
@@ -514,6 +533,24 @@ public class FlyManualFlight extends Fragment {
             //returnValue += OpenDroneUtils.CODE_PITCH_FORWARD + "," + opposite + ";";
         }
         return values;
+    }
+
+    private void animateErrorText(int errorCode){
+        errorTxtView.setText(String.format(getString(R.string.error_txt), errorCode));
+        AlphaAnimation fadeIn = new AlphaAnimation(0.0f , 1.0f ) ;
+        AlphaAnimation fadeOut = new AlphaAnimation( 1.0f , 0.0f ) ;
+        fadeIn.setRepeatCount(Animation.INFINITE);
+        fadeOut.setRepeatCount(Animation.INFINITE);
+        fadeIn.setDuration(500);
+        fadeOut.setDuration(1200);
+        errorTxtView.setVisibility(View.VISIBLE);
+        errorTxtView.startAnimation(fadeIn);
+        errorTxtView.startAnimation(fadeOut);
+    }
+
+    private void stopAnimateErrorText(){
+        errorTxtView.clearAnimation();
+        errorTxtView.setVisibility(View.GONE);
     }
 
     // ====================================== STUFF FOR LOCATION ======================================
@@ -703,7 +740,7 @@ public class FlyManualFlight extends Fragment {
         protected void onProgressUpdate(String... values) {
             super.onProgressUpdate(values);
             Log.i(TAG, "RECEIVE: " + values[0]);
-            extractData(values[0]);
+            interpretData(values[0]);
         }
     }
 
