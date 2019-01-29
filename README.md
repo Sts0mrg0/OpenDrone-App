@@ -30,7 +30,7 @@ Used technologies:
 * Configure Drone ✔  
 * Create/Modify Flightplans ✔   
 * GUI for Manual Flight ✔  
-* Communtication ⏳  
+* Communication ⏳  
 ---  
 ## Requirements  
 ### App  
