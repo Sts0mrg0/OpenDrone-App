@@ -24,9 +24,11 @@ public class ControllerTempStat implements RaspiStat {
     @Override
     public void doStuff() {
         try{
+            Log.i(TAG, "DO STUFF");
             TextView txtView = view.findViewById(R.id.txt_MF_ControllerTemp);
             String txt = context.getString(R.string.manual_flight_TxtView_ControllerTemp);
             txtView.setText(String.format(txt, data[0]));
+            Log.i(TAG, "DID STUFF"+data[0]);
         }catch(Exception ex){
             Log.e(TAG, ex.getMessage(), ex);
         }
