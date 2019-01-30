@@ -8,7 +8,7 @@ env:
   global:
   - ANDROID_API_LEVEL=28
   - ANDROID_BUILD_TOOLS_VERSION=28.0.0
-  - ANDROID_EMU_API_LEVEL=27.3.8
+  - ANDROID_EMU_API_LEVEL=22
   - ANDROID_ABI=armeabi-v7a
 cache:
   directories:
@@ -26,6 +26,7 @@ android:
   - extra-android-support
   - sys-img-$ANDROID_ABI-google_apis-$ANDROID_EMU_API_LEVEL
 before_script:
+  - android list targets
   - echo -e "Host github.com\n\tHostName github.com\n\tUser git\n\tIdentityFile ~/.ssh/id_travisci\n" >> ~/.ssh/config
   - echo no | android create avd --force -n test -t android-$ANDROID_EMU_API_LEVEL --abi google_apis/$ANDROID_ABI
   - emulator -avd test -no-window &
