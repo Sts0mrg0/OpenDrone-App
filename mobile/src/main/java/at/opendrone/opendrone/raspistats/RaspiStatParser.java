@@ -21,11 +21,14 @@ public class RaspiStatParser {
     }
 
     public RaspiStat parse(String rawMessage) {
+        Log.i(TAG, "GOT: "+rawMessage);
         String[] dataAr = rawMessage.split(";");
         try {
             int code = Integer.parseInt(dataAr[0]);
+            Log.i(TAG, "Code: "+code);
             String[] values = new String[dataAr.length - 1];
             System.arraycopy(dataAr, 1, values, 0, values.length);
+            Log.i(TAG, "ValueLength: "+values.length);
             return getCorrectStat(code, values);
         } catch (Exception ex) {
             Log.e(TAG, "Error", ex);

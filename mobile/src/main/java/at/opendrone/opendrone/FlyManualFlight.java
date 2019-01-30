@@ -535,8 +535,8 @@ public class FlyManualFlight extends Fragment {
         return values;
     }
 
-    private void animateErrorText(int errorCode){
-        errorTxtView.setText(String.format(getString(R.string.error_txt), errorCode));
+    private void animateErrorText(String error){
+        errorTxtView.setText(String.format(getString(R.string.error_txt), error));
         AlphaAnimation fadeIn = new AlphaAnimation(0.0f , 1.0f ) ;
         AlphaAnimation fadeOut = new AlphaAnimation( 1.0f , 0.0f ) ;
         fadeIn.setRepeatCount(Animation.INFINITE);

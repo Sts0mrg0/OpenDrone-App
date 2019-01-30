@@ -25,8 +25,9 @@ public class ErrorStat implements RaspiStat {
     @Override
     public void doStuff() {
         try{
+            Log.i(TAG, "Did ERROR");
             TextView errorTxtView = view.findViewById(R.id.errorTxtView);
-            errorTxtView.setText(String.format(context.getString(R.string.error_txt), Integer.parseInt(data[0])));
+            errorTxtView.setText(String.format(context.getString(R.string.error_txt), data[0]));
             AlphaAnimation fadeIn = new AlphaAnimation(0.0f , 1.0f ) ;
             AlphaAnimation fadeOut = new AlphaAnimation( 1.0f , 0.0f ) ;
             fadeIn.setRepeatCount(Animation.INFINITE);
@@ -36,6 +37,7 @@ public class ErrorStat implements RaspiStat {
             errorTxtView.setVisibility(View.VISIBLE);
             errorTxtView.startAnimation(fadeIn);
             errorTxtView.startAnimation(fadeOut);
+            Log.i(TAG, "Done ERROR");
         }catch(Exception ex){
             Log.e(TAG, ex.getMessage(), ex);
         }

@@ -641,7 +641,7 @@
     <string name="cyclemap">Cycle Map</string>
     <string name="demo_btn_txt">OpenDrone is awesome!</string>
     <string name="editTxt_DroneName_Error">This field is required</string>
-    <string name="error_txt">Fatal Error!\nCrash in Progress (%1$d)</string>
+    <string name="error_txt">Fatal Error!\n%1$s</string>
     <string name="exception_no_location">Please enable the location in your phone\'s settings</string>
     <string name="exception_sorry">Error</string>
     <string name="fab_transformation_scrim_behavior" translatable="false">android.support.design.transformation.FabTransformationScrimBehavior</string>
