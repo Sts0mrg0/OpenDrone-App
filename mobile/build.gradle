@@ -9,6 +9,7 @@ apply plugin: 'com.google.android.gms.oss-licenses-plugin'
 
 
 android {
+    buildToolsVersion "28.0.3"
     compileSdkVersion 28
     defaultConfig {
         applicationId "at.opendrone.opendrone"
@@ -53,5 +54,4 @@ dependencies {
     implementation 'io.github.controlwear:virtualjoystick:1.10.0'
     implementation 'com.google.android.gms:play-services-oss-licenses:16.0.2'
     implementation 'com.amulyakhare:com.amulyakhare.textdrawable:1.0.1'
-    implementation 'org.reflections:reflections:0.9.11'
 }
