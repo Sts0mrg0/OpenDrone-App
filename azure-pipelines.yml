@@ -13,7 +13,7 @@ pool:
 steps:
 - script: echo $ANDROID_HOME
 - script: echo "y" | sdkmanager --install 'system-images;android-28;google_apis;x86'
-  workingDirectory: $ANDROID_HOME/tools/bin/
+  workingDirectory: /usr/local/lib/android/sdk/tools/bin/
 - task: Gradle@2
   inputs:
     workingDirectory: ''
