@@ -11,7 +11,7 @@ pool:
   vmImage: 'macOS-10.13'
 
 steps:
-- script: ls -l $ANDROID_HOME
+- script: ls -l $ANDROID_HOME/tools/
 - script: echo "y" | sdkmanager --install 'system-images;android-28;google_apis;x86'
   workingDirectory: /usr/local/lib/android/sdk/tools/bin/
 - task: Gradle@2
