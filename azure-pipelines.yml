@@ -10,7 +10,9 @@ pool:
   vmImage: 'Ubuntu-16.04'
 
 steps:
-- script: echo "y" | $ANDROID_HOME/tools/bin/sdkmanager --install 'system-images;android-28;google_apis;x86'
+- script: cd $ANDROID_HOME/tools/bin/
+- script: echo "y" | sdkmanager --install 'system-images;android-28;google_apis;x86'
+- script: cd ~
 - task: Gradle@2
   inputs:
     workingDirectory: ''
