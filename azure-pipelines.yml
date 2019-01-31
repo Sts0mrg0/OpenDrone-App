@@ -10,7 +10,7 @@ pool:
   vmImage: 'Ubuntu-16.04'
 
 steps:
-- script: yes | sdkmanager "build-tools;28.0.3"
+- script: echo "y" | sdkmanager "build-tools;28.0.3"
 - task: Gradle@2
   inputs:
     workingDirectory: ''
