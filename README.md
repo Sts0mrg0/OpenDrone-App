@@ -1,6 +1,7 @@
 [![CodeFactor](https://www.codefactor.io/Content/badges/A.svg)](https://www.codefactor.io/repository/github/opendroneat/opendrone-app/overview/develop)
 [![Gitter chat](https://badges.gitter.im/USER/REPO.png)](https://gitter.im/OpenDroneAT/Lobby "Gitter chat")
 [![Build Status](https://dev.azure.com/OpenDrone/OpenDroneApp/_apis/build/status/OpenDroneAT.OpenDrone-App?branchName=develop)](https://dev.azure.com/OpenDrone/OpenDroneApp/_build/latest?definitionId=1&branchName=develop)
+[![Build status](https://build.appcenter.ms/v0.1/apps/736a3266-4506-4c88-b3da-6e7072d02174/branches/master/badge)](https://appcenter.ms)
   
 # !! Work in Progress !!  
 ## Infomation
