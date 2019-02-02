@@ -40,6 +40,7 @@ public class FlightPlanListFragment extends Fragment {
     private RecyclerView recyclerView;
     private FloatingActionButton btn_AddFP;
     private List<Flightplan> plans;
+    private SharedPreferences sp;
 
     public FlightPlanListFragment() {
         // Required empty public constructor
@@ -49,9 +50,8 @@ public class FlightPlanListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        SharedPreferences sp = getActivity().getSharedPreferences("at.opendrone.opendrone", Context.MODE_PRIVATE);
-
         // Inflate the layout for this fragment
+        sp = getActivity().getSharedPreferences("at.opendrone.opendrone", Context.MODE_PRIVATE);
         view = inflater.inflate(R.layout.fragment_flight_plan_list, container, false);
         recyclerView = view.findViewById(R.id.flightplans);
 
@@ -71,8 +71,9 @@ public class FlightPlanListFragment extends Fragment {
         btn_AddFP.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SharedPreferences sp = getActivity().getSharedPreferences("at.opendrone.opendrone", Context.MODE_PRIVATE);
-                sp.edit().remove(OpenDroneUtils.SP_FLIGHTPLAN_HOLDER).apply();
+                sp.edit().putString(OpenDroneUtils.SP_FLIGHTPLAN_NAME, "").apply();
+                sp.edit().putString(OpenDroneUtils.SP_FLIGHTPLAN_DESC, "").apply();
+                sp.edit().putInt(OpenDroneUtils.SP_FLIGHTPLAN_POSITION, -1).apply();
                 FlightPlaner fp = new FlightPlaner();
                 FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
                 ft.replace(R.id.frameLayout_FragmentContainer, fp);
@@ -87,7 +88,7 @@ public class FlightPlanListFragment extends Fragment {
     public void deletePosition(int position) {
         plans.remove(position);
         try {
-            SharedPreferences sp = getActivity().getSharedPreferences("at.opendrone.opendrone", Context.MODE_PRIVATE);
+
             Gson gson = new Gson();
             String serialized = gson.toJson(plans.toArray());
             sp.edit().putString(OpenDroneUtils.SP_FLIGHTPLANS, serialized).apply();

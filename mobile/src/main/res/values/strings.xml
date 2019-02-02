@@ -23,6 +23,7 @@
     <string name="navItem_Drones">Drones</string>
     <string name="navItem_Fly">Fly</string>
     <string name="navItem_Home">Home</string>
+    <string name="navItem_Settings">Settings</string>
     <string name="navItem_Libs">Used Libraries</string>
     <string name="txt_Drone_description">Drone Description</string>
     <string name="btn_saveChanges">Save</string>
@@ -68,4 +69,14 @@
     <string name="go_home_alarm_message">Do you rly want go home fam?</string>
     <string name="go_home_alarm_pos">Hell yeah</string>
     <string name="go_home_alarm_neg">What am i doing here?!</string>
+    <string name="flight_plan_save_add_coord">Add Coordinate</string>
+    <string name="flight_plan_save_invalid_coord">"Please enter a correct format in the fields!"</string>
+    <string name="flight_plan_save_add_coord_pos">Save</string>
+    <string name="flight_plan_save_add_coord_neg">Cancel</string>
+    <string name="flight_plan_save_error_read_fp">Could not read flightplans</string>
+    <string name="flight_plan_save_error_name_empty">This field is required</string>
+    <string name="flight_plan_start_txt">S</string>
+    <string name="flight_plan_end_txt">E</string>
+    <string name="flight_plan_could_not_load">Could not load flightplan</string>
+    <string name="error_txt">Fatal Error!\n%1$s</string>
 </resources>
