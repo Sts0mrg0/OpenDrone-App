@@ -24,6 +24,10 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
+//MS App Center
+import com.microsoft.appcenter.AppCenter;
+import com.microsoft.appcenter.analytics.Analytics;
+import com.microsoft.appcenter.crashes.Crashes;
 
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity;
 
@@ -68,6 +72,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        AppCenter.start(getApplication(), "3a5cb885-3ad1-4141-a8da-f2901d36fb2f",
+                Analytics.class, Crashes.class);
 
         //client = new TCPSend(TARGET);
         //client.start();
