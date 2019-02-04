@@ -79,4 +79,5 @@
     <string name="flight_plan_end_txt">E</string>
     <string name="flight_plan_could_not_load">Could not load flightplan</string>
     <string name="error_txt">Fatal Error!\n%1$s</string>
+    <string name="navItem_Github">on Github</string>
 </resources>

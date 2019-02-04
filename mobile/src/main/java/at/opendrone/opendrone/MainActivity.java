@@ -9,6 +9,7 @@ package at.opendrone.opendrone;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -191,6 +192,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 return true;
             case R.id.navItem_Libs:
                 displayLibraries();
+                return true;
+            case R.id.navItem_Github:
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/OpenDroneAT"));
+                startActivity(browserIntent);
+                return true;
             default:
                 Log.i("MainActivity", "OnNavigationItem Default case");
                 return false;
