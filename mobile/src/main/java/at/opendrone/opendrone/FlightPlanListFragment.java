@@ -24,6 +24,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.microsoft.appcenter.analytics.Analytics;
 
 import java.io.Serializable;
 import java.util.Arrays;
@@ -71,6 +72,7 @@ public class FlightPlanListFragment extends Fragment {
         btn_AddFP.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Analytics.trackEvent("NewFlightPlanAdded");
                 sp.edit().putString(OpenDroneUtils.SP_FLIGHTPLAN_NAME, "").apply();
                 sp.edit().putString(OpenDroneUtils.SP_FLIGHTPLAN_DESC, "").apply();
                 sp.edit().putInt(OpenDroneUtils.SP_FLIGHTPLAN_POSITION, -1).apply();
