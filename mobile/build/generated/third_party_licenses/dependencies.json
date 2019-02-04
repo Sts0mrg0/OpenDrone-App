@@ -1,11 +1,5 @@
 [
     {
-        "group": "com.android.tools.build",
-        "version": "3.3.0-5013011",
-        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\com.android.tools.build\\aapt2\\3.3.0-5013011\\c2c73818f3b2179997416208c4303fde5daa3e3d\\aapt2-3.3.0-5013011-windows.jar",
-        "name": "aapt2"
-    },
-    {
         "group": "com.android.support",
         "version": "28.0.0",
         "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\com.android.support\\design\\28.0.0\\bef882d1796b085fa89a5f1cec42a8edd2351e6c\\design-28.0.0.aar",
