@@ -9,6 +9,10 @@
         <item>Manual Flight</item>
         <item>Automatic Flight</item>
     </string-array>
+    <string-array name="array_Languages">
+        <item>English</item>
+        <item>Deutsch</item>
+    </string-array>
     <attr format="boolean" name="barrierAllowsGoneWidgets"/>
     <attr format="enum" name="barrierDirection">
         <enum name="left" value="0"/>
@@ -657,6 +661,7 @@
     <string name="flight_plan_save_error_read_fp">Could not read flightplans</string>
     <string name="flight_plan_save_invalid_coord">"Please enter a correct format in the fields!"</string>
     <string name="flight_plan_start_txt">S</string>
+    <string name="flightplan_coord_list_element">%1$f/\n%2$f</string>
     <string name="format_distance_feet">%s ft</string>
     <string name="format_distance_kilometers">%s km</string>
     <string name="format_distance_meters">%s m</string>
@@ -665,11 +670,13 @@
     <string name="go_home_alarm_message">Do you rly want go home fam?</string>
     <string name="go_home_alarm_neg">What am i doing here?!</string>
     <string name="go_home_alarm_pos">Hell yeah</string>
+    <string name="height_metric">m</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="hide_bottom_view_on_scroll_behavior" translatable="false">android.support.design.behavior.HideBottomViewOnScrollBehavior</string>
     <string name="hills">Hills</string>
     <string name="imageView_DronePicture_Description">The Picture of the saved Drone. If non is set, the App Logo is picked</string>
     <string name="imgView_Logo_Description">Our Product Logo</string>
+    <string name="language_text">Language: </string>
     <string name="license_content_error">An error has occurred when fetching the license.</string>
     <string name="license_is_loading">License info is loading.</string>
     <string name="license_list_is_loading">License list is loading.</string>
@@ -688,11 +695,14 @@
     <string name="mapnik" translatable="false">Mapnik</string>
     <string name="mapquest_aerial">Mapquest Aerial</string>
     <string name="mapquest_osm">Mapquest</string>
+    <string name="max_height">Maximum height: </string>
+    <string name="min_height">Minimum height: </string>
     <string name="mtrl_chip_close_icon_content_description">Remove %1$s</string>
     <string name="my_location">My location</string>
     <string name="navItem_Drones">Drones</string>
     <string name="navItem_FlightPlanner">Flight Planner</string>
     <string name="navItem_Fly">Fly</string>
+    <string name="navItem_Github">on Github</string>
     <string name="navItem_Home">Home</string>
     <string name="navItem_Libs">Used Libraries</string>
     <string name="navItem_Settings">Settings</string>
@@ -714,6 +724,7 @@
     <string name="set_mode_offline">Set to offline mode</string>
     <string name="set_mode_online">Set to online mode</string>
     <string name="set_mode_show_me">showing and tracking my current location</string>
+    <string name="settings_header">Settings</string>
     <string name="status_bar_notification_info_overflow">999+</string>
     <string name="stop_rotor_alarm_message">Do you really want to stop all rotors? this will result in an uncontrolled crash!</string>
     <string name="stop_rotor_alarm_neg">No</string>

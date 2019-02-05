@@ -31,13 +31,11 @@ public class GeoPointRecyclerViewAdapter extends RecyclerView.Adapter<GeoPointRe
     private List<GeoPoint> points = new LinkedList<>();
     private Activity activity;
     private FlightPlanSaveFragment fragment;
-    private SharedPreferences sp;
 
     public GeoPointRecyclerViewAdapter(List<GeoPoint> points, Activity activity, FlightPlanSaveFragment fragment) {
         this.points = points;
         this.activity = activity;
         this.fragment = fragment;
-        this.sp = sp;
     }
 
     @NonNull
@@ -51,9 +49,12 @@ public class GeoPointRecyclerViewAdapter extends RecyclerView.Adapter<GeoPointRe
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         GeoPoint p = points.get(position);
-        holder.coordsTxt.setText(p.getLatitude() + " / " + p.getLongitude());
-        holder.coords = "" + p.getLatitude() + " / " + p.getLongitude();
+        String txt = String.format(activity.getString(R.string.flightplan_coord_list_element), p.getLatitude(), p.getLongitude());
+        holder.coordsTxt.setText(txt);
         holder.position = position;
+
+        holder.latitude = p.getLatitude();
+        holder.longitude = p.getLongitude();
     }
 
     @Override
@@ -62,11 +63,13 @@ public class GeoPointRecyclerViewAdapter extends RecyclerView.Adapter<GeoPointRe
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-
-        private String coords;
         private TextView coordsTxt;
         private ImageView btn_EditCoords;
         private ImageView btn_DeleteCoords;
+
+        private double latitude;
+        private double longitude;
+
         private int position;
 
         public ViewHolder(View itemView) {
@@ -80,60 +83,44 @@ public class GeoPointRecyclerViewAdapter extends RecyclerView.Adapter<GeoPointRe
         }
 
         private void addListeners() {
-            //final
-            btn_EditCoords.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    String[] coords = coordsTxt.getText().toString().split("/");
-                    displayAddDialog(coords[0].trim(), coords[1].trim());
-                }
-            });
-
-            btn_DeleteCoords.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    points.remove(position);
-                    RecyclerView flightPlanContainer = activity.findViewById(R.id.flightPlan_Coordinates);
-                    flightPlanContainer.setHasFixedSize(true);
-                    flightPlanContainer.setLayoutManager(new LinearLayoutManager(activity));
-
-                    GeoPointRecyclerViewAdapter adapter = new GeoPointRecyclerViewAdapter(points, activity, null);
-                    flightPlanContainer.setAdapter(adapter);
-                }
-            });
+            btn_EditCoords.setOnClickListener(v -> displayAddDialog(latitude, longitude));
+            btn_DeleteCoords.setOnClickListener(v -> deleteCoords());
         }
 
-        private void displayAddDialog(String latitude, String longitude) {
+        private void deleteCoords() {
+            fragment.removePoint(position);
+        }
+
+        private void displayAddDialog(double latitude, double longitude) {
             LayoutInflater layoutInflater = LayoutInflater.from(activity);
             View promptView = layoutInflater.inflate(R.layout.fragment_edit_geopoint, null);
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(activity);
             alertDialogBuilder.setView(promptView);
 
-            final EditText txt_latitude = (EditText) promptView.findViewById(R.id.txt_lat);
-            final EditText txt_longitude = (EditText) promptView.findViewById(R.id.txt_long);
+            final EditText txt_latitude = promptView.findViewById(R.id.txt_lat);
+            final EditText txt_longitude = promptView.findViewById(R.id.txt_long);
             // setup a dialog window
 
-            txt_latitude.setText(latitude);
-            txt_longitude.setText(longitude);
+            txt_latitude.setText(latitude+"");
+            txt_longitude.setText(longitude+"");
 
-            alertDialogBuilder.setPositiveButton("Save", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    String latitude = txt_latitude.getText().toString();
-                    String longitude = txt_longitude.getText().toString();
-                    GeoPoint p = new GeoPoint(Double.parseDouble(latitude), Double.parseDouble(longitude));
-                    points.set(position, p);
-                    coordsTxt.setText(p.getLatitude() + " / " + p.getLongitude());
-                }
+            alertDialogBuilder.setPositiveButton("Save", (dialog, which) -> {
+                savePoint(txt_latitude, txt_longitude);
             });
-            alertDialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.cancel();
-                }
-            });
+            alertDialogBuilder.setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss());
 
             alertDialogBuilder.show();
+        }
+
+        private void savePoint(EditText txt_latitude, EditText txt_longitude){
+            String latitude1 = txt_latitude.getText().toString();
+            String longitude1 = txt_longitude.getText().toString();
+            GeoPoint p = new GeoPoint(Double.parseDouble(latitude1), Double.parseDouble(longitude1));
+            points.set(position, p);
+            //String txt = String.format(activity.getString(R.string.flightplan_coord_list_element), p.getLatitude(), p.getLongitude());
+            //coordsTxt.setText(txt);
+            fragment.updatePoint(position, p);
+
         }
     }
 }
