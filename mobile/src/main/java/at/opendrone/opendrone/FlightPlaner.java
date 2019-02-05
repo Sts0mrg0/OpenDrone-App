@@ -270,6 +270,8 @@ public class FlightPlaner extends Fragment {
             }
             Log.i(TAG, "Cant add marker");
             startMarker = markers.get((int)Math.floor(position));
+        }else{
+            canAddMarker = true;
         }
 
         startMarker.setIcon(getIconDrawable(index));
@@ -569,6 +571,7 @@ public class FlightPlaner extends Fragment {
             return;
         }
         clearLists();
+        Log.i(TAG, existingPoints.toString());
         for (Map.Entry<Double, GeoPoint> entry : existingPoints.entrySet()) {
             Log.i(TAG, "Existing: " + entry.getKey());
             addMarker(entry.getValue(), entry.getKey());

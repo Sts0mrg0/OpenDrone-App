@@ -1,758 +1,764 @@
 [
     {
+        "group": "com.android.tools.build",
+        "version": "3.3.0-5013011",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\com.android.tools.build\\aapt2\\3.3.0-5013011\\c2c73818f3b2179997416208c4303fde5daa3e3d\\aapt2-3.3.0-5013011-windows.jar",
+        "name": "aapt2"
+    },
+    {
         "group": "com.android.support",
         "version": "28.0.0",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\com.android.support\\design\\28.0.0\\bef882d1796b085fa89a5f1cec42a8edd2351e6c\\design-28.0.0.aar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\com.android.support\\design\\28.0.0\\bef882d1796b085fa89a5f1cec42a8edd2351e6c\\design-28.0.0.aar",
         "name": "design"
     },
     {
         "group": "com.google.android.gms",
         "version": "16.0.2",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\com.google.android.gms\\play-services-oss-licenses\\16.0.2\\ff98526d12aa183cb8edea965bc9269c098b6a1b\\play-services-oss-licenses-16.0.2.aar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\com.google.android.gms\\play-services-oss-licenses\\16.0.2\\ff98526d12aa183cb8edea965bc9269c098b6a1b\\play-services-oss-licenses-16.0.2.aar",
         "name": "play-services-oss-licenses"
     },
     {
         "group": "com.android.support",
         "version": "28.0.0",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\com.android.support\\appcompat-v7\\28.0.0\\132586ec59604a86703796851a063a0ac61f697b\\appcompat-v7-28.0.0.aar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\com.android.support\\appcompat-v7\\28.0.0\\132586ec59604a86703796851a063a0ac61f697b\\appcompat-v7-28.0.0.aar",
         "name": "appcompat-v7"
     },
     {
         "group": "com.android.support.constraint",
         "version": "1.1.3",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\com.android.support.constraint\\constraint-layout\\1.1.3\\2f88a748b5e299029c65a126bd718b2c2ac1714\\constraint-layout-1.1.3.aar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\com.android.support.constraint\\constraint-layout\\1.1.3\\2f88a748b5e299029c65a126bd718b2c2ac1714\\constraint-layout-1.1.3.aar",
         "name": "constraint-layout"
     },
     {
         "group": "com.google.android.gms",
         "version": "16.0.0",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\com.google.android.gms\\play-services-location\\16.0.0\\3d0a3a85615ffc321394fad2e6fe5f195b89011d\\play-services-location-16.0.0.aar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\com.google.android.gms\\play-services-location\\16.0.0\\3d0a3a85615ffc321394fad2e6fe5f195b89011d\\play-services-location-16.0.0.aar",
         "name": "play-services-location"
     },
     {
         "group": "com.google.android.gms",
         "version": "16.0.0",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\com.google.android.gms\\play-services-places-placereport\\16.0.0\\a2df8969a555721d19a517edd09b97d0abcbb085\\play-services-places-placereport-16.0.0.aar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\com.google.android.gms\\play-services-places-placereport\\16.0.0\\a2df8969a555721d19a517edd09b97d0abcbb085\\play-services-places-placereport-16.0.0.aar",
         "name": "play-services-places-placereport"
     },
     {
         "group": "com.google.android.gms",
         "version": "16.1.0",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\com.google.android.gms\\play-services-base\\16.1.0\\95ae8ec6dc6f9204362df2966363cbaea1a649a4\\play-services-base-16.1.0.aar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\com.google.android.gms\\play-services-base\\16.1.0\\95ae8ec6dc6f9204362df2966363cbaea1a649a4\\play-services-base-16.1.0.aar",
         "name": "play-services-base"
     },
     {
         "group": "com.google.android.gms",
         "version": "16.0.1",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\com.google.android.gms\\play-services-tasks\\16.0.1\\565e6572641c926a370f1eaa1e0b963172ef8516\\play-services-tasks-16.0.1.aar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\com.google.android.gms\\play-services-tasks\\16.0.1\\565e6572641c926a370f1eaa1e0b963172ef8516\\play-services-tasks-16.0.1.aar",
         "name": "play-services-tasks"
     },
     {
         "group": "com.google.android.gms",
         "version": "16.2.0",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\com.google.android.gms\\play-services-basement\\16.2.0\\6341a60bee89770241aefc8ab2ae0490e1b5b934\\play-services-basement-16.2.0.aar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\com.google.android.gms\\play-services-basement\\16.2.0\\6341a60bee89770241aefc8ab2ae0490e1b5b934\\play-services-basement-16.2.0.aar",
         "name": "play-services-basement"
     },
     {
         "group": "com.android.support",
         "version": "28.0.0",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\com.android.support\\support-v4\\28.0.0\\32a50cdcd418e69d5adf85affc533dcc88660da7\\support-v4-28.0.0.aar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\com.android.support\\support-v4\\28.0.0\\32a50cdcd418e69d5adf85affc533dcc88660da7\\support-v4-28.0.0.aar",
         "name": "support-v4"
     },
     {
         "group": "com.android.support",
         "version": "28.0.0",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\com.android.support\\cardview-v7\\28.0.0\\2abb6543d6d62659e78974c48121840410ca1d10\\cardview-v7-28.0.0.aar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\com.android.support\\cardview-v7\\28.0.0\\2abb6543d6d62659e78974c48121840410ca1d10\\cardview-v7-28.0.0.aar",
         "name": "cardview-v7"
     },
     {
         "group": "com.wang.avi",
         "version": "2.1.3",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\com.wang.avi\\library\\2.1.3\\7c76df3a028b697ed43ed348e93510879898430\\library-2.1.3.aar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\com.wang.avi\\library\\2.1.3\\7c76df3a028b697ed43ed348e93510879898430\\library-2.1.3.aar",
         "name": "library"
     },
     {
         "group": "com.android.support",
         "version": "28.0.0",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\com.android.support\\recyclerview-v7\\28.0.0\\d867c38bd39418cc9d734fd60107fe1a2f410c31\\recyclerview-v7-28.0.0.aar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\com.android.support\\recyclerview-v7\\28.0.0\\d867c38bd39418cc9d734fd60107fe1a2f410c31\\recyclerview-v7-28.0.0.aar",
         "name": "recyclerview-v7"
     },
     {
         "group": "com.google.code.gson",
         "version": "2.8.5",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\com.google.code.gson\\gson\\2.8.5\\f645ed69d595b24d4cf8b3fbb64cc505bede8829\\gson-2.8.5.jar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\com.google.code.gson\\gson\\2.8.5\\f645ed69d595b24d4cf8b3fbb64cc505bede8829\\gson-2.8.5.jar",
         "name": "gson"
     },
     {
         "group": "com.squareup.picasso",
         "version": "2.71828",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\com.squareup.picasso\\picasso\\2.71828\\2bd10d289c94265b24e39e7d03762cef5eb445bc\\picasso-2.71828.aar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\com.squareup.picasso\\picasso\\2.71828\\2bd10d289c94265b24e39e7d03762cef5eb445bc\\picasso-2.71828.aar",
         "name": "picasso"
     },
     {
         "group": "org.osmdroid",
         "version": "6.0.2",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\org.osmdroid\\osmdroid-android\\6.0.2\\4cf0378b25ba7649e9e892800f4469a6a7edda76\\osmdroid-android-6.0.2.aar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\org.osmdroid\\osmdroid-android\\6.0.2\\4cf0378b25ba7649e9e892800f4469a6a7edda76\\osmdroid-android-6.0.2.aar",
         "name": "osmdroid-android"
     },
     {
         "group": "io.github.controlwear",
         "version": "1.10.0",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\io.github.controlwear\\virtualjoystick\\1.10.0\\9c98b147952a5b6a85b6982e886da5f86aa499a0\\virtualjoystick-1.10.0.aar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\io.github.controlwear\\virtualjoystick\\1.10.0\\9c98b147952a5b6a85b6982e886da5f86aa499a0\\virtualjoystick-1.10.0.aar",
         "name": "virtualjoystick"
     },
     {
         "group": "com.amulyakhare",
         "version": "1.0.1",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\com.amulyakhare\\com.amulyakhare.textdrawable\\1.0.1\\891736208c4f2376a3f67736156feb15a3aba296\\com.amulyakhare.textdrawable-1.0.1.aar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\com.amulyakhare\\com.amulyakhare.textdrawable\\1.0.1\\891736208c4f2376a3f67736156feb15a3aba296\\com.amulyakhare.textdrawable-1.0.1.aar",
         "name": "com.amulyakhare.textdrawable"
     },
     {
         "group": "com.microsoft.appcenter",
         "version": "1.11.2",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\com.microsoft.appcenter\\appcenter-analytics\\1.11.2\\d658f2b4d5369aef4dc70aa67bf66f23284d8966\\appcenter-analytics-1.11.2.aar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\com.microsoft.appcenter\\appcenter-analytics\\1.11.2\\d658f2b4d5369aef4dc70aa67bf66f23284d8966\\appcenter-analytics-1.11.2.aar",
         "name": "appcenter-analytics"
     },
     {
         "group": "com.microsoft.appcenter",
         "version": "1.11.2",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\com.microsoft.appcenter\\appcenter-crashes\\1.11.2\\d1b117aad65b07c28c4e281265dc8394c270ed0a\\appcenter-crashes-1.11.2.aar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\com.microsoft.appcenter\\appcenter-crashes\\1.11.2\\d1b117aad65b07c28c4e281265dc8394c270ed0a\\appcenter-crashes-1.11.2.aar",
         "name": "appcenter-crashes"
     },
     {
         "group": "com.android.support",
         "version": "28.0.0",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\com.android.support\\support-fragment\\28.0.0\\f21c8a8700b30dc57cb6277ae3c4c168a94a4e81\\support-fragment-28.0.0.aar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\com.android.support\\support-fragment\\28.0.0\\f21c8a8700b30dc57cb6277ae3c4c168a94a4e81\\support-fragment-28.0.0.aar",
         "name": "support-fragment"
     },
     {
         "group": "com.android.support",
         "version": "28.0.0",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\com.android.support\\animated-vector-drawable\\28.0.0\\e2d41c2a032145313f42ab38a2d9757c5d1ebc19\\animated-vector-drawable-28.0.0.aar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\com.android.support\\animated-vector-drawable\\28.0.0\\e2d41c2a032145313f42ab38a2d9757c5d1ebc19\\animated-vector-drawable-28.0.0.aar",
         "name": "animated-vector-drawable"
     },
     {
         "group": "com.android.support",
         "version": "28.0.0",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\com.android.support\\support-core-ui\\28.0.0\\96035b1030d7c3a81903966c2fa52117d36aa5b7\\support-core-ui-28.0.0.aar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\com.android.support\\support-core-ui\\28.0.0\\96035b1030d7c3a81903966c2fa52117d36aa5b7\\support-core-ui-28.0.0.aar",
         "name": "support-core-ui"
     },
     {
         "group": "com.android.support",
         "version": "28.0.0",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\com.android.support\\support-core-utils\\28.0.0\\29b1bb783f1a86eba7f1618bad58842bde72892a\\support-core-utils-28.0.0.aar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\com.android.support\\support-core-utils\\28.0.0\\29b1bb783f1a86eba7f1618bad58842bde72892a\\support-core-utils-28.0.0.aar",
         "name": "support-core-utils"
     },
     {
         "group": "com.android.support",
         "version": "28.0.0",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\com.android.support\\support-vector-drawable\\28.0.0\\80387886ef55af284d8253e52d321f93b3f923dd\\support-vector-drawable-28.0.0.aar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\com.android.support\\support-vector-drawable\\28.0.0\\80387886ef55af284d8253e52d321f93b3f923dd\\support-vector-drawable-28.0.0.aar",
         "name": "support-vector-drawable"
     },
     {
         "group": "com.android.support",
         "version": "28.0.0",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\com.android.support\\support-media-compat\\28.0.0\\b7ab2145c7f70e303cfe2e44667d61441b5b558c\\support-media-compat-28.0.0.aar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\com.android.support\\support-media-compat\\28.0.0\\b7ab2145c7f70e303cfe2e44667d61441b5b558c\\support-media-compat-28.0.0.aar",
         "name": "support-media-compat"
     },
     {
         "group": "com.android.support",
         "version": "28.0.0",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\com.android.support\\transition\\28.0.0\\3ed7903f03d9210ccd923d2e2412a3317e3a37e7\\transition-28.0.0.aar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\com.android.support\\transition\\28.0.0\\3ed7903f03d9210ccd923d2e2412a3317e3a37e7\\transition-28.0.0.aar",
         "name": "transition"
     },
     {
         "group": "com.android.support",
         "version": "28.0.0",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\com.android.support\\loader\\28.0.0\\49a297a4635e01ed55f31b5d4a718ba3416fde3d\\loader-28.0.0.aar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\com.android.support\\loader\\28.0.0\\49a297a4635e01ed55f31b5d4a718ba3416fde3d\\loader-28.0.0.aar",
         "name": "loader"
     },
     {
         "group": "com.android.support",
         "version": "28.0.0",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\com.android.support\\viewpager\\28.0.0\\f513ecf69dfea8b60987bd3e869970300ba7c0eb\\viewpager-28.0.0.aar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\com.android.support\\viewpager\\28.0.0\\f513ecf69dfea8b60987bd3e869970300ba7c0eb\\viewpager-28.0.0.aar",
         "name": "viewpager"
     },
     {
         "group": "com.android.support",
         "version": "28.0.0",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\com.android.support\\coordinatorlayout\\28.0.0\\7a708aac3443762e58e84368040a6a23b2c63545\\coordinatorlayout-28.0.0.aar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\com.android.support\\coordinatorlayout\\28.0.0\\7a708aac3443762e58e84368040a6a23b2c63545\\coordinatorlayout-28.0.0.aar",
         "name": "coordinatorlayout"
     },
     {
         "group": "com.android.support",
         "version": "28.0.0",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\com.android.support\\drawerlayout\\28.0.0\\4de65d42b8e1b7f0ba40b5f35e5d4bafcd70019f\\drawerlayout-28.0.0.aar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\com.android.support\\drawerlayout\\28.0.0\\4de65d42b8e1b7f0ba40b5f35e5d4bafcd70019f\\drawerlayout-28.0.0.aar",
         "name": "drawerlayout"
     },
     {
         "group": "com.android.support",
         "version": "28.0.0",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\com.android.support\\slidingpanelayout\\28.0.0\\20468e3ec8f36dc84846ddd99ff30516f4ffd05a\\slidingpanelayout-28.0.0.aar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\com.android.support\\slidingpanelayout\\28.0.0\\20468e3ec8f36dc84846ddd99ff30516f4ffd05a\\slidingpanelayout-28.0.0.aar",
         "name": "slidingpanelayout"
     },
     {
         "group": "com.android.support",
         "version": "28.0.0",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\com.android.support\\customview\\28.0.0\\423fe0f417f2f8d9c718c2cf73f9253da43f1f11\\customview-28.0.0.aar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\com.android.support\\customview\\28.0.0\\423fe0f417f2f8d9c718c2cf73f9253da43f1f11\\customview-28.0.0.aar",
         "name": "customview"
     },
     {
         "group": "com.android.support",
         "version": "28.0.0",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\com.android.support\\swiperefreshlayout\\28.0.0\\bfa669303f0ac8a83d9c878fafadc2936625f781\\swiperefreshlayout-28.0.0.aar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\com.android.support\\swiperefreshlayout\\28.0.0\\bfa669303f0ac8a83d9c878fafadc2936625f781\\swiperefreshlayout-28.0.0.aar",
         "name": "swiperefreshlayout"
     },
     {
         "group": "com.android.support",
         "version": "28.0.0",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\com.android.support\\asynclayoutinflater\\28.0.0\\3ae7643d120e6da3adbe2d698de923f48c904d1f\\asynclayoutinflater-28.0.0.aar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\com.android.support\\asynclayoutinflater\\28.0.0\\3ae7643d120e6da3adbe2d698de923f48c904d1f\\asynclayoutinflater-28.0.0.aar",
         "name": "asynclayoutinflater"
     },
     {
         "group": "com.android.support",
         "version": "28.0.0",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\com.android.support\\support-compat\\28.0.0\\d252b640ed832cf8addc35ef0a9f9186dc7738a5\\support-compat-28.0.0.aar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\com.android.support\\support-compat\\28.0.0\\d252b640ed832cf8addc35ef0a9f9186dc7738a5\\support-compat-28.0.0.aar",
         "name": "support-compat"
     },
     {
         "group": "com.android.support",
         "version": "28.0.0",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\com.android.support\\versionedparcelable\\28.0.0\\90432a1e322e0e0bad2116dff0e64c708514808f\\versionedparcelable-28.0.0.aar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\com.android.support\\versionedparcelable\\28.0.0\\90432a1e322e0e0bad2116dff0e64c708514808f\\versionedparcelable-28.0.0.aar",
         "name": "versionedparcelable"
     },
     {
         "group": "com.android.support",
         "version": "28.0.0",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\com.android.support\\collections\\28.0.0\\c1bcdade4d3cc2836130424a3f3e4182c666a745\\collections-28.0.0.jar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\com.android.support\\collections\\28.0.0\\c1bcdade4d3cc2836130424a3f3e4182c666a745\\collections-28.0.0.jar",
         "name": "collections"
     },
     {
         "group": "com.android.support",
         "version": "28.0.0",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\com.android.support\\cursoradapter\\28.0.0\\d803f573799e6cd2db8839e2a70fe6ad67e86b79\\cursoradapter-28.0.0.aar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\com.android.support\\cursoradapter\\28.0.0\\d803f573799e6cd2db8839e2a70fe6ad67e86b79\\cursoradapter-28.0.0.aar",
         "name": "cursoradapter"
     },
     {
         "group": "com.android.support",
         "version": "27.1.0",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\com.android.support\\exifinterface\\27.1.0\\671dfc354dc01bb2f1b2d1d94cc7598e4ebada16\\exifinterface-27.1.0.aar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\com.android.support\\exifinterface\\27.1.0\\671dfc354dc01bb2f1b2d1d94cc7598e4ebada16\\exifinterface-27.1.0.aar",
         "name": "exifinterface"
     },
     {
         "group": "android.arch.lifecycle",
         "version": "1.1.1",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\android.arch.lifecycle\\runtime\\1.1.1\\4286e1ae9364b485cb2ff7a370e355b7c570015b\\runtime-1.1.1.aar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\android.arch.lifecycle\\runtime\\1.1.1\\4286e1ae9364b485cb2ff7a370e355b7c570015b\\runtime-1.1.1.aar",
         "name": "runtime"
     },
     {
         "group": "com.android.support",
         "version": "28.0.0",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\com.android.support\\documentfile\\28.0.0\\1187e4a23ff6250b096249c734bdabf5403c6ba9\\documentfile-28.0.0.aar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\com.android.support\\documentfile\\28.0.0\\1187e4a23ff6250b096249c734bdabf5403c6ba9\\documentfile-28.0.0.aar",
         "name": "documentfile"
     },
     {
         "group": "com.android.support",
         "version": "28.0.0",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\com.android.support\\localbroadcastmanager\\28.0.0\\5c498cb7e2fa5910d6c50e28531c55b77d6bf0f6\\localbroadcastmanager-28.0.0.aar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\com.android.support\\localbroadcastmanager\\28.0.0\\5c498cb7e2fa5910d6c50e28531c55b77d6bf0f6\\localbroadcastmanager-28.0.0.aar",
         "name": "localbroadcastmanager"
     },
     {
         "group": "com.android.support",
         "version": "28.0.0",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\com.android.support\\print\\28.0.0\\d2c60bfbbdc2eadd4ff7c8f65743fab830339743\\print-28.0.0.aar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\com.android.support\\print\\28.0.0\\d2c60bfbbdc2eadd4ff7c8f65743fab830339743\\print-28.0.0.aar",
         "name": "print"
     },
     {
         "group": "android.arch.lifecycle",
         "version": "1.1.1",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\android.arch.lifecycle\\viewmodel\\1.1.1\\897b6e22c8357b23ab0c7600c961549c098f5ccf\\viewmodel-1.1.1.aar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\android.arch.lifecycle\\viewmodel\\1.1.1\\897b6e22c8357b23ab0c7600c961549c098f5ccf\\viewmodel-1.1.1.aar",
         "name": "viewmodel"
     },
     {
         "group": "com.android.support",
         "version": "28.0.0",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\com.android.support\\interpolator\\28.0.0\\5d501569c8f7b667c47333a0b873aa529e0a0b9c\\interpolator-28.0.0.aar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\com.android.support\\interpolator\\28.0.0\\5d501569c8f7b667c47333a0b873aa529e0a0b9c\\interpolator-28.0.0.aar",
         "name": "interpolator"
     },
     {
         "group": "android.arch.lifecycle",
         "version": "1.1.1",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\android.arch.lifecycle\\livedata\\1.1.1\\82e0b1bf2dc8ce23898cf433cc150df7b3dba952\\livedata-1.1.1.aar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\android.arch.lifecycle\\livedata\\1.1.1\\82e0b1bf2dc8ce23898cf433cc150df7b3dba952\\livedata-1.1.1.aar",
         "name": "livedata"
     },
     {
         "group": "android.arch.lifecycle",
         "version": "1.1.1",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\android.arch.lifecycle\\livedata-core\\1.1.1\\30ede25cb577323f039c2e3d72b3b56526a2b2e6\\livedata-core-1.1.1.aar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\android.arch.lifecycle\\livedata-core\\1.1.1\\30ede25cb577323f039c2e3d72b3b56526a2b2e6\\livedata-core-1.1.1.aar",
         "name": "livedata-core"
     },
     {
         "group": "android.arch.lifecycle",
         "version": "1.1.1",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\android.arch.lifecycle\\common\\1.1.1\\207a6efae6a3555e326de41f76bdadd9a239cbce\\common-1.1.1.jar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\android.arch.lifecycle\\common\\1.1.1\\207a6efae6a3555e326de41f76bdadd9a239cbce\\common-1.1.1.jar",
         "name": "common"
     },
     {
         "group": "android.arch.core",
         "version": "1.1.1",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\android.arch.core\\runtime\\1.1.1\\a7e27caf787e14c0d8417be907f4a31f0306acb2\\runtime-1.1.1.aar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\android.arch.core\\runtime\\1.1.1\\a7e27caf787e14c0d8417be907f4a31f0306acb2\\runtime-1.1.1.aar",
         "name": "runtime"
     },
     {
         "group": "android.arch.core",
         "version": "1.1.1",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\android.arch.core\\common\\1.1.1\\e55b70d1f5620db124b3e85a7f4bdc7bd48d9f95\\common-1.1.1.jar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\android.arch.core\\common\\1.1.1\\e55b70d1f5620db124b3e85a7f4bdc7bd48d9f95\\common-1.1.1.jar",
         "name": "common"
     },
     {
         "group": "com.android.support",
         "version": "28.0.0",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\com.android.support\\support-annotations\\28.0.0\\ed73f5337a002d1fd24339d5fb08c2c9d9ca60d8\\support-annotations-28.0.0.jar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\com.android.support\\support-annotations\\28.0.0\\ed73f5337a002d1fd24339d5fb08c2c9d9ca60d8\\support-annotations-28.0.0.jar",
         "name": "support-annotations"
     },
     {
         "group": "com.android.support.constraint",
         "version": "1.1.3",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\com.android.support.constraint\\constraint-layout-solver\\1.1.3\\bde0667d7414c16ed62d3cfe993cff7f9d732373\\constraint-layout-solver-1.1.3.jar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\com.android.support.constraint\\constraint-layout-solver\\1.1.3\\bde0667d7414c16ed62d3cfe993cff7f9d732373\\constraint-layout-solver-1.1.3.jar",
         "name": "constraint-layout-solver"
     },
     {
         "group": "com.squareup.okhttp3",
         "version": "3.10.0",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\com.squareup.okhttp3\\okhttp\\3.10.0\\7ef0f1d95bf4c0b3ba30bbae25e0e562b05cf75e\\okhttp-3.10.0.jar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\com.squareup.okhttp3\\okhttp\\3.10.0\\7ef0f1d95bf4c0b3ba30bbae25e0e562b05cf75e\\okhttp-3.10.0.jar",
         "name": "okhttp"
     },
     {
         "group": "com.microsoft.appcenter",
         "version": "1.11.2",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\com.microsoft.appcenter\\appcenter\\1.11.2\\8afc1ed093736518fd18536fe6458dd53d40c639\\appcenter-1.11.2.aar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\com.microsoft.appcenter\\appcenter\\1.11.2\\8afc1ed093736518fd18536fe6458dd53d40c639\\appcenter-1.11.2.aar",
         "name": "appcenter"
     },
     {
         "group": "com.squareup.okio",
         "version": "1.14.0",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\com.squareup.okio\\okio\\1.14.0\\102d7be47241d781ef95f1581d414b0943053130\\okio-1.14.0.jar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\com.squareup.okio\\okio\\1.14.0\\102d7be47241d781ef95f1581d414b0943053130\\okio-1.14.0.jar",
         "name": "okio"
     },
     {
         "group": "com.android.tools.lint",
         "version": "26.3.0",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\com.android.tools.lint\\lint-gradle\\26.3.0\\788b5b5266cbffd7fbeecfd73a01f1ba0130df6a\\lint-gradle-26.3.0.jar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\com.android.tools.lint\\lint-gradle\\26.3.0\\788b5b5266cbffd7fbeecfd73a01f1ba0130df6a\\lint-gradle-26.3.0.jar",
         "name": "lint-gradle"
     },
     {
         "group": "com.android.tools.build",
         "version": "3.3.0",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\com.android.tools.build\\builder\\3.3.0\\de1cc306a8a198f59d56cb9a909d9a4f516116e7\\builder-3.3.0.jar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\com.android.tools.build\\builder\\3.3.0\\de1cc306a8a198f59d56cb9a909d9a4f516116e7\\builder-3.3.0.jar",
         "name": "builder"
     },
     {
         "group": "com.android.tools.lint",
         "version": "26.3.0",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\com.android.tools.lint\\lint\\26.3.0\\c8e9a5b9f39334d5c9ee8423cb5d6a1d31d7dd61\\lint-26.3.0.jar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\com.android.tools.lint\\lint\\26.3.0\\c8e9a5b9f39334d5c9ee8423cb5d6a1d31d7dd61\\lint-26.3.0.jar",
         "name": "lint"
     },
     {
         "group": "com.android.tools.lint",
         "version": "26.3.0",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\com.android.tools.lint\\lint-checks\\26.3.0\\f2bf46d3912e21c5575cf006ae201ba79f3d957e\\lint-checks-26.3.0.jar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\com.android.tools.lint\\lint-checks\\26.3.0\\f2bf46d3912e21c5575cf006ae201ba79f3d957e\\lint-checks-26.3.0.jar",
         "name": "lint-checks"
     },
     {
         "group": "com.android.tools.lint",
         "version": "26.3.0",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\com.android.tools.lint\\lint-api\\26.3.0\\4002fa78b2f343309db2c0dd6858f1da4ba8fe2c\\lint-api-26.3.0.jar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\com.android.tools.lint\\lint-api\\26.3.0\\4002fa78b2f343309db2c0dd6858f1da4ba8fe2c\\lint-api-26.3.0.jar",
         "name": "lint-api"
     },
     {
         "group": "com.android.tools.build",
         "version": "26.3.0",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\com.android.tools.build\\manifest-merger\\26.3.0\\c5d936d8564c06b578d3e3f27ded1022a55eb93e\\manifest-merger-26.3.0.jar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\com.android.tools.build\\manifest-merger\\26.3.0\\c5d936d8564c06b578d3e3f27ded1022a55eb93e\\manifest-merger-26.3.0.jar",
         "name": "manifest-merger"
     },
     {
         "group": "com.android.tools",
         "version": "26.3.0",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\com.android.tools\\sdk-common\\26.3.0\\bf44257049a0558550e2b4ae84ac38d2a9ed6776\\sdk-common-26.3.0.jar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\com.android.tools\\sdk-common\\26.3.0\\bf44257049a0558550e2b4ae84ac38d2a9ed6776\\sdk-common-26.3.0.jar",
         "name": "sdk-common"
     },
     {
         "group": "com.android.tools.lint",
         "version": "26.3.0",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\com.android.tools.lint\\lint-gradle-api\\26.3.0\\4da81983913826ba3c713c1647f3be760618e02c\\lint-gradle-api-26.3.0.jar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\com.android.tools.lint\\lint-gradle-api\\26.3.0\\4da81983913826ba3c713c1647f3be760618e02c\\lint-gradle-api-26.3.0.jar",
         "name": "lint-gradle-api"
     },
     {
         "group": "com.android.tools.build",
         "version": "3.3.0",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\com.android.tools.build\\gradle-api\\3.3.0\\a30fd449a65dff4a03284ad5daed5588435306af\\gradle-api-3.3.0.jar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\com.android.tools.build\\gradle-api\\3.3.0\\a30fd449a65dff4a03284ad5daed5588435306af\\gradle-api-3.3.0.jar",
         "name": "gradle-api"
     },
     {
         "group": "com.android.tools.build",
         "version": "3.3.0",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\com.android.tools.build\\builder-model\\3.3.0\\968b90fbb48c3bf7e12bcef875d9b417255fd200\\builder-model-3.3.0.jar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\com.android.tools.build\\builder-model\\3.3.0\\968b90fbb48c3bf7e12bcef875d9b417255fd200\\builder-model-3.3.0.jar",
         "name": "builder-model"
     },
     {
         "group": "com.android.tools.external.com-intellij",
         "version": "26.3.0",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\com.android.tools.external.com-intellij\\intellij-core\\26.3.0\\19546f266e5f18581d37375583031e9831c584e6\\intellij-core-26.3.0.jar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\com.android.tools.external.com-intellij\\intellij-core\\26.3.0\\19546f266e5f18581d37375583031e9831c584e6\\intellij-core-26.3.0.jar",
         "name": "intellij-core"
     },
     {
         "group": "com.android.tools.external.com-intellij",
         "version": "26.3.0",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\com.android.tools.external.com-intellij\\kotlin-compiler\\26.3.0\\88ec00a74ebee24bad63c6f5fed45ff18780133f\\kotlin-compiler-26.3.0.jar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\com.android.tools.external.com-intellij\\kotlin-compiler\\26.3.0\\88ec00a74ebee24bad63c6f5fed45ff18780133f\\kotlin-compiler-26.3.0.jar",
         "name": "kotlin-compiler"
     },
     {
         "group": "com.android.tools.external.org-jetbrains",
         "version": "26.3.0",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\com.android.tools.external.org-jetbrains\\uast\\26.3.0\\2599284aedd3d2b346cdb68f5c5866005117993a\\uast-26.3.0.jar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\com.android.tools.external.org-jetbrains\\uast\\26.3.0\\2599284aedd3d2b346cdb68f5c5866005117993a\\uast-26.3.0.jar",
         "name": "uast"
     },
     {
         "group": "org.codehaus.groovy",
         "version": "2.4.15",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\org.codehaus.groovy\\groovy-all\\2.4.15\\423a17aeb2f64bc6f76e8e44265a548bec80fd42\\groovy-all-2.4.15.jar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\org.codehaus.groovy\\groovy-all\\2.4.15\\423a17aeb2f64bc6f76e8e44265a548bec80fd42\\groovy-all-2.4.15.jar",
         "name": "groovy-all"
     },
     {
         "group": "org.jetbrains.kotlin",
         "version": "1.3.11",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\org.jetbrains.kotlin\\kotlin-reflect\\1.3.11\\aae7b33412715e9ed441934c4ffaad1bb80e9d36\\kotlin-reflect-1.3.11.jar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\org.jetbrains.kotlin\\kotlin-reflect\\1.3.11\\aae7b33412715e9ed441934c4ffaad1bb80e9d36\\kotlin-reflect-1.3.11.jar",
         "name": "kotlin-reflect"
     },
     {
         "group": "com.android.tools.build",
         "version": "3.3.0",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\com.android.tools.build\\builder-test-api\\3.3.0\\cac14c63920d52fbb2cba8cb21bbe5cde7b745ed\\builder-test-api-3.3.0.jar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\com.android.tools.build\\builder-test-api\\3.3.0\\cac14c63920d52fbb2cba8cb21bbe5cde7b745ed\\builder-test-api-3.3.0.jar",
         "name": "builder-test-api"
     },
     {
         "group": "com.android.tools.ddms",
         "version": "26.3.0",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\com.android.tools.ddms\\ddmlib\\26.3.0\\11ab05455d247934cc6c66201da7b3d4ce0f6b11\\ddmlib-26.3.0.jar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\com.android.tools.ddms\\ddmlib\\26.3.0\\11ab05455d247934cc6c66201da7b3d4ce0f6b11\\ddmlib-26.3.0.jar",
         "name": "ddmlib"
     },
     {
         "group": "com.android.tools.analytics-library",
         "version": "26.3.0",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\com.android.tools.analytics-library\\tracker\\26.3.0\\5c25a0bb3f6606bb5a31f93629b7eee84be59c08\\tracker-26.3.0.jar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\com.android.tools.analytics-library\\tracker\\26.3.0\\5c25a0bb3f6606bb5a31f93629b7eee84be59c08\\tracker-26.3.0.jar",
         "name": "tracker"
     },
     {
         "group": "com.android.tools.analytics-library",
         "version": "26.3.0",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\com.android.tools.analytics-library\\shared\\26.3.0\\12dc55cbfdcdbe731d95d706338c5741c7a0831a\\shared-26.3.0.jar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\com.android.tools.analytics-library\\shared\\26.3.0\\12dc55cbfdcdbe731d95d706338c5741c7a0831a\\shared-26.3.0.jar",
         "name": "shared"
     },
     {
         "group": "com.android.tools",
         "version": "26.3.0",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\com.android.tools\\sdklib\\26.3.0\\e1fdd372c79fbe06a809f5881f936ad1a8b27041\\sdklib-26.3.0.jar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\com.android.tools\\sdklib\\26.3.0\\e1fdd372c79fbe06a809f5881f936ad1a8b27041\\sdklib-26.3.0.jar",
         "name": "sdklib"
     },
     {
         "group": "com.android.tools.layoutlib",
         "version": "26.3.0",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\com.android.tools.layoutlib\\layoutlib-api\\26.3.0\\3236cec0ca345f35487c213a8570e1f673849280\\layoutlib-api-26.3.0.jar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\com.android.tools.layoutlib\\layoutlib-api\\26.3.0\\3236cec0ca345f35487c213a8570e1f673849280\\layoutlib-api-26.3.0.jar",
         "name": "layoutlib-api"
     },
     {
         "group": "com.android.tools",
         "version": "26.3.0",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\com.android.tools\\dvlib\\26.3.0\\f42b116e30f5d0f8d17ac2546d47cc70f94f156d\\dvlib-26.3.0.jar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\com.android.tools\\dvlib\\26.3.0\\f42b116e30f5d0f8d17ac2546d47cc70f94f156d\\dvlib-26.3.0.jar",
         "name": "dvlib"
     },
     {
         "group": "com.android.tools",
         "version": "26.3.0",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\com.android.tools\\repository\\26.3.0\\b6098324bb21b89d4ef02e68fda840c6cc3ddd06\\repository-26.3.0.jar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\com.android.tools\\repository\\26.3.0\\b6098324bb21b89d4ef02e68fda840c6cc3ddd06\\repository-26.3.0.jar",
         "name": "repository"
     },
     {
         "group": "com.android.tools",
         "version": "26.3.0",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\com.android.tools\\common\\26.3.0\\1d9b4db75bbe5fe357c8a56db506f2361ebd508d\\common-26.3.0.jar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\com.android.tools\\common\\26.3.0\\1d9b4db75bbe5fe357c8a56db506f2361ebd508d\\common-26.3.0.jar",
         "name": "common"
     },
     {
         "group": "org.jetbrains.kotlin",
         "version": "1.3.11",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\org.jetbrains.kotlin\\kotlin-stdlib-jdk8\\1.3.11\\dd9bff00d6cfca58b6c1fe89be8e0678e35cf35f\\kotlin-stdlib-jdk8-1.3.11.jar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\org.jetbrains.kotlin\\kotlin-stdlib-jdk8\\1.3.11\\dd9bff00d6cfca58b6c1fe89be8e0678e35cf35f\\kotlin-stdlib-jdk8-1.3.11.jar",
         "name": "kotlin-stdlib-jdk8"
     },
     {
         "group": "com.android.tools.build",
         "version": "3.3.0",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\com.android.tools.build\\apkzlib\\3.3.0\\e43305e4121635b1b92a1fb84b0b7f98dcb50691\\apkzlib-3.3.0.jar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\com.android.tools.build\\apkzlib\\3.3.0\\e43305e4121635b1b92a1fb84b0b7f98dcb50691\\apkzlib-3.3.0.jar",
         "name": "apkzlib"
     },
     {
         "group": "org.bouncycastle",
         "version": "1.56",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\org.bouncycastle\\bcpkix-jdk15on\\1.56\\4648af70268b6fdb24674fb1fd7c1fcc73db1231\\bcpkix-jdk15on-1.56.jar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\org.bouncycastle\\bcpkix-jdk15on\\1.56\\4648af70268b6fdb24674fb1fd7c1fcc73db1231\\bcpkix-jdk15on-1.56.jar",
         "name": "bcpkix-jdk15on"
     },
     {
         "group": "org.bouncycastle",
         "version": "1.56",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\org.bouncycastle\\bcprov-jdk15on\\1.56\\a153c6f9744a3e9dd6feab5e210e1c9861362ec7\\bcprov-jdk15on-1.56.jar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\org.bouncycastle\\bcprov-jdk15on\\1.56\\a153c6f9744a3e9dd6feab5e210e1c9861362ec7\\bcprov-jdk15on-1.56.jar",
         "name": "bcprov-jdk15on"
     },
     {
         "group": "com.android.tools.analytics-library",
         "version": "26.3.0",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\com.android.tools.analytics-library\\protos\\26.3.0\\64203ebd00b43c093e22fac6d2fc7b36053ef483\\protos-26.3.0.jar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\com.android.tools.analytics-library\\protos\\26.3.0\\64203ebd00b43c093e22fac6d2fc7b36053ef483\\protos-26.3.0.jar",
         "name": "protos"
     },
     {
         "group": "com.google.protobuf",
         "version": "3.4.0",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\com.google.protobuf\\protobuf-java\\3.4.0\\b32aba0cbe737a4ca953f71688725972e3ee927c\\protobuf-java-3.4.0.jar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\com.google.protobuf\\protobuf-java\\3.4.0\\b32aba0cbe737a4ca953f71688725972e3ee927c\\protobuf-java-3.4.0.jar",
         "name": "protobuf-java"
     },
     {
         "group": "javax.inject",
         "version": "1",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\javax.inject\\javax.inject\\1\\6975da39a7040257bd51d21a231b76c915872d38\\javax.inject-1.jar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\javax.inject\\javax.inject\\1\\6975da39a7040257bd51d21a231b76c915872d38\\javax.inject-1.jar",
         "name": "javax.inject"
     },
     {
         "group": "com.android.tools.build",
         "version": "3.3.0",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\com.android.tools.build\\apksig\\3.3.0\\1ca00cbc7282cbb34b1274fe3c3578ce3861367b\\apksig-3.3.0.jar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\com.android.tools.build\\apksig\\3.3.0\\1ca00cbc7282cbb34b1274fe3c3578ce3861367b\\apksig-3.3.0.jar",
         "name": "apksig"
     },
     {
         "group": "com.squareup",
         "version": "2.5.0",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\com.squareup\\javawriter\\2.5.0\\81241ff7078ef14f42ea2a8995fa09c096256e6b\\javawriter-2.5.0.jar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\com.squareup\\javawriter\\2.5.0\\81241ff7078ef14f42ea2a8995fa09c096256e6b\\javawriter-2.5.0.jar",
         "name": "javawriter"
     },
     {
         "group": "org.ow2.asm",
         "version": "6.0",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\org.ow2.asm\\asm-commons\\6.0\\f256fd215d8dd5a4fa2ab3201bf653de266ed4ec\\asm-commons-6.0.jar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\org.ow2.asm\\asm-commons\\6.0\\f256fd215d8dd5a4fa2ab3201bf653de266ed4ec\\asm-commons-6.0.jar",
         "name": "asm-commons"
     },
     {
         "group": "org.ow2.asm",
         "version": "6.0",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\org.ow2.asm\\asm-util\\6.0\\430b2fc839b5de1f3643b528853d5cf26096c1de\\asm-util-6.0.jar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\org.ow2.asm\\asm-util\\6.0\\430b2fc839b5de1f3643b528853d5cf26096c1de\\asm-util-6.0.jar",
         "name": "asm-util"
     },
     {
         "group": "org.ow2.asm",
         "version": "6.0",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\org.ow2.asm\\asm-analysis\\6.0\\dd1cc1381a970800268160203aae2d3784da779b\\asm-analysis-6.0.jar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\org.ow2.asm\\asm-analysis\\6.0\\dd1cc1381a970800268160203aae2d3784da779b\\asm-analysis-6.0.jar",
         "name": "asm-analysis"
     },
     {
         "group": "org.ow2.asm",
         "version": "6.0",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\org.ow2.asm\\asm-tree\\6.0\\a624f1a6e4e428dcd680a01bab2d4c56b35b18f0\\asm-tree-6.0.jar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\org.ow2.asm\\asm-tree\\6.0\\a624f1a6e4e428dcd680a01bab2d4c56b35b18f0\\asm-tree-6.0.jar",
         "name": "asm-tree"
     },
     {
         "group": "org.ow2.asm",
         "version": "6.0",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\org.ow2.asm\\asm\\6.0\\bc6fa6b19424bb9592fe43bbc20178f92d403105\\asm-6.0.jar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\org.ow2.asm\\asm\\6.0\\bc6fa6b19424bb9592fe43bbc20178f92d403105\\asm-6.0.jar",
         "name": "asm"
     },
     {
         "group": "it.unimi.dsi",
         "version": "7.2.0",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\it.unimi.dsi\\fastutil\\7.2.0\\5ad3a2bb04143f70aa0765fc29fc29571a7d6b34\\fastutil-7.2.0.jar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\it.unimi.dsi\\fastutil\\7.2.0\\5ad3a2bb04143f70aa0765fc29fc29571a7d6b34\\fastutil-7.2.0.jar",
         "name": "fastutil"
     },
     {
         "group": "net.sf.jopt-simple",
         "version": "4.9",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\net.sf.jopt-simple\\jopt-simple\\4.9\\ee9e9eaa0a35360dcfeac129ff4923215fd65904\\jopt-simple-4.9.jar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\net.sf.jopt-simple\\jopt-simple\\4.9\\ee9e9eaa0a35360dcfeac129ff4923215fd65904\\jopt-simple-4.9.jar",
         "name": "jopt-simple"
     },
     {
         "group": "com.googlecode.json-simple",
         "version": "1.1",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\com.googlecode.json-simple\\json-simple\\1.1\\5e303a03d04e6788dddfa3655272580ae0fc13bb\\json-simple-1.1.jar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\com.googlecode.json-simple\\json-simple\\1.1\\5e303a03d04e6788dddfa3655272580ae0fc13bb\\json-simple-1.1.jar",
         "name": "json-simple"
     },
     {
         "group": "com.android.tools",
         "version": "26.3.0",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\com.android.tools\\annotations\\26.3.0\\850899c26903b514387f9f437398bc4095a91877\\annotations-26.3.0.jar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\com.android.tools\\annotations\\26.3.0\\850899c26903b514387f9f437398bc4095a91877\\annotations-26.3.0.jar",
         "name": "annotations"
     },
     {
         "group": "org.jetbrains.trove4j",
         "version": "20160824",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\org.jetbrains.trove4j\\trove4j\\20160824\\33c3e174a9c8368d93761d3d12712db18e903959\\trove4j-20160824.jar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\org.jetbrains.trove4j\\trove4j\\20160824\\33c3e174a9c8368d93761d3d12712db18e903959\\trove4j-20160824.jar",
         "name": "trove4j"
     },
     {
         "group": "com.google.code.gson",
         "version": "2.8.0",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\com.google.code.gson\\gson\\2.8.0\\c4ba5371a29ac9b2ad6129b1d39ea38750043eff\\gson-2.8.0.jar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\com.google.code.gson\\gson\\2.8.0\\c4ba5371a29ac9b2ad6129b1d39ea38750043eff\\gson-2.8.0.jar",
         "name": "gson"
     },
     {
         "group": "net.sf.kxml",
         "version": "2.3.0",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\net.sf.kxml\\kxml2\\2.3.0\\ccbc77a5fd907ef863c29f3596c6f54ffa4e9442\\kxml2-2.3.0.jar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\net.sf.kxml\\kxml2\\2.3.0\\ccbc77a5fd907ef863c29f3596c6f54ffa4e9442\\kxml2-2.3.0.jar",
         "name": "kxml2"
     },
     {
         "group": "com.google.jimfs",
         "version": "1.1",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\com.google.jimfs\\jimfs\\1.1\\8fbd0579dc68aba6186935cc1bee21d2f3e7ec1c\\jimfs-1.1.jar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\com.google.jimfs\\jimfs\\1.1\\8fbd0579dc68aba6186935cc1bee21d2f3e7ec1c\\jimfs-1.1.jar",
         "name": "jimfs"
     },
     {
         "group": "com.google.guava",
         "version": "26.0-jre",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\com.google.guava\\guava\\26.0-jre\\6a806eff209f36f635f943e16d97491f00f6bfab\\guava-26.0-jre.jar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\com.google.guava\\guava\\26.0-jre\\6a806eff209f36f635f943e16d97491f00f6bfab\\guava-26.0-jre.jar",
         "name": "guava"
     },
     {
         "group": "org.jetbrains.kotlin",
         "version": "1.3.11",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\org.jetbrains.kotlin\\kotlin-stdlib-jdk7\\1.3.11\\4839661cf6ce3c14b65ed7dcf5b9249b44ecca16\\kotlin-stdlib-jdk7-1.3.11.jar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\org.jetbrains.kotlin\\kotlin-stdlib-jdk7\\1.3.11\\4839661cf6ce3c14b65ed7dcf5b9249b44ecca16\\kotlin-stdlib-jdk7-1.3.11.jar",
         "name": "kotlin-stdlib-jdk7"
     },
     {
         "group": "org.jetbrains.kotlin",
         "version": "1.3.11",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\org.jetbrains.kotlin\\kotlin-stdlib\\1.3.11\\4cbc5922a54376018307a731162ccaf3ef851a39\\kotlin-stdlib-1.3.11.jar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\org.jetbrains.kotlin\\kotlin-stdlib\\1.3.11\\4cbc5922a54376018307a731162ccaf3ef851a39\\kotlin-stdlib-1.3.11.jar",
         "name": "kotlin-stdlib"
     },
     {
         "group": "org.apache.commons",
         "version": "1.12",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\org.apache.commons\\commons-compress\\1.12\\84caa68576e345eb5e7ae61a0e5a9229eb100d7b\\commons-compress-1.12.jar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\org.apache.commons\\commons-compress\\1.12\\84caa68576e345eb5e7ae61a0e5a9229eb100d7b\\commons-compress-1.12.jar",
         "name": "commons-compress"
     },
     {
         "group": "org.apache.httpcomponents",
         "version": "4.5.2",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\org.apache.httpcomponents\\httpmime\\4.5.2\\22b4c53dd9b6761024258de8f9240c3dce6ea368\\httpmime-4.5.2.jar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\org.apache.httpcomponents\\httpmime\\4.5.2\\22b4c53dd9b6761024258de8f9240c3dce6ea368\\httpmime-4.5.2.jar",
         "name": "httpmime"
     },
     {
         "group": "org.apache.httpcomponents",
         "version": "4.5.2",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\org.apache.httpcomponents\\httpclient\\4.5.2\\733db77aa8d9b2d68015189df76ab06304406e50\\httpclient-4.5.2.jar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\org.apache.httpcomponents\\httpclient\\4.5.2\\733db77aa8d9b2d68015189df76ab06304406e50\\httpclient-4.5.2.jar",
         "name": "httpclient"
     },
     {
         "group": "org.apache.httpcomponents",
         "version": "4.4.5",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\org.apache.httpcomponents\\httpcore\\4.4.5\\e7501a1b34325abb00d17dde96150604a0658b54\\httpcore-4.4.5.jar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\org.apache.httpcomponents\\httpcore\\4.4.5\\e7501a1b34325abb00d17dde96150604a0658b54\\httpcore-4.4.5.jar",
         "name": "httpcore"
     },
     {
         "group": "com.google.code.findbugs",
         "version": "3.0.2",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\com.google.code.findbugs\\jsr305\\3.0.2\\25ea2e8b0c338a877313bd4672d3fe056ea78f0d\\jsr305-3.0.2.jar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\com.google.code.findbugs\\jsr305\\3.0.2\\25ea2e8b0c338a877313bd4672d3fe056ea78f0d\\jsr305-3.0.2.jar",
         "name": "jsr305"
     },
     {
         "group": "org.checkerframework",
         "version": "2.5.2",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\org.checkerframework\\checker-qual\\2.5.2\\cea74543d5904a30861a61b4643a5f2bb372efc4\\checker-qual-2.5.2.jar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\org.checkerframework\\checker-qual\\2.5.2\\cea74543d5904a30861a61b4643a5f2bb372efc4\\checker-qual-2.5.2.jar",
         "name": "checker-qual"
     },
     {
         "group": "com.google.errorprone",
         "version": "2.1.3",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\com.google.errorprone\\error_prone_annotations\\2.1.3\\39b109f2cd352b2d71b52a3b5a1a9850e1dc304b\\error_prone_annotations-2.1.3.jar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\com.google.errorprone\\error_prone_annotations\\2.1.3\\39b109f2cd352b2d71b52a3b5a1a9850e1dc304b\\error_prone_annotations-2.1.3.jar",
         "name": "error_prone_annotations"
     },
     {
         "group": "com.google.j2objc",
         "version": "1.1",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\com.google.j2objc\\j2objc-annotations\\1.1\\976d8d30bebc251db406f2bdb3eb01962b5685b3\\j2objc-annotations-1.1.jar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\com.google.j2objc\\j2objc-annotations\\1.1\\976d8d30bebc251db406f2bdb3eb01962b5685b3\\j2objc-annotations-1.1.jar",
         "name": "j2objc-annotations"
     },
     {
         "group": "org.codehaus.mojo",
         "version": "1.14",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\org.codehaus.mojo\\animal-sniffer-annotations\\1.14\\775b7e22fb10026eed3f86e8dc556dfafe35f2d5\\animal-sniffer-annotations-1.14.jar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\org.codehaus.mojo\\animal-sniffer-annotations\\1.14\\775b7e22fb10026eed3f86e8dc556dfafe35f2d5\\animal-sniffer-annotations-1.14.jar",
         "name": "animal-sniffer-annotations"
     },
     {
         "group": "org.jetbrains.kotlin",
         "version": "1.3.11",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\org.jetbrains.kotlin\\kotlin-stdlib-common\\1.3.11\\d8b8e746e279f1c4f5e08bc14a96b82e6bb1de02\\kotlin-stdlib-common-1.3.11.jar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\org.jetbrains.kotlin\\kotlin-stdlib-common\\1.3.11\\d8b8e746e279f1c4f5e08bc14a96b82e6bb1de02\\kotlin-stdlib-common-1.3.11.jar",
         "name": "kotlin-stdlib-common"
     },
     {
         "group": "org.jetbrains",
         "version": "13.0",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\org.jetbrains\\annotations\\13.0\\919f0dfe192fb4e063e7dacadee7f8bb9a2672a9\\annotations-13.0.jar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\org.jetbrains\\annotations\\13.0\\919f0dfe192fb4e063e7dacadee7f8bb9a2672a9\\annotations-13.0.jar",
         "name": "annotations"
     },
     {
         "group": "com.sun.activation",
         "version": "1.2.0",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\com.sun.activation\\javax.activation\\1.2.0\\bf744c1e2776ed1de3c55c8dac1057ec331ef744\\javax.activation-1.2.0.jar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\com.sun.activation\\javax.activation\\1.2.0\\bf744c1e2776ed1de3c55c8dac1057ec331ef744\\javax.activation-1.2.0.jar",
         "name": "javax.activation"
     },
     {
         "group": "org.glassfish.jaxb",
         "version": "2.2.11",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\org.glassfish.jaxb\\jaxb-runtime\\2.2.11\\65510afc78679e347b0d774617a97fedac94f8\\jaxb-runtime-2.2.11.jar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\org.glassfish.jaxb\\jaxb-runtime\\2.2.11\\65510afc78679e347b0d774617a97fedac94f8\\jaxb-runtime-2.2.11.jar",
         "name": "jaxb-runtime"
     },
     {
         "group": "org.glassfish.jaxb",
         "version": "2.2.11",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\org.glassfish.jaxb\\jaxb-core\\2.2.11\\f5745049f5fb9cb9d9b5f513c207727f475983e9\\jaxb-core-2.2.11.jar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\org.glassfish.jaxb\\jaxb-core\\2.2.11\\f5745049f5fb9cb9d9b5f513c207727f475983e9\\jaxb-core-2.2.11.jar",
         "name": "jaxb-core"
     },
     {
         "group": "org.jvnet.staxex",
         "version": "1.7.7",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\org.jvnet.staxex\\stax-ex\\1.7.7\\18bed5a0da27a6b43efe01282f2dc911b1cb3a72\\stax-ex-1.7.7.jar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\org.jvnet.staxex\\stax-ex\\1.7.7\\18bed5a0da27a6b43efe01282f2dc911b1cb3a72\\stax-ex-1.7.7.jar",
         "name": "stax-ex"
     },
     {
         "group": "com.sun.xml.fastinfoset",
         "version": "1.2.13",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\com.sun.xml.fastinfoset\\FastInfoset\\1.2.13\\98f56b9354e27bd2941cc5d461344e240ae51ae\\FastInfoset-1.2.13.jar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\com.sun.xml.fastinfoset\\FastInfoset\\1.2.13\\98f56b9354e27bd2941cc5d461344e240ae51ae\\FastInfoset-1.2.13.jar",
         "name": "FastInfoset"
     },
     {
         "group": "commons-logging",
         "version": "1.2",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\commons-logging\\commons-logging\\1.2\\4bfc12adfe4842bf07b657f0369c4cb522955686\\commons-logging-1.2.jar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\commons-logging\\commons-logging\\1.2\\4bfc12adfe4842bf07b657f0369c4cb522955686\\commons-logging-1.2.jar",
         "name": "commons-logging"
     },
     {
         "group": "commons-codec",
         "version": "1.9",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\commons-codec\\commons-codec\\1.9\\9ce04e34240f674bc72680f8b843b1457383161a\\commons-codec-1.9.jar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\commons-codec\\commons-codec\\1.9\\9ce04e34240f674bc72680f8b843b1457383161a\\commons-codec-1.9.jar",
         "name": "commons-codec"
     },
     {
         "group": "javax.xml.bind",
         "version": "2.2.12-b140109.1041",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\javax.xml.bind\\jaxb-api\\2.2.12-b140109.1041\\7ed0e0d01198614194d56dfb03d9d95aa311824c\\jaxb-api-2.2.12-b140109.1041.jar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\javax.xml.bind\\jaxb-api\\2.2.12-b140109.1041\\7ed0e0d01198614194d56dfb03d9d95aa311824c\\jaxb-api-2.2.12-b140109.1041.jar",
         "name": "jaxb-api"
     },
     {
         "group": "org.glassfish.jaxb",
         "version": "2.2.11",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\org.glassfish.jaxb\\txw2\\2.2.11\\2df047d8c187a62f2177bf6013f1f9786cdfc8a2\\txw2-2.2.11.jar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\org.glassfish.jaxb\\txw2\\2.2.11\\2df047d8c187a62f2177bf6013f1f9786cdfc8a2\\txw2-2.2.11.jar",
         "name": "txw2"
     },
     {
         "group": "com.sun.istack",
         "version": "2.21",
-        "fileLocation": "C:\\Users\\tim.MK-ENGINEERING\\.gradle\\caches\\modules-2\\files-2.1\\com.sun.istack\\istack-commons-runtime\\2.21\\c969d8f15c467f0ef7d7b04889afbe7b5d48e22f\\istack-commons-runtime-2.21.jar",
+        "fileLocation": "C:\\Users\\Mike\\.gradle\\caches\\modules-2\\files-2.1\\com.sun.istack\\istack-commons-runtime\\2.21\\c969d8f15c467f0ef7d7b04889afbe7b5d48e22f\\istack-commons-runtime-2.21.jar",
         "name": "istack-commons-runtime"
     }
 ]
