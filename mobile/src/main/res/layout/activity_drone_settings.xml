@@ -10,14 +10,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/ConstraintLayout"
+    android:id="@+id/parent"
     tools:context=".DroneSettingsActivity"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:clickable="true"
+    android:focusableInTouchMode="true"
+    android:focusable="true">
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/constraintLayout_Item"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:clickable="true"
+        android:focusableInTouchMode="true"
+        android:focusable="true">
 
         <FrameLayout
             android:id="@+id/frameLayout_cameraContainer"
@@ -58,7 +64,10 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.535"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/frameLayout_cameraContainer" />
+            app:layout_constraintTop_toBottomOf="@+id/frameLayout_cameraContainer"
+            android:clickable="true"
+            android:focusableInTouchMode="true"
+            android:focusable="true"/>
 
         <TextView
             android:id="@+id/txtView_DroneDescription"
@@ -71,7 +80,10 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.186"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtView_DroneName" />
+            app:layout_constraintTop_toBottomOf="@+id/txtView_DroneName"
+            android:clickable="true"
+            android:focusableInTouchMode="true"
+            android:focusable="true"/>
 
         <EditText
             android:id="@+id/txt_DroneName"
@@ -114,7 +126,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
-            android:gravity="center_vertical"
+            android:gravity="start|center_vertical"
             android:text="@string/txtView_DroneTyp"
             android:textAlignment="textStart"
             android:textSize="@dimen/textSize_default"
@@ -142,7 +154,10 @@
             android:text="@string/txtView_Calibration"
             android:textSize="@dimen/textSize_default"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtView_DroneTyp" />
+            app:layout_constraintTop_toBottomOf="@+id/txtView_DroneTyp"
+            android:clickable="true"
+            android:focusableInTouchMode="true"
+            android:focusable="true"/>
 
         <TextView
             android:id="@+id/txtView_PinConfiguration"
@@ -155,7 +170,10 @@
             android:text="@string/txtView_PinConfiguration"
             android:textSize="@dimen/textSize_default"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtView_Calibration" />
+            app:layout_constraintTop_toBottomOf="@+id/txtView_Calibration"
+            android:clickable="true"
+            android:focusableInTouchMode="true"
+            android:focusable="true"/>
 
         <View
             android:id="@+id/divider"
@@ -168,7 +186,10 @@
             android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtView_PinConfiguration" />
+            app:layout_constraintTop_toBottomOf="@+id/txtView_PinConfiguration"
+            android:clickable="true"
+            android:focusableInTouchMode="true"
+            android:focusable="true"/>
 
         <Button
             android:id="@+id/btn_saveChanges"
@@ -178,6 +199,10 @@
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
+            android:textColor="@color/primaryColor"
+            android:textAllCaps="true"
+            android:background="#00FFFFFF"
+
             android:text="@string/btn_saveChanges"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
