@@ -80,4 +80,9 @@
     <string name="flight_plan_could_not_load">Could not load flightplan</string>
     <string name="error_txt">Fatal Error!\n%1$s</string>
     <string name="navItem_Github">on Github</string>
+    <string name="settings_header">Settings</string>
+    <string name="max_height">Maximum height: </string>
+    <string name="min_height">Minimum height: </string>
+    <string name="height_metric">m</string>
+    <string name="language_text">Language: </string>
 </resources>
