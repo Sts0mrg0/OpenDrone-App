@@ -197,6 +197,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/OpenDroneAT"));
                 startActivity(browserIntent);
                 return true;
+            case R.id.navItem_Settings:
+                initSettingsFragment();
+                return true;
             default:
                 Log.i("MainActivity", "OnNavigationItem Default case");
                 return false;
@@ -267,6 +270,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //sp.edit().remove(OpenDroneUtils.SP_FLIGHTPLAN_HOLDER).apply();
         FlightPlanListFragment defFragment = new FlightPlanListFragment();
         updateFragment(defFragment);
+    }
+
+    private void initSettingsFragment(){
+        lastFragment = OpenDroneUtils.LF_SETTINGS;
+        Fragment defFragment = new SettingsFragment();
+        updateFragment(defFragment);
+        closeDrawer();
     }
 
     private void displayLibraries() {
