@@ -261,6 +261,7 @@ public class DroneSettingsActivity extends AppCompatActivity {
 
     private void initImgView() {
         dronePicture = findViewById(R.id.imageView_DronePicture);
+        Log.i("Loady123","DroneImg" + position);
         String uriStr = sp.getString("DroneImg" + position, "");
         if (!uriStr.equals("")) {
             Uri imgUri = Uri.parse(uriStr);
@@ -350,7 +351,7 @@ public class DroneSettingsActivity extends AppCompatActivity {
         String serialized = gson.toJson(DroneCardListRecyclerFragment.drones.toArray());
         sp.edit().putString("DroneList", serialized).apply();
         if (imgUri != null && !imgUri.toString().equals("")) {
-            Log.i("Picky", picturePath);
+            Log.i("Loady123", "DroneImg" + position);
             sp.edit().putString("DroneImg" + position, picturePath).apply();
         }
     }
