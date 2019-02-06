@@ -9,6 +9,7 @@ package at.opendrone.opendrone;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -165,6 +166,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        setSensorOrientation();
         switch (item.getItemId()) {
             case R.id.navItem_Home:
                 //clearContainer();
@@ -241,6 +243,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void onBackPressed() {
         clearContainer();
         initHomeFragment();
+    }
+
+    private void setSensorOrientation(){
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
+    }
+
+    private void lockOrientation(){
+        setRequestedOrientation(getResources().getConfiguration().orientation);
     }
 
     private void initDronesFragment() {
