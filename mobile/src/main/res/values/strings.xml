@@ -86,4 +86,5 @@
     <string name="height_metric">m</string>
     <string name="language_text">Language: </string>
     <string name="flightplan_coord_list_element">%1$f/\n%2$f</string>
+    <string name="manualflight_no_open_drawer">stay here!</string>
 </resources>

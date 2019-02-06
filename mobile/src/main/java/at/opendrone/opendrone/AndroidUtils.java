@@ -60,20 +60,12 @@ public class AndroidUtils {
      **/
     @SuppressLint("ClickableViewAccessibility")
     public static void hideKeyboard(RecyclerView recView, final Activity activity){
-        recView.setOnTouchListener((v, event) -> {
-            hideKeyboard(activity, recView);
-            return true;
-        });
-        /*editText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        ItemClickSupport.addTo(recView).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
             @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus) {
-                    hideKeyboard(activity,v);
-                }else{
-                    showKeyboard(activity,v);
-                }
+            public void onItemClicked(RecyclerView recyclerView, int position, View v) {
+                hideKeyboard(activity, v);
             }
-        });*/
+        });
     }
 
     private void hideSoftKeyboard(Activity activity) {

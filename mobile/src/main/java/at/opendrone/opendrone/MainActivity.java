@@ -26,6 +26,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 //MS App Center
 import com.microsoft.appcenter.AppCenter;
 import com.microsoft.appcenter.analytics.Analytics;
@@ -42,6 +43,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private boolean isOpened = false;
     private FrameLayout fragmentContainer;
     private int lastFragment;
+
+    public boolean canOpenDrawer = true;
 
     private void initFragments() {
         /*Do this when changing Fragment:
@@ -99,6 +102,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
+                if(!canOpenDrawer){
+                    Toast.makeText(this, getString(R.string.manualflight_no_open_drawer), Toast.LENGTH_SHORT).show();
+                    return false;
+                }
                 if (isOpened) {
                     closeDrawer();
                 } else {
