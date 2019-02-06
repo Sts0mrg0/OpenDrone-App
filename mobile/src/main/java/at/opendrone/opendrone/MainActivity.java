@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     //public static TCPSend client;
     public static FragmentManager fm;
 
-    private DrawerLayout drawerLayout;
+    public DrawerLayout drawerLayout;
     private boolean isOpened = false;
     private FrameLayout fragmentContainer;
     private int lastFragment;
