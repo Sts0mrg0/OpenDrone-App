@@ -11,6 +11,7 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -29,6 +30,7 @@ import com.google.gson.Gson;
 
 import org.osmdroid.util.GeoPoint;
 
+import java.sql.SQLOutput;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
@@ -79,7 +81,12 @@ public class FlightPlanSaveFragment extends Fragment {
     public void onResume() {
         super.onResume();
         AndroidUtils.hideKeyboard(flightPlanContainer, getActivity());
-        //AndroidUtils.hideKeyboard(descTxt, getActivity());
+        lockOrientation();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
     }
 
     private void findViews() {
@@ -93,7 +100,7 @@ public class FlightPlanSaveFragment extends Fragment {
         nameTxt.setText(name);
         descTxt.setText(desc);
 
-        flightPlanContainer.setHasFixedSize(true);
+        //flightPlanContainer.setHasFixedSize(true);
         flightPlanContainer.setLayoutManager(new LinearLayoutManager(getActivity()));
     }
 
@@ -136,6 +143,14 @@ public class FlightPlanSaveFragment extends Fragment {
     private void showAddFAB() {
         save.setVisibility(View.INVISIBLE);
         add.setVisibility(View.VISIBLE);
+    }
+
+    private void setSensorOrientation(){
+        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
+    }
+
+    private void lockOrientation(){
+        getActivity().setRequestedOrientation(getActivity().getResources().getConfiguration().orientation);
     }
 
     private void setListeners() {
@@ -192,6 +207,7 @@ public class FlightPlanSaveFragment extends Fragment {
 
         FlightPlanListFragment fragment = new FlightPlanListFragment();
         updateFragment(fragment);
+        setSensorOrientation();
     }
 
     private void updateFragment(Fragment fragment){

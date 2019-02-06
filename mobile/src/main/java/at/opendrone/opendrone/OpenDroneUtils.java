@@ -46,4 +46,6 @@ public class OpenDroneUtils {
     public static final int CODE_STATUS = 6;
     public static final int CODE_VELOCITY = 7;
     public static final int CODE_ERROR = 255;
+    public static final int CODE_CALIBRATE = 20;
+    public static final int CODE_CALIBRATE_START = 1;
 }

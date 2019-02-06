@@ -54,10 +54,13 @@ public class FlightPlanListFragment extends Fragment {
         // Inflate the layout for this fragment
         sp = getActivity().getSharedPreferences("at.opendrone.opendrone", Context.MODE_PRIVATE);
         view = inflater.inflate(R.layout.fragment_flight_plan_list, container, false);
-        recyclerView = view.findViewById(R.id.flightplans);
 
-        btn_AddFP = view.findViewById(R.id.btn_AddFlightPlan);
+        findViews();
+        getSavedFlightPlans();
+        return view;
+    }
 
+    private void getSavedFlightPlans(){
         try {
             Gson gson = new Gson();
             String flightplanJSON = sp.getString(OpenDroneUtils.SP_FLIGHTPLANS, "");
@@ -69,22 +72,28 @@ public class FlightPlanListFragment extends Fragment {
         } catch (Exception e) {
             Toast.makeText(getContext(), getResources().getString(R.string.exception_sorry), Toast.LENGTH_LONG).show();
         }
-        btn_AddFP.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Analytics.trackEvent("NewFlightPlanAdded");
-                sp.edit().putString(OpenDroneUtils.SP_FLIGHTPLAN_NAME, "").apply();
-                sp.edit().putString(OpenDroneUtils.SP_FLIGHTPLAN_DESC, "").apply();
-                sp.edit().putInt(OpenDroneUtils.SP_FLIGHTPLAN_POSITION, -1).apply();
-                FlightPlaner fp = new FlightPlaner();
-                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-                ft.replace(R.id.frameLayout_FragmentContainer, fp);
-                ft.commit();
-            }
+    }
+
+    private void findViews(){
+        recyclerView = view.findViewById(R.id.flightplans);
+        btn_AddFP = view.findViewById(R.id.btn_AddFlightPlan);
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        setAddBtnListener();
+    }
+
+    private void setAddBtnListener(){
+        btn_AddFP.setOnClickListener(v -> {
+            Analytics.trackEvent("NewFlightPlanAdded");
+            sp.edit().putString(OpenDroneUtils.SP_FLIGHTPLAN_NAME, "").apply();
+            sp.edit().putString(OpenDroneUtils.SP_FLIGHTPLAN_DESC, "").apply();
+            sp.edit().putInt(OpenDroneUtils.SP_FLIGHTPLAN_POSITION, -1).apply();
+            FlightPlaner fp = new FlightPlaner();
+            FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.frameLayout_FragmentContainer, fp);
+            ft.commit();
         });
-
-
-        return view;
     }
 
     public void deletePosition(int position) {
@@ -102,7 +111,6 @@ public class FlightPlanListFragment extends Fragment {
 
     public void setAdapter() {
         FlightPlanRecyclerViewAdapter adapter = new FlightPlanRecyclerViewAdapter(plans, (AppCompatActivity) getActivity(), this);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(adapter);
     }
 
