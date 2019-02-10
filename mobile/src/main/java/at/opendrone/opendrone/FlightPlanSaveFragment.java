@@ -81,6 +81,7 @@ public class FlightPlanSaveFragment extends Fragment {
     public void onResume() {
         super.onResume();
         AndroidUtils.hideKeyboard(flightPlanContainer, getActivity());
+        //AndroidUtils.hideKeyboard( getActivity(), getActivity().getActionBar().getCustomView());
         lockOrientation();
     }
 
@@ -100,7 +101,7 @@ public class FlightPlanSaveFragment extends Fragment {
         nameTxt.setText(name);
         descTxt.setText(desc);
 
-        //flightPlanContainer.setHasFixedSize(true);
+        flightPlanContainer.setHasFixedSize(true);
         flightPlanContainer.setLayoutManager(new LinearLayoutManager(getActivity()));
     }
 

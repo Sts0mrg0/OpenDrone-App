@@ -504,6 +504,7 @@ public class FlyManualFlight extends Fragment {
     }
 
     private void sendAbortMessage() {
+        ((MainActivity)getActivity()).canOpenDrawer = false;
         fillDataArray(1);
         fillCodeArray(OpenDroneUtils.CODE_ABORT);
         sendData(data, codes);

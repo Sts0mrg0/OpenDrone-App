@@ -577,10 +577,12 @@ public class FlightPlaner extends Fragment {
     }
 
     private void drawExistingPoints() {
+        clearLists();
         if(existingPoints.size() <= 0){
+            canAddMarker = true;
             return;
         }
-        clearLists();
+
         Log.i(TAG, existingPoints.toString());
         for (Map.Entry<Double, GeoPoint> entry : existingPoints.entrySet()) {
             Log.i(TAG, "Existing: " + entry.getKey());
