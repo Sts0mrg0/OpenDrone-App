@@ -15,6 +15,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -57,6 +58,8 @@ public class FlyManualFlight extends Fragment {
     private View view;
     private JoystickView throttle;
     private JoystickView direction;
+
+    private DrawerLayout.DrawerListener listener;
 
     /*private TextView positionTxtView;
     private TextView heightTxtView;
@@ -119,6 +122,41 @@ public class FlyManualFlight extends Fragment {
         if (mRequestingLocationUpdates) {
             startLocationUpdates();
         }
+
+        listener = new DrawerLayout.DrawerListener() {
+            @Override
+            public void onDrawerSlide(@NonNull View view, float v) {
+                throttle.setEnabled(false);
+                direction.setEnabled(false);
+                throttle.resetButtonPosition();
+                direction.resetButtonPosition();
+                throttle.setEnabled(true);
+                direction.setEnabled(true);
+            }
+
+            @Override
+            public void onDrawerOpened(@NonNull View view) {
+                throttle.setEnabled(false);
+                direction.setEnabled(false);
+                throttle.resetButtonPosition();
+                direction.resetButtonPosition();
+            }
+
+            @Override
+            public void onDrawerClosed(@NonNull View view) {
+                throttle.resetButtonPosition();
+                direction.resetButtonPosition();
+                throttle.setEnabled(true);
+                direction.setEnabled(true);
+            }
+
+            @Override
+            public void onDrawerStateChanged(int i) {
+                throttle.resetButtonPosition();
+                direction.resetButtonPosition();
+            }
+        };
+        ((MainActivity) getActivity()).drawerLayout.addDrawerListener(listener);
     }
 
     @Override
@@ -135,7 +173,7 @@ public class FlyManualFlight extends Fragment {
         }
 
         Log.i(TAG, "OnPause");
-
+        ((MainActivity) getActivity()).drawerLayout.removeDrawerListener(listener);
         stopLocationUpdates();
     }
 
@@ -243,6 +281,7 @@ public class FlyManualFlight extends Fragment {
             fillDataArray(cmd[0][1], cmd[1][1]);
             sendData(data, codes);
         });
+
     }
 
     private void sendData(int[] data, byte[] codes){
@@ -465,6 +504,7 @@ public class FlyManualFlight extends Fragment {
     }
 
     private void sendAbortMessage() {
+        ((MainActivity)getActivity()).canOpenDrawer = false;
         fillDataArray(1);
         fillCodeArray(OpenDroneUtils.CODE_ABORT);
         sendData(data, codes);

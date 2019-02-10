@@ -11,6 +11,7 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
@@ -100,6 +101,7 @@ public class FlightPlaner extends Fragment {
         //if you make changes to the configuration, use
         //SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         //Configuration.getInstance().load(this, PreferenceManager.getDefaultSharedPreferences(this));
+        lockOrientation();
 
         mMapView.onResume(); //needed for compass, my location overlays, v6.0.0 and up
 
@@ -118,6 +120,14 @@ public class FlightPlaner extends Fragment {
         //Configuration.getInstance().save(this, prefs);
         mMapView.onPause();  //needed for compass, my location overlays, v6.0.0 and up
         stopLocationUpdates();
+    }
+
+    private void setSensorOrientation(){
+        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
+    }
+
+    private void lockOrientation(){
+        getActivity().setRequestedOrientation(getActivity().getResources().getConfiguration().orientation);
     }
 
     private void stopLocationUpdates() {
@@ -270,6 +280,8 @@ public class FlightPlaner extends Fragment {
             }
             Log.i(TAG, "Cant add marker");
             startMarker = markers.get((int)Math.floor(position));
+        }else{
+            canAddMarker = true;
         }
 
         startMarker.setIcon(getIconDrawable(index));
@@ -565,10 +577,13 @@ public class FlightPlaner extends Fragment {
     }
 
     private void drawExistingPoints() {
+        clearLists();
         if(existingPoints.size() <= 0){
+            canAddMarker = true;
             return;
         }
-        clearLists();
+
+        Log.i(TAG, existingPoints.toString());
         for (Map.Entry<Double, GeoPoint> entry : existingPoints.entrySet()) {
             Log.i(TAG, "Existing: " + entry.getKey());
             addMarker(entry.getValue(), entry.getKey());

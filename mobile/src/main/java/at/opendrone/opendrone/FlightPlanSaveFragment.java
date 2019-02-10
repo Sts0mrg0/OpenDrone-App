@@ -10,8 +10,8 @@ package at.opendrone.opendrone;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -30,15 +30,15 @@ import com.google.gson.Gson;
 
 import org.osmdroid.util.GeoPoint;
 
+import java.sql.SQLOutput;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class FlightPlanSaveFragment extends Fragment {
     private static final String TAG = "FlightPlanSavy";
 
@@ -75,6 +75,19 @@ public class FlightPlanSaveFragment extends Fragment {
         this.name = name;
         this.desc = desc;
         this.points = points;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        AndroidUtils.hideKeyboard(flightPlanContainer, getActivity());
+        //AndroidUtils.hideKeyboard( getActivity(), getActivity().getActionBar().getCustomView());
+        lockOrientation();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
     }
 
     private void findViews() {
@@ -133,6 +146,14 @@ public class FlightPlanSaveFragment extends Fragment {
         add.setVisibility(View.VISIBLE);
     }
 
+    private void setSensorOrientation(){
+        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
+    }
+
+    private void lockOrientation(){
+        getActivity().setRequestedOrientation(getActivity().getResources().getConfiguration().orientation);
+    }
+
     private void setListeners() {
         save.setOnClickListener(v -> saveFlightPlan());
         add.setOnClickListener(v -> displayAddDialog());
@@ -187,6 +208,7 @@ public class FlightPlanSaveFragment extends Fragment {
 
         FlightPlanListFragment fragment = new FlightPlanListFragment();
         updateFragment(fragment);
+        setSensorOrientation();
     }
 
     private void updateFragment(Fragment fragment){
@@ -201,6 +223,50 @@ public class FlightPlanSaveFragment extends Fragment {
     public void setAttributes() {
         this.nameTxt.setText(sp.getString(OpenDroneUtils.SP_FLIGHTPLAN_NAME, ""));
         this.descTxt.setText(sp.getString(OpenDroneUtils.SP_FLIGHTPLAN_DESC, ""));
+    }
+
+    public void updatePoint(int position, GeoPoint p){
+        double key = getKeyFromPosition(position);
+        if(Math.floor(key) != key || points.containsKey(key+0.1d)){//the route is closed
+            points.put(Math.floor(key), p);
+            points.put(Math.floor(key)+0.1, p);
+        }else{
+            points.put(key,p);
+        }
+        setAdapter();
+    }
+
+    public void removePoint(int position){
+        double key = getKeyFromPosition(position);
+        if(Math.floor(key) != key || points.containsKey(key+0.1d)){//the route is closed
+            points.remove(Math.floor(key));
+            points.remove(Math.floor(key)+0.1);
+        }else{
+            points.remove(key);
+        }
+
+        updateKeys(position);
+        Log.i(TAG, points.toString());
+        setAdapter();
+    }
+
+    private void updateKeys(double start) {
+        LinkedHashMap<Double, GeoPoint> newPoints = new LinkedHashMap<>();
+        for (Map.Entry<Double, GeoPoint> entry : points.entrySet()) {
+            double key = entry.getKey();
+            if (key > start) {
+                key = key - 1;
+            }
+            newPoints.put(key, entry.getValue());
+        }
+        points = newPoints;
+    }
+
+    private double getKeyFromPosition(int position){
+        List<GeoPoint> pointList = new LinkedList<>(points.values());
+        Set<Double> keySet = points.keySet();
+        double key = keySet.toArray(new Double[pointList.size()])[position];
+        return key;
     }
 
     public void setFlightPlaner(FlightPlaner fp) {

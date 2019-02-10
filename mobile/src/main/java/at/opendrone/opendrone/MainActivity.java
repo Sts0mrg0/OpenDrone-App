@@ -9,6 +9,8 @@ package at.opendrone.opendrone;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -24,6 +26,11 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.Toast;
+//MS App Center
+import com.microsoft.appcenter.AppCenter;
+import com.microsoft.appcenter.analytics.Analytics;
+import com.microsoft.appcenter.crashes.Crashes;
 
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity;
 
@@ -32,10 +39,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     //public static TCPSend client;
     public static FragmentManager fm;
 
-    private DrawerLayout drawerLayout;
+    public DrawerLayout drawerLayout;
     private boolean isOpened = false;
     private FrameLayout fragmentContainer;
     private int lastFragment;
+
+    public boolean canOpenDrawer = true;
 
     private void initFragments() {
         /*Do this when changing Fragment:
@@ -69,6 +78,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        AppCenter.start(getApplication(), "3a5cb885-3ad1-4141-a8da-f2901d36fb2f",
+                Analytics.class, Crashes.class);
+
         //client = new TCPSend(TARGET);
         //client.start();
 
@@ -90,6 +102,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
+                if(!canOpenDrawer){
+                    Toast.makeText(this, getString(R.string.manualflight_no_open_drawer), Toast.LENGTH_SHORT).show();
+                    return false;
+                }
                 if (isOpened) {
                     closeDrawer();
                 } else {
@@ -157,6 +173,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        setSensorOrientation();
         switch (item.getItemId()) {
             case R.id.navItem_Home:
                 //clearContainer();
@@ -184,6 +201,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 return true;
             case R.id.navItem_Libs:
                 displayLibraries();
+                return true;
+            case R.id.navItem_Github:
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/OpenDroneAT"));
+                startActivity(browserIntent);
+                return true;
+            case R.id.navItem_Settings:
+                initSettingsFragment();
+                return true;
             default:
                 Log.i("MainActivity", "OnNavigationItem Default case");
                 return false;
@@ -227,6 +252,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         initHomeFragment();
     }
 
+    private void setSensorOrientation(){
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
+    }
+
+    private void lockOrientation(){
+        setRequestedOrientation(getResources().getConfiguration().orientation);
+    }
+
     private void initDronesFragment() {
         lastFragment = OpenDroneUtils.LF_DRONE;
         Fragment defFragment = new DroneCardListRecyclerFragment();
@@ -254,6 +287,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //sp.edit().remove(OpenDroneUtils.SP_FLIGHTPLAN_HOLDER).apply();
         FlightPlanListFragment defFragment = new FlightPlanListFragment();
         updateFragment(defFragment);
+    }
+
+    private void initSettingsFragment(){
+        lastFragment = OpenDroneUtils.LF_SETTINGS;
+        Fragment defFragment = new SettingsFragment();
+        updateFragment(defFragment);
+        closeDrawer();
     }
 
     private void displayLibraries() {

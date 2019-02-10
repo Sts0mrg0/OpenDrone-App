@@ -6,32 +6,36 @@
   -->
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/navItem_Home"
-        android:title="@string/navItem_Home"
-        android:icon="@drawable/ic_home"/>
-    <item
-        android:id="@+id/navItem_FlightPlanner"
-        android:title="@string/navItem_FlightPlanner"
-        android:icon="@drawable/ic_flightplaner"
-        />
-    <item
-        android:id="@+id/navItem_Drones"
-        android:title="@string/navItem_Drones"
-        android:icon="@drawable/opendrone_logo"
-        />
-    <item
-        android:id="@+id/navItem_Fly"
-        android:title="@string/navItem_Fly"
-        android:icon="@drawable/ic_fly"
-        />
-    <item
-        android:id="@+id/navItem_Settings"
-        android:title="@string/navItem_Settings"
-        android:icon="@drawable/ic_settings"
-        />
-    <item
-        android:id="@+id/navItem_Libs"
-        android:title="@string/navItem_Libs"
-        android:icon="@drawable/ic_used_libraries"
-        />
+    <group android:id="@+id/nav_group_app">
+        <item
+            android:id="@+id/navItem_Home"
+            android:icon="@drawable/ic_home"
+            android:title="@string/navItem_Home" />
+        <item
+            android:id="@+id/navItem_Drones"
+            android:icon="@drawable/opendrone_logo"
+            android:title="@string/navItem_Drones" />
+        <item
+            android:id="@+id/navItem_FlightPlanner"
+            android:icon="@drawable/ic_flightplaner"
+            android:title="@string/navItem_FlightPlanner" />
+        <item
+            android:id="@+id/navItem_Fly"
+            android:icon="@drawable/ic_fly"
+            android:title="@string/navItem_Fly" />
+        <item
+            android:id="@+id/navItem_Settings"
+            android:icon="@drawable/ic_settings"
+            android:title="@string/navItem_Settings" />
+    </group>
+    <group android:id="@+id/nav_group_social">
+        <item
+            android:id="@+id/navItem_Libs"
+            android:icon="@drawable/ic_used_libraries"
+            android:title="@string/navItem_Libs" />
+        <item
+            android:id="@+id/navItem_Github"
+            android:icon="@drawable/ic_github_logo"
+            android:title="@string/navItem_Github" />
+    </group>
 </menu>

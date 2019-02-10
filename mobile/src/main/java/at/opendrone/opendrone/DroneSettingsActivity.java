@@ -64,6 +64,7 @@ public class DroneSettingsActivity extends AppCompatActivity {
     private static final int RESULT_CODE = 3;
     private static final int MODE_NEW = 7;
     private static final int MODE_EDIT = 27;
+    private ConstraintLayout parent;
     private TextView txtView_Calibration;
     private TextView txtView_PinConfiguration;
     private TextView txtView_DroneName;
@@ -124,7 +125,7 @@ public class DroneSettingsActivity extends AppCompatActivity {
         }
     }
 
-    public void takePhoto(View view) {
+    private void takePhoto(View view) {
         showInfo();
     }
 
@@ -184,18 +185,8 @@ public class DroneSettingsActivity extends AppCompatActivity {
         builder.setMessage(R.string.alertDialog_Picture_Message)
                 .setTitle(R.string.alertDialog_Picture_Title);
 
-        builder.setPositiveButton(getResources().getString(R.string.alertDialog_Picture_Positive), new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                openCameraIntent();
-            }
-        });
-        builder.setNegativeButton(getResources().getString(R.string.alertDialog_Picture_Negative), new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                openGalleryIntent();
-            }
-        });
+        builder.setPositiveButton(getResources().getString(R.string.alertDialog_Picture_Positive), (dialogInterface, i) -> openCameraIntent());
+        builder.setNegativeButton(getResources().getString(R.string.alertDialog_Picture_Negative), (dialogInterface, i) -> openGalleryIntent());
 // 3. Get the AlertDialog from create()
         AlertDialog dialog = builder.create();
         dialog.show();
@@ -260,20 +251,17 @@ public class DroneSettingsActivity extends AppCompatActivity {
     }
 
     private void initViews() {
-        dronePicture = (ImageView) findViewById(R.id.imageView_DronePicture);
+        dronePicture = findViewById(R.id.imageView_DronePicture);
         cameraOverlay = findViewById(R.id.imgView_CameraOverlay);
+        parent = findViewById(R.id.parent);
 
-        cameraOverlay.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                takePhoto(view);
-            }
-        });
+        cameraOverlay.setOnClickListener(this::takePhoto);
         initButtons();
     }
 
     private void initImgView() {
-        dronePicture = (ImageView) findViewById(R.id.imageView_DronePicture);
+        dronePicture = findViewById(R.id.imageView_DronePicture);
+        Log.i("Loady123","DroneImg" + position);
         String uriStr = sp.getString("DroneImg" + position, "");
         if (!uriStr.equals("")) {
             Uri imgUri = Uri.parse(uriStr);
@@ -295,19 +283,9 @@ public class DroneSettingsActivity extends AppCompatActivity {
         addTextWatcher(txt_DroneName, txtView_DroneName);
         addTextWatcher(txt_DroneDescription, txtView_DroneDescription);
 
-        txtView_Calibration.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startCalibration();
-            }
-        });
+        txtView_Calibration.setOnClickListener(v -> startCalibration());
 
-        txtView_PinConfiguration.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startPinConfig();
-            }
-        });
+        txtView_PinConfiguration.setOnClickListener(v -> startPinConfig());
 
         switch (this.mode) {
             case ("edit"): {
@@ -340,12 +318,7 @@ public class DroneSettingsActivity extends AppCompatActivity {
 
     private void editDrone(final int mode) {
         Button btn_SaveSettings = findViewById(R.id.btn_saveChanges);
-        btn_SaveSettings.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                handleEditDrone(mode);
-            }
-        });
+        btn_SaveSettings.setOnClickListener(v -> handleEditDrone(mode));
     }
 
     private void handleEditDrone(int mode) {
@@ -378,7 +351,7 @@ public class DroneSettingsActivity extends AppCompatActivity {
         String serialized = gson.toJson(DroneCardListRecyclerFragment.drones.toArray());
         sp.edit().putString("DroneList", serialized).apply();
         if (imgUri != null && !imgUri.toString().equals("")) {
-            Log.i("Picky", picturePath);
+            Log.i("Loady123", "DroneImg" + position);
             sp.edit().putString("DroneImg" + position, picturePath).apply();
         }
     }
@@ -389,62 +362,39 @@ public class DroneSettingsActivity extends AppCompatActivity {
     }
 
 
-    private void hideSoftKeyboard(Activity activity) {
-        InputMethodManager inputMethodManager =
-                (InputMethodManager) activity.getSystemService(
-                        Activity.INPUT_METHOD_SERVICE);
-        inputMethodManager.hideSoftInputFromWindow(
-                activity.getCurrentFocus().getWindowToken(), 0);
-    }
-
-    public void addTouchListeners(View view) {
-
-        // Set up touch listener for non-text box views to hide keyboard.
-        if (!(view instanceof EditText)) {
-            view.setOnTouchListener(new View.OnTouchListener() {
-                public boolean onTouch(View v, MotionEvent event) {
-                    hideSoftKeyboard(DroneSettingsActivity.this);
-                    return false;
-                }
-            });
-        }
-
-        //If a layout container, iterate over children and seed recursion.
-        if (view instanceof ViewGroup) {
-            for (int i = 0; i < ((ViewGroup) view).getChildCount(); i++) {
-                View innerView = ((ViewGroup) view).getChildAt(i);
-                addTouchListeners(innerView);
-            }
-        }
-    }
-
     @Override
     protected void onResume() {
 
         int position = sp.getInt("CurrentDronePosition", -1);
         if (position != -1 && !fromIntent) {
-            String mode = sp.getString("CurrentDroneMode", "");
-            String serializedDrone = sp.getString("CurrentDrone", "");
-
-            this.mode = mode;
-            Gson gson = new Gson();
-            selectedDrone = gson.fromJson(serializedDrone, Drone.class);
-            this.position = position;
-
-            sp.edit().remove("CurrentDronePosition").apply();
-            sp.edit().remove("CurrentDroneMode").apply();
-            sp.edit().remove("CurrentDrone").apply();
+            initFromIntent(position);
         }
         fromIntent = false;
         initViews();
         checkPermission();
 
+        AndroidUtils.hideKeyboard(txt_DroneName, this);
+        AndroidUtils.hideKeyboard(txt_DroneDescription, this);
 
         if (selectedDrone != null) {
             setValuesForDrone(this.selectedDrone);
         }
 
         super.onResume();
+    }
+
+    private void initFromIntent(int position) {
+        String mode = sp.getString("CurrentDroneMode", "");
+        String serializedDrone = sp.getString("CurrentDrone", "");
+
+        this.mode = mode;
+        Gson gson = new Gson();
+        selectedDrone = gson.fromJson(serializedDrone, Drone.class);
+        this.position = position;
+
+        sp.edit().remove("CurrentDronePosition").apply();
+        sp.edit().remove("CurrentDroneMode").apply();
+        sp.edit().remove("CurrentDrone").apply();
     }
 
     @Override
@@ -474,7 +424,7 @@ public class DroneSettingsActivity extends AppCompatActivity {
             setDrone(drone);
             int position = i.getIntExtra("Position", -1);
             setPosition(position);
-            dronePicture = (ImageView) findViewById(R.id.imageView_DronePicture);
+            dronePicture = findViewById(R.id.imageView_DronePicture);
             String uriStr = i.getStringExtra("Img");
             if (uriStr != null && !uriStr.equals("")) {
                 Uri uri = Uri.fromFile(new File(uriStr));

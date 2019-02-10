@@ -17,5 +17,9 @@
         <item>Automatic Flight</item>
     </string-array>
 
+    <string-array name="array_Languages">
+        <item>English</item>
+        <item>Deutsch</item>
+    </string-array>
 
 </resources>

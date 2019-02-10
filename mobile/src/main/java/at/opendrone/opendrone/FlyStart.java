@@ -21,6 +21,7 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+import com.microsoft.appcenter.analytics.Analytics;
 
 
 /**
@@ -62,6 +63,7 @@ public class FlyStart extends Fragment {
                 switch (flightMode) {
                     case "Manual": {
                         Log.i("FlyStart", "Pressed Manual");
+                        Analytics.trackEvent("ManualFlightStarted");
                         break;
                     }
                     case "Automatic": {

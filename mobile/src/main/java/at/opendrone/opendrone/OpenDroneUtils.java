@@ -14,21 +14,17 @@ public class OpenDroneUtils {
     public static String SP_FLIGHTPLAN_NAME = "sp_flightplan_name";
     public static String SP_FLIGHTPLAN_DESC = "sp_flightplan_desc";
     public static String SP_FLIGHTPLAN_POSITION = "sp_flightplan_pos";
+    public static String SP_SETTINGS_LANGUAGE = "sp_settings_language";
+    public static String SP_SETTINGS_PROMODE = "sp_settings_promode";
+    public static String SP_SETTINGS_MAXHEIGHT = "sp_settings_maxHeight";
     public static final double DEFAULT_LAT = 48.2468036;
     public static final double DEFAULT_LNG = 14.6199875;
-    public static final String THROTTLE_UP = "THRT_UP";
-    public static final String THROTTLE_DOWN = "THRT_DOWN";
-    public static final String YAW_RIGHT = "YAW_R";
-    public static final String YAW_LEFT = "YAW_L";
-    public static final String PITCH_FORWARDS = "PTCH_F";
-    public static final String PITCH_BACKWARDS = "PTCH_B";
-    public static final String ROLL_LEFT = "ROLL_L";
-    public static final String ROLL_RIGHT = "ROLL_R";
 
     public static final int LF_HOME = 0;
     public static final int LF_DRONE = 1;
     public static final int LF_FP = 2;
     public static final int LF_FLY = 3;
+    public static final int LF_SETTINGS = 4;
 
     public static final byte CODE_THROTTLE_UP= (byte) 1;
     public static final byte CODE_THROTTLE_DOWN= (byte) 2;
@@ -50,4 +46,6 @@ public class OpenDroneUtils {
     public static final int CODE_STATUS = 6;
     public static final int CODE_VELOCITY = 7;
     public static final int CODE_ERROR = 255;
+    public static final int CODE_CALIBRATE = 20;
+    public static final int CODE_CALIBRATE_START = 1;
 }

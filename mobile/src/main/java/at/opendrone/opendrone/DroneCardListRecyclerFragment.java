@@ -92,6 +92,7 @@ public class DroneCardListRecyclerFragment extends Fragment {
             public void onClick(View v) {
                 Activity activity = getActivity();
                 Intent intent = new Intent(activity, DroneSettingsActivity.class);
+                intent.putExtra("Position",drones.size());
                 intent.putExtra("Mode", "new");
                 /*Bundle options = ActivityOptionsCompat.makeScaleUpAnimation(
                         sourceView, 0, 0, sourceView.getWidth(), sourceView.getHeight()).toBundle();*/

@@ -16,7 +16,7 @@ android {
         minSdkVersion 23
         targetSdkVersion 28
         versionCode 1
-        versionName "1.0"
+        versionName "Alcedo Atthis"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -58,4 +58,10 @@ dependencies {
     implementation 'io.github.controlwear:virtualjoystick:1.10.0'
     implementation 'com.google.android.gms:play-services-oss-licenses:16.0.2'
     implementation 'com.amulyakhare:com.amulyakhare.textdrawable:1.0.1'
+    implementation 'com.github.wangjiegulu:rfab:2.0.0'
+
+    //MS App Center
+    def appCenterSdkVersion = '1.11.2'
+    implementation "com.microsoft.appcenter:appcenter-analytics:${appCenterSdkVersion}"
+    implementation "com.microsoft.appcenter:appcenter-crashes:${appCenterSdkVersion}"
 }
