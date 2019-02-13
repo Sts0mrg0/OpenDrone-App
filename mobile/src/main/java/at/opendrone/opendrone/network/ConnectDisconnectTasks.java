@@ -8,7 +8,7 @@ public class ConnectDisconnectTasks {
     private TCPHandler mTCPHandler;
     private static ConnectDisconnectTasks instance;
     private static final String TAG = "ConnectDisconnecty";
-    public static final String TARGET = "10.0.0.15";//192.168.1.254
+    public static final String TARGET = "192.168.1.254";
     public static final int PORT = 2018;
     private boolean isArmed = false;
 
