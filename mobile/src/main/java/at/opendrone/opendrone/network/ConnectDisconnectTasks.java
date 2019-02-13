@@ -10,6 +10,7 @@ public class ConnectDisconnectTasks {
     private static final String TAG = "ConnectDisconnecty";
     public static final String TARGET = "10.0.0.15";//192.168.1.254
     public static final int PORT = 2018;
+    private boolean isArmed = false;
 
     private TCPMessageReceiver receiver;
 
@@ -52,8 +53,20 @@ public class ConnectDisconnectTasks {
         this.receiver = receiver;
     }
 
+    public void removeMessageReceiver(){
+        this.receiver = null;
+    }
+
     public void sendMessage(String message){
         mTCPHandler.sendMessage(message);
+    }
+
+    public void setArmed(boolean armed) {
+        isArmed = armed;
+    }
+
+    public boolean isArmed() {
+        return isArmed;
     }
 
     /**

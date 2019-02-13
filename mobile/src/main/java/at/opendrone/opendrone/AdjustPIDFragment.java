@@ -139,6 +139,7 @@ public class AdjustPIDFragment extends Fragment implements SeekBar.OnSeekBarChan
             connectionTxtView.setText(String.format(getString(R.string.adjust_pid_connected), getString(R.string.adjust_pid_state_connected)));
             tasks.connect();
         }
+        setButtonText();
     }
 
 
@@ -183,59 +184,4 @@ public class AdjustPIDFragment extends Fragment implements SeekBar.OnSeekBarChan
     public void onStopTrackingTouch(SeekBar seekBar) {
 
     }
-
-    /**
-     * Disconnects using a background task to avoid doing long/network operations on the UI thread
-     */
-    /*@SuppressLint("StaticFieldLeak")
-    public class DisconnectTask extends AsyncTask<Void, Void, Void> {
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-
-            // disconnect
-            mTCPHandler.stopClient();
-            isConnected = false;
-            setButtonText();
-            mTCPHandler = null;
-
-            Log.i(TAG, (mTCPHandler == null) + "");
-
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void nothing) {
-            super.onPostExecute(nothing);
-        }
-    }
-
-    @SuppressLint("StaticFieldLeak")
-    public class ConnectTask extends AsyncTask<String, String, TCPHandler> {
-
-        @Override
-        protected TCPHandler doInBackground(String... message) {
-
-            //we create a TCPClient object and
-            mTCPHandler = new TCPHandler(TARGET, PORT, new TCPHandler.OnMessageReceived() {
-                @Override
-                //here the messageReceived method is implemented
-                public void messageReceived(String message) {
-                    //this method calls the onProgressUpdate
-                    publishProgress(message);
-                }
-            });
-            isConnected = true;
-            setButtonText();
-            mTCPHandler.run();
-
-            return null;
-        }
-
-        @Override
-        protected void onProgressUpdate(String... values) {
-            super.onProgressUpdate(values);
-            Log.i(TAG, "RECEIVE: " + values[0]);
-        }
-    }*/
 }

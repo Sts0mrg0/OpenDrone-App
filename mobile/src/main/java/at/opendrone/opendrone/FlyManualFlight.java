@@ -45,8 +45,10 @@ import org.osmdroid.views.overlay.Marker;
 
 import java.util.ArrayList;
 
+import at.opendrone.opendrone.network.ConnectDisconnectTasks;
 import at.opendrone.opendrone.network.OpenDroneFrame;
 import at.opendrone.opendrone.network.TCPHandler;
+import at.opendrone.opendrone.network.TCPMessageReceiver;
 import at.opendrone.opendrone.raspistats.RaspiStat;
 import at.opendrone.opendrone.raspistats.RaspiStatParser;
 import io.github.controlwear.virtual.joystick.android.JoystickView;
@@ -55,7 +57,7 @@ import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FlyManualFlight extends Fragment {
+public class FlyManualFlight extends Fragment implements TCPMessageReceiver {
 
     private View view;
     private JoystickView throttle;
@@ -63,12 +65,6 @@ public class FlyManualFlight extends Fragment {
 
     private DrawerLayout.DrawerListener listener;
 
-    /*private TextView positionTxtView;
-    private TextView heightTxtView;
-    private TextView airTempTxtView;
-    private TextView controllerTempTxtView;
-    private TextView statusTxtView;
-    private TextView velocityTxtView;*/
     private TextView errorTxtView;
     private ImageButton homeBtn;
     private ImageButton stopRotorBtn;
@@ -86,19 +82,10 @@ public class FlyManualFlight extends Fragment {
 
     private SharedPreferences sp;
 
-    /*private String positionTxt = "";
-    private String heightTxt = "";
-    private String airTempTxt = "";
-    private String controllerTempTxt = "";
-    private String statusTxt = "";
-    private String velocityTxt = "";*/
-
     private RaspiStatParser parser;
 
     private Location droneLocation;
     private Location userLocation;
-
-    private TCPHandler mTCPHandler;
 
     private boolean mRequestingLocationUpdates = false;
 
@@ -109,7 +96,7 @@ public class FlyManualFlight extends Fragment {
     private int[] codes;
     private String[] data;
 
-    private boolean isArmed = false;
+    private ConnectDisconnectTasks tasks = ConnectDisconnectTasks.getInstance();
 
     public FlyManualFlight() {
         // Required empty public constructor
@@ -120,6 +107,8 @@ public class FlyManualFlight extends Fragment {
         getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         ((MainActivity) getActivity()).closeDrawer();
         super.onResume();
+
+        tasks.setMessageReceiver(this);
 
         if (mapView != null) {
             mapView.onResume();
@@ -169,7 +158,7 @@ public class FlyManualFlight extends Fragment {
     public void onPause() {
         super.onPause();
         getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
-
+        tasks.removeMessageReceiver();
         if (mapView != null) {
             mapView.onPause();
         }
@@ -184,7 +173,7 @@ public class FlyManualFlight extends Fragment {
         Configuration.getInstance().load(ctx, PreferenceManager.getDefaultSharedPreferences(ctx));
     }
 
-    private void configureMap(){
+    private void configureMap() {
         mapView.setMinZoomLevel(7.0);
         mapView.setHorizontalMapRepetitionEnabled(true);
         mapView.setVerticalMapRepetitionEnabled(false);
@@ -209,6 +198,12 @@ public class FlyManualFlight extends Fragment {
 
         stopAnimateErrorText();
         checkShowTargetPrompt();
+
+        if(tasks.isArmed()){
+            arm();
+        }else{
+            unarm();
+        }
         //Try to connect!
 
         return view;
@@ -249,7 +244,7 @@ public class FlyManualFlight extends Fragment {
         setUserMarker(userLocation);
         setDroneMarker(droneLocation);
 
-        Log.i(TAG, mapView.getOverlayManager().size()+"");
+        Log.i(TAG, mapView.getOverlayManager().size() + "");
     }
 
     /*private void initStrings() {
@@ -261,18 +256,18 @@ public class FlyManualFlight extends Fragment {
         velocityTxt = getString(R.string.manual_flight_TxtView_Velocity);
     }*/
 
-    private void fillCodeArray(int... codes){
+    private void fillCodeArray(int... codes) {
         this.codes = codes;
     }
 
-    private void fillDataArray(String... data){
+    private void fillDataArray(String... data) {
         this.data = data;
     }
 
-    private void fillDataArray(int... data){
+    private void fillDataArray(int... data) {
         String[] strData = new String[data.length];
-        for(int i = 0; i<data.length; i++){
-            strData[i] = data[i]+"";
+        for (int i = 0; i < data.length; i++) {
+            strData[i] = data[i] + "";
         }
         fillDataArray(strData);
     }
@@ -283,7 +278,7 @@ public class FlyManualFlight extends Fragment {
             int[][] cmd = interpretThrottleStick(throttle, angle, strength);
             fillCodeArray((byte) cmd[0][0], (byte) cmd[1][0]);
             fillDataArray(cmd[0][1], cmd[1][1]);
-            if(isArmed){
+            if (tasks.isArmed()) {
                 sendData(data, codes);
             }
         });
@@ -293,7 +288,7 @@ public class FlyManualFlight extends Fragment {
             int[][] cmd = interpretDirectionStick(direction, angle, strength);
             fillCodeArray((byte) cmd[0][0], (byte) cmd[1][0]);
             fillDataArray(cmd[0][1], cmd[1][1]);
-            if(isArmed){
+            if (tasks.isArmed()) {
                 sendData(data, codes);
             }
 
@@ -301,16 +296,12 @@ public class FlyManualFlight extends Fragment {
 
     }
 
-    private void sendData(String[] data, int[] codes){
-        if (mTCPHandler != null) {
-            try{
-                OpenDroneFrame f = new OpenDroneFrame((byte) 1, data, codes);
-                mTCPHandler.sendMessage(f.toString());
-            }catch(Exception ex){
-                Log.e(TAG_ERROR, "OpenDroneFrameError", ex);
-            }
-        } else {
-            Log.i(TAG, "mTCPHandler is null (that ah)");
+    private void sendData(String[] data, int[] codes) {
+        try {
+            OpenDroneFrame f = new OpenDroneFrame((byte) 1, data, codes);
+            tasks.sendMessage(f.toString());
+        } catch (Exception ex) {
+            Log.e(TAG_ERROR, "OpenDroneFrameError", ex);
         }
     }
 
@@ -338,64 +329,9 @@ public class FlyManualFlight extends Fragment {
     private void interpretData(String raw) {
         RaspiStat stat = parser.parse(raw);
         stat.doStuff();
-
-        /*String[] dataAr = raw.split(";");
-        String[] values;
-        int code = 0;
-
-        try {
-            code = Integer.parseInt(dataAr[0]);
-            values = getValuesFromDataArray(dataAr, 0);
-        } catch (Exception ex) {
-            Log.e(TAG_ERROR, "ERROR", ex);
-            return;
-        }
-
-        TextView txtView;
-        String format = "";
-        switch (code) {
-            case OpenDroneUtils.CODE_CONTROLLER_TEMP:
-                txtView = controllerTempTxtView;
-                format = controllerTempTxt;
-                values[0] = round(parseDouble(values[0]), 1) + "";
-                break;
-            case OpenDroneUtils.CODE_AIR_TEMP:
-                txtView = airTempTxtView;
-                format = airTempTxt;
-                values[0] = round(parseDouble(values[0]), 1) + "";
-                break;
-            case OpenDroneUtils.CODE_POSITTION:
-                txtView = positionTxtView;
-                format = positionTxt;
-
-                double lat = parseDouble(values[0]);
-                double lng = parseDouble(values[1]);
-                updatePosition(lat, lng);
-                break;
-            case OpenDroneUtils.CODE_HEIGHT:
-                txtView = heightTxtView;
-                format = heightTxt;
-                break;
-            case OpenDroneUtils.CODE_STATUS:
-                txtView = statusTxtView;
-                format = statusTxt;
-                break;
-            case OpenDroneUtils.CODE_VELOCITY:
-                txtView = velocityTxtView;
-                format = velocityTxt;
-                values[0] = round(parseDouble(values[0]), 1) + "";
-                break;
-            case OpenDroneUtils.CODE_ERROR:
-                String error = dataAr[1];
-                showErrorMessage(error);
-            default:
-                return;
-        }
-
-        updateTextViews(txtView, format, values);*/
     }
 
-    private void showErrorMessage(String text){
+    private void showErrorMessage(String text) {
         Toast.makeText(getContext(), text, Toast.LENGTH_LONG).show();
     }
 
@@ -418,35 +354,34 @@ public class FlyManualFlight extends Fragment {
         setDroneLocation(droneLocation);
     }
 
-    private void checkShowTargetPrompt(){
-        boolean isHomeTutorialShown = sp.getBoolean(R.id.homeBtn+"", false );
-        boolean isChangeViewTutorialShown = sp.getBoolean(R.id.changeViewBtn+"", false );
-        boolean isArmStopRotorTutorialShown = sp.getBoolean(R.id.stopRotorBtn+"", false );
+    private void checkShowTargetPrompt() {
+        boolean isHomeTutorialShown = sp.getBoolean(R.id.homeBtn + "", false);
+        boolean isChangeViewTutorialShown = sp.getBoolean(R.id.changeViewBtn + "", false);
+        boolean isArmStopRotorTutorialShown = sp.getBoolean(R.id.stopRotorBtn + "", false);
 
-        if(!isHomeTutorialShown){
+        if (!isHomeTutorialShown) {
             showTargetPrompt(R.id.homeBtn);
             return;
         }
-        if(!isChangeViewTutorialShown){
+        if (!isChangeViewTutorialShown) {
             showTargetPrompt(R.id.changeViewBtn);
             return;
         }
-        if(!isArmStopRotorTutorialShown){
+        if (!isArmStopRotorTutorialShown) {
             showTargetPrompt(R.id.stopRotorBtn);
             return;
         }
     }
 
-    private void showTargetPrompt(int targetID){
+    private void showTargetPrompt(int targetID) {
         Log.i(TAG, "target");
         new MaterialTapTargetPrompt.Builder(getActivity())
                 .setTarget(targetID)
                 .setPrimaryText("Send your first email")
                 .setSecondaryText("Tap the envelope to start composing your first email")
                 .setPromptStateChangeListener((prompt, state) -> {
-                    if (state == MaterialTapTargetPrompt.STATE_FOCAL_PRESSED)
-                    {
-                        sp.edit().putBoolean(targetID+"", true).apply();
+                    if (state == MaterialTapTargetPrompt.STATE_FOCAL_PRESSED) {
+                        sp.edit().putBoolean(targetID + "", true).apply();
                         //checkShowTargetPrompt();
                     }
                 })
@@ -536,49 +471,51 @@ public class FlyManualFlight extends Fragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setMessage(getString(R.string.go_home_alarm_message))
                 .setPositiveButton(getString(R.string.go_home_alarm_pos), (dialog, id) -> sendGoHomeMessage())
-                .setNegativeButton(getString(R.string.go_home_alarm_neg), (dialog, id) -> {
-                    if (mTCPHandler == null) {
-                        Log.i(TAG, "NULL");
-                        return;
-                    }
-                    Log.i(TAG, "Disconnect");
-                    new DisconnectTask().execute();
-                });
+                .setNegativeButton(getString(R.string.go_home_alarm_neg), (dialog, id) -> dialog.dismiss());
         builder.create().show();
         // Create the AlertDialog object and return it
     }
 
-    private void sendGoHomeMessage(){
-        new ConnectTask().execute("");
+    private void sendGoHomeMessage() {
         fillDataArray(1);
         fillCodeArray(OpenDroneUtils.CODE_GO_HOME);
         sendData(data, codes);
     }
 
-    private void sendArmOrAbortMessage(){
-        if(isArmed){
+    private void sendArmOrAbortMessage() {
+        if (tasks.isArmed()) {
             displayStopRotorDialog();
-        }else{
+        } else {
             sendArmMessage();
-            setImageBtnImage(stopRotorBtn, R.drawable.ic_stoprotor);
-            isArmed = true;
+            arm();
         }
     }
 
-    private void sendArmMessage(){
+    private void sendArmMessage() {
         fillCodeArray(OpenDroneUtils.CODE_ARM);
         fillDataArray(1);
         sendData(data, codes);
-        ((MainActivity)getActivity()).canOpenDrawer = false;
+    }
+
+    private void arm(){
+        Log.i(TAG, "ARM");
+        ((MainActivity) getActivity()).canOpenDrawer = false;
+        setImageBtnImage(stopRotorBtn, R.drawable.ic_stoprotor);
+        tasks.setArmed(true);
+    }
+
+    private void unarm(){
+        Log.i(TAG, "UNARM");
+        setImageBtnImage(stopRotorBtn, R.drawable.ic_arm);
+        ((MainActivity) getActivity()).canOpenDrawer = true;
+        tasks.setArmed(false);
     }
 
     private void sendAbortMessage() {
         fillDataArray(1);
         fillCodeArray(OpenDroneUtils.CODE_ABORT);
         sendData(data, codes);
-        setImageBtnImage(stopRotorBtn, R.drawable.ic_arm);
-        ((MainActivity)getActivity()).canOpenDrawer = true;
-        isArmed = false;
+        unarm();
     }
 
     private int[][] interpretThrottleStick(JoystickView stick, int angle, int strength) {
@@ -648,10 +585,10 @@ public class FlyManualFlight extends Fragment {
         return values;
     }
 
-    private void animateErrorText(String error){
+    private void animateErrorText(String error) {
         errorTxtView.setText(String.format(getString(R.string.error_txt), error));
-        AlphaAnimation fadeIn = new AlphaAnimation(0.0f , 1.0f ) ;
-        AlphaAnimation fadeOut = new AlphaAnimation( 1.0f , 0.0f ) ;
+        AlphaAnimation fadeIn = new AlphaAnimation(0.0f, 1.0f);
+        AlphaAnimation fadeOut = new AlphaAnimation(1.0f, 0.0f);
         fadeIn.setRepeatCount(Animation.INFINITE);
         fadeOut.setRepeatCount(Animation.INFINITE);
         fadeIn.setDuration(500);
@@ -661,7 +598,7 @@ public class FlyManualFlight extends Fragment {
         errorTxtView.startAnimation(fadeOut);
     }
 
-    private void stopAnimateErrorText(){
+    private void stopAnimateErrorText() {
         errorTxtView.clearAnimation();
         errorTxtView.setVisibility(View.GONE);
     }
@@ -805,10 +742,15 @@ public class FlyManualFlight extends Fragment {
         };
     }
 
+    @Override
+    public void onMessageReceived(String... values) {
+        interpretData(values[0]);
+    }
+
     /**
      * Disconnects using a background task to avoid doing long/network operations on the UI thread
      */
-    @SuppressLint("StaticFieldLeak")
+    /*@SuppressLint("StaticFieldLeak")
     public class DisconnectTask extends AsyncTask<Void, Void, Void> {
 
         @Override
@@ -855,6 +797,6 @@ public class FlyManualFlight extends Fragment {
             Log.i(TAG, "RECEIVE: " + values[0]);
             interpretData(values[0]);
         }
-    }
+    }*/
 
 }
