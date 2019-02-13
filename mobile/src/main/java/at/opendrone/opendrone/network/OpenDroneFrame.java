@@ -14,19 +14,13 @@ import static java.util.Objects.requireNonNull;
 
 public class OpenDroneFrame {
     private byte slaveID;
-    private byte functionCode1;
-    private int data1;
-    private int parity1;
-    private byte functionCode2;
-    private int data2;
-    private int parity2;
 
     private static final String TAG = "OpenDroneFramy";
 
-    private int[] data;
-    private byte[] functionCodes;
+    private String[] data;
+    private int[] functionCodes;
 
-    public OpenDroneFrame(byte slaveID, int[] data, byte[] functionCodes) throws Exception {
+    public OpenDroneFrame(byte slaveID, String[] data, int[] functionCodes) throws Exception {
         requireNonNull(data);
         requireNonNull(functionCodes);
 
@@ -62,7 +56,7 @@ public class OpenDroneFrame {
         return bytes;
     }
 
-    private int getParity(int data) {
+    private int getParity(double data) {
         if (data % 2 == 0) {
             return 0;
         } else {
@@ -79,12 +73,12 @@ public class OpenDroneFrame {
         str += data.length + "" + terminator;
 
         for (int i = 0; i < data.length; i++) {
-            byte curCode = functionCodes[i];
-            int curData = data[i];
+            int curCode = functionCodes[i];
+            String curData = data[i];
 
             str += (int) curCode + "" + terminator;
             str += curData + "" + terminator;
-            str += getParity(curData) + "" + terminator;
+            str += getParity(Double.parseDouble(curData)) + "" + terminator;
         }
 
         str += "0001010101010101" + terminator;

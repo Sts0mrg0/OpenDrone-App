@@ -25,17 +25,26 @@ public class OpenDroneUtils {
     public static final int LF_FP = 2;
     public static final int LF_FLY = 3;
     public static final int LF_SETTINGS = 4;
+    public static final int LF_ADJUST_PID = 5;
 
-    public static final byte CODE_THROTTLE_UP= (byte) 1;
-    public static final byte CODE_THROTTLE_DOWN= (byte) 2;
-    public static final byte CODE_YAW_RIGHT= (byte) 3;
-    public static final byte CODE_YAW_LEFT= (byte) 4;
-    public static final byte CODE_PITCH_FORWARD= (byte) 5;
-    public static final byte CODE_PITCH_BACKWARD= (byte) 6;
-    public static final byte CODE_ROLL_LEFT= (byte) 7;
-    public static final byte CODE_ROLL_RIGHT= (byte) 8;
-    public static final byte CODE_GO_HOME= (byte) 9;
-    public static final byte CODE_ABORT= (byte) 10;
+    public static final int CODE_THROTTLE_UP= 1;
+    public static final int CODE_THROTTLE = 1;
+    public static final int CODE_THROTTLE_DOWN= 2;
+    public static final int CODE_YAW_RIGHT= 3;
+    public static final int CODE_YAW_LEFT= 4;
+    public static final int CODE_PITCH_FORWARD= 5;
+    public static final int CODE_PITCH_BACKWARD= 6;
+    public static final int CODE_ROLL_LEFT= 7;
+    public static final int CODE_ROLL_RIGHT= 8;
+    public static final int CODE_GO_HOME= 9;
+    public static final int CODE_ABORT= 10;
+    public static final int CODE_ARM = 30;
+    public static final int CODE_CALIBRATE = 20;
+
+    public static final int CODE_PID_P = 333;
+    public static final int CODE_PID_I = 334;
+    public static final int CODE_PID_D = 335;
+
 
     public static final int CODE_LOCAL_FAIL = -1;
     public static final int CODE_CONTROLLER_TEMP = 1;
@@ -46,6 +55,6 @@ public class OpenDroneUtils {
     public static final int CODE_STATUS = 6;
     public static final int CODE_VELOCITY = 7;
     public static final int CODE_ERROR = 255;
-    public static final int CODE_CALIBRATE = 20;
+
     public static final int CODE_CALIBRATE_START = 1;
 }

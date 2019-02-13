@@ -5,6 +5,7 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -49,6 +50,7 @@ import at.opendrone.opendrone.network.TCPHandler;
 import at.opendrone.opendrone.raspistats.RaspiStat;
 import at.opendrone.opendrone.raspistats.RaspiStatParser;
 import io.github.controlwear.virtual.joystick.android.JoystickView;
+import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -82,6 +84,8 @@ public class FlyManualFlight extends Fragment {
     private static final String TAG = "manualFlighty";
     private static final String TAG_ERROR = "errortcpreceive";
 
+    private SharedPreferences sp;
+
     /*private String positionTxt = "";
     private String heightTxt = "";
     private String airTempTxt = "";
@@ -102,8 +106,10 @@ public class FlyManualFlight extends Fragment {
     private LocationCallback mLocationCallback;
     private LocationRequest mLocationRequest;
 
-    private byte[] codes;
-    private int[] data;
+    private int[] codes;
+    private String[] data;
+
+    private boolean isArmed = false;
 
     public FlyManualFlight() {
         // Required empty public constructor
@@ -163,10 +169,6 @@ public class FlyManualFlight extends Fragment {
     public void onPause() {
         super.onPause();
         getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
-        if (mTCPHandler != null) {
-            // disconnect
-            new DisconnectTask().execute();
-        }
 
         if (mapView != null) {
             mapView.onPause();
@@ -194,18 +196,20 @@ public class FlyManualFlight extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragment_fly_manual_flight, container, false);
         loadConfig();
+        view = inflater.inflate(R.layout.fragment_fly_manual_flight, container, false);
+        sp = getActivity().getSharedPreferences("at.opendrone.opendrone", Context.MODE_PRIVATE);
         //initStrings();
         setRetainInstance(true);
+        Log.i(TAG, "onCreate");
         findViews();
         configureMap();
         setValues();
         initJoysticks();
 
         stopAnimateErrorText();
+        checkShowTargetPrompt();
         //Try to connect!
-        //new ConnectTask().execute("");
 
         return view;
     }
@@ -257,12 +261,20 @@ public class FlyManualFlight extends Fragment {
         velocityTxt = getString(R.string.manual_flight_TxtView_Velocity);
     }*/
 
-    private void fillCodeArray(byte... codes){
+    private void fillCodeArray(int... codes){
         this.codes = codes;
     }
 
-    private void fillDataArray(int... data){
+    private void fillDataArray(String... data){
         this.data = data;
+    }
+
+    private void fillDataArray(int... data){
+        String[] strData = new String[data.length];
+        for(int i = 0; i<data.length; i++){
+            strData[i] = data[i]+"";
+        }
+        fillDataArray(strData);
     }
 
     private void initJoysticks() {
@@ -271,7 +283,9 @@ public class FlyManualFlight extends Fragment {
             int[][] cmd = interpretThrottleStick(throttle, angle, strength);
             fillCodeArray((byte) cmd[0][0], (byte) cmd[1][0]);
             fillDataArray(cmd[0][1], cmd[1][1]);
-            sendData(data, codes);
+            if(isArmed){
+                sendData(data, codes);
+            }
         });
 
         direction = view.findViewById(R.id.directionStick);
@@ -279,12 +293,15 @@ public class FlyManualFlight extends Fragment {
             int[][] cmd = interpretDirectionStick(direction, angle, strength);
             fillCodeArray((byte) cmd[0][0], (byte) cmd[1][0]);
             fillDataArray(cmd[0][1], cmd[1][1]);
-            sendData(data, codes);
+            if(isArmed){
+                sendData(data, codes);
+            }
+
         });
 
     }
 
-    private void sendData(int[] data, byte[] codes){
+    private void sendData(String[] data, int[] codes){
         if (mTCPHandler != null) {
             try{
                 OpenDroneFrame f = new OpenDroneFrame((byte) 1, data, codes);
@@ -401,6 +418,41 @@ public class FlyManualFlight extends Fragment {
         setDroneLocation(droneLocation);
     }
 
+    private void checkShowTargetPrompt(){
+        boolean isHomeTutorialShown = sp.getBoolean(R.id.homeBtn+"", false );
+        boolean isChangeViewTutorialShown = sp.getBoolean(R.id.changeViewBtn+"", false );
+        boolean isArmStopRotorTutorialShown = sp.getBoolean(R.id.stopRotorBtn+"", false );
+
+        if(!isHomeTutorialShown){
+            showTargetPrompt(R.id.homeBtn);
+            return;
+        }
+        if(!isChangeViewTutorialShown){
+            showTargetPrompt(R.id.changeViewBtn);
+            return;
+        }
+        if(!isArmStopRotorTutorialShown){
+            showTargetPrompt(R.id.stopRotorBtn);
+            return;
+        }
+    }
+
+    private void showTargetPrompt(int targetID){
+        Log.i(TAG, "target");
+        new MaterialTapTargetPrompt.Builder(getActivity())
+                .setTarget(targetID)
+                .setPrimaryText("Send your first email")
+                .setSecondaryText("Tap the envelope to start composing your first email")
+                .setPromptStateChangeListener((prompt, state) -> {
+                    if (state == MaterialTapTargetPrompt.STATE_FOCAL_PRESSED)
+                    {
+                        sp.edit().putBoolean(targetID+"", true).apply();
+                        //checkShowTargetPrompt();
+                    }
+                })
+                .show();
+    }
+
     private void setValues() {
         /*positionTxtView.setText(String.format(positionTxt, "40°5324324234", "34°5243542352354"));
         //positionTxtView.setText(positionTxtView.getText() + "\nLat: 40°5324324234\nLong: 34°5243542352354");
@@ -428,7 +480,7 @@ public class FlyManualFlight extends Fragment {
         parser = new RaspiStatParser(view, getContext());
 
         homeBtn.setOnClickListener(v -> displayHomeConfirmationDialog());
-        stopRotorBtn.setOnClickListener(v -> displayStopRotorDialog());
+        stopRotorBtn.setOnClickListener(v -> sendArmOrAbortMessage());
         changeViewBtn.setOnClickListener(v -> changeView());
     }
 
@@ -503,11 +555,30 @@ public class FlyManualFlight extends Fragment {
         sendData(data, codes);
     }
 
-    private void sendAbortMessage() {
+    private void sendArmOrAbortMessage(){
+        if(isArmed){
+            displayStopRotorDialog();
+        }else{
+            sendArmMessage();
+            setImageBtnImage(stopRotorBtn, R.drawable.ic_stoprotor);
+            isArmed = true;
+        }
+    }
+
+    private void sendArmMessage(){
+        fillCodeArray(OpenDroneUtils.CODE_ARM);
+        fillDataArray(1);
+        sendData(data, codes);
         ((MainActivity)getActivity()).canOpenDrawer = false;
+    }
+
+    private void sendAbortMessage() {
         fillDataArray(1);
         fillCodeArray(OpenDroneUtils.CODE_ABORT);
         sendData(data, codes);
+        setImageBtnImage(stopRotorBtn, R.drawable.ic_arm);
+        ((MainActivity)getActivity()).canOpenDrawer = true;
+        isArmed = false;
     }
 
     private int[][] interpretThrottleStick(JoystickView stick, int angle, int strength) {
@@ -529,7 +600,9 @@ public class FlyManualFlight extends Fragment {
 
         //Calculation for the y-axis
         int opposite = (int) (Math.sin(rad) * hypothenusis);
-        if (opposite < 0) {
+        values[1][0] = OpenDroneUtils.CODE_THROTTLE;
+        values[1][1] = opposite;
+        /*if (opposite < 0) {
             //returnValue += OpenDroneUtils.CODE_THROTTLE_DOWN + "," + (opposite*(-1)) + ";";
             values[1][0] = OpenDroneUtils.CODE_THROTTLE_DOWN;
             values[1][1] = (opposite * (-1));
@@ -537,7 +610,7 @@ public class FlyManualFlight extends Fragment {
             //returnValue += OpenDroneUtils.CODE_THROTTLE_UP + "," + opposite + ";";
             values[1][0] = OpenDroneUtils.CODE_THROTTLE_UP;
             values[1][1] = opposite;
-        }
+        }*/
 
         Log.i("manualFlightys", values[1][1] + "");
 
