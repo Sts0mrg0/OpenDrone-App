@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".AdjustPIDFragment">
+
+    <at.opendrone.opendrone.CustomFontTextView
+        android:id="@+id/adjustPIDPTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/adjust_pid_p"
+        android:textAlignment="center"
+        android:textColor="@color/primaryTextColor"
+        android:textSize="30sp"
+        app:customFont="Roboto-Bold.ttf"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <SeekBar
+        android:id="@+id/seekbarP"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:max="1000"
+        android:layout_margin="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/adjustPIDPTextView" />
+
+    <at.opendrone.opendrone.CustomFontTextView
+        android:id="@+id/adjustPIDITextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/adjust_pid_i"
+        android:textAlignment="center"
+        android:textColor="@color/primaryTextColor"
+        android:textSize="30sp"
+        android:layout_marginTop="16dp"
+        app:customFont="Roboto-Bold.ttf"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/seekbarP" />
+
+
+    <SeekBar
+        android:id="@+id/seekbarI"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:max="1000"
+        android:layout_margin="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/adjustPIDITextView" />
+
+    <at.opendrone.opendrone.CustomFontTextView
+        android:id="@+id/adjustPIDDTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/adjust_pid_d"
+        android:textAlignment="center"
+        android:textColor="@color/primaryTextColor"
+        android:textSize="30sp"
+        app:customFont="Roboto-Bold.ttf"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/seekbarI" />
+
+
+    <SeekBar
+        android:id="@+id/seekbarD"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:max="1000"
+        android:layout_margin="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/adjustPIDDTextView" />
+
+    <at.opendrone.opendrone.CustomFontTextView
+        android:id="@+id/adjustPIDConnectionTxtView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/adjust_pid_connected"
+        android:textColor="@color/primaryTextColor"
+        android:textSize="20sp"
+        android:textAlignment="center"
+        app:customFont="Roboto-Regular.ttf"
+        app:layout_constraintTop_toBottomOf="@+id/seekbarD" />
+
+    <Button
+        android:id="@+id/adjustPIDConnectButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="#00FFFFFF"
+        android:text="@string/adjust_pid_connect"
+        android:textColor="@color/primaryColor"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@+id/adjustPIDConnectionTxtView" />
+
+    <Button
+        android:id="@+id/adjustPIDResetButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="#00FFFFFF"
+        android:text="@string/adjust_pid_reset_values"
+        android:textColor="@color/primaryColor"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@+id/adjustPIDConnectButton" />
+</android.support.constraint.ConstraintLayout>

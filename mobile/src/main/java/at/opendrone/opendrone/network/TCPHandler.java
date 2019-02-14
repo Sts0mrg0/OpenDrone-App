@@ -19,7 +19,7 @@ public class TCPHandler {
     // sends message received notifications
     private OnMessageReceived mMessageListener = null;
     // while this is true, the server will continue running
-    private boolean mRun = false;
+    protected boolean mRun = false;
     // used to send messages
     private PrintWriter mBufferOut;
     // used to read messages from the server
@@ -60,18 +60,23 @@ public class TCPHandler {
      * Close the connection and release the members
      */
     public void stopClient() {
-
+        Log.i(TAG, " stop");
         mRun = false;
-
+        Log.i(TAG, mRun+" run");
         if (mBufferOut != null) {
             mBufferOut.flush();
             mBufferOut.close();
+            Log.i(TAG, mBufferOut.checkError()+" <ERROR");
         }
-
+        Log.i(TAG, " after if");
         mMessageListener = null;
+        Log.i(TAG, (mMessageListener == null)?"null":"not null"+" after if");
         mBufferIn = null;
+        Log.i(TAG, (mBufferIn == null)?"null":"not null"+" after if");
         mBufferOut = null;
+        Log.i(TAG, (mBufferOut == null)?"null":"not null"+" after if");
         mServerMessage = null;
+        Log.i(TAG, (mServerMessage == null)?"null":"not null"+" after if");
     }
 
     public void run() {

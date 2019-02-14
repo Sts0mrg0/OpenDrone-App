@@ -35,7 +35,7 @@ import com.microsoft.appcenter.crashes.Crashes;
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-
+    private static final boolean INEEDPIDCONTROLS = true;
     //public static TCPSend client;
     public static FragmentManager fm;
 
@@ -45,17 +45,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private int lastFragment;
 
     public boolean canOpenDrawer = true;
-
-    private void initFragments() {
-        /*Do this when changing Fragment:
-
-        HomeFragment defFragment = new HomeFragment();
-
-        FragmentTransaction ft  =fm.beginTransaction();
-        ft.replace(R.id.frameLayout_FragmentContainer, defFragment);
-        ft.commit();*/
-    }
-
 
     private void initToolbar() {
         Toolbar toolbar = findViewById(R.id.toolbar_Main);
@@ -69,6 +58,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private void initNavView() {
         drawerLayout = findViewById(R.id.drawerLayout);
         NavigationView navView = findViewById(R.id.navView);
+
+        if(INEEDPIDCONTROLS){
+            navView.inflateMenu(R.menu.navview_dev);
+        }else{
+            navView.inflateMenu(R.menu.navview);
+        }
 
         navView.setNavigationItemSelectedListener(this);
     }
@@ -176,26 +171,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setSensorOrientation();
         switch (item.getItemId()) {
             case R.id.navItem_Home:
-                //clearContainer();
                 initHomeFragment();
                 closeDrawer();
                 return true;
             case R.id.navItem_Drones:
-                //Toast.makeText(getApplicationContext(), "Pressed Drones", Toast.LENGTH_SHORT).show();
-                //initDroneSettingsFragment();
-                //clearContainer();
                 initDronesFragment();
                 closeDrawer();
                 return true;
             case R.id.navItem_FlightPlanner:
-                //clearContainer();
-                //Toast.makeText(getApplicationContext(), "Pressed FlightPlanner", Toast.LENGTH_SHORT).show();
                 initFlightplaner();
                 closeDrawer();
                 return true;
             case R.id.navItem_Fly:
-                //clearContainer();
-                //Toast.makeText(getApplicationContext(), "Pressed Fly", Toast.LENGTH_SHORT).show();
                 initFlyStartFragment();
                 closeDrawer();
                 return true;
@@ -205,6 +192,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.navItem_Github:
                 Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/OpenDroneAT"));
                 startActivity(browserIntent);
+                return true;
+            case R.id.navItem_PID:
+                initPIDAdjustFragment();
+                closeDrawer();
                 return true;
             case R.id.navItem_Settings:
                 initSettingsFragment();
@@ -271,6 +262,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         fragmentTransaction.replace(fragmentContainer.getId(), fragment);
         fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
         fragmentTransaction.commit();
+    }
+
+    private void initPIDAdjustFragment(){
+        lastFragment = OpenDroneUtils.LF_ADJUST_PID;
+        AdjustPIDFragment fragment = new AdjustPIDFragment();
+        updateFragment(fragment);
     }
 
 

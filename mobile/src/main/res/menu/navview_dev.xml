@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Last modified: 06.09.18 16:46
+  ~ Copyright (c) OpenDrone, 2018.  All rights reserved.
+  ~ The entire project (including this file) is licensed under the GNU GPL v3.0
+  -->
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:id="@+id/nav_group_app">
+        <item
+            android:id="@+id/navItem_Home"
+            android:icon="@drawable/ic_home"
+            android:title="@string/navItem_Home" />
+        <item
+            android:id="@+id/navItem_Drones"
+            android:icon="@drawable/opendrone_logo"
+            android:title="@string/navItem_Drones" />
+        <item
+            android:id="@+id/navItem_FlightPlanner"
+            android:icon="@drawable/ic_flightplaner"
+            android:title="@string/navItem_FlightPlanner" />
+        <item
+            android:id="@+id/navItem_Fly"
+            android:icon="@drawable/ic_fly"
+            android:title="@string/navItem_Fly" />
+        <item
+            android:id="@+id/navItem_Settings"
+            android:icon="@drawable/ic_settings"
+            android:title="@string/navItem_Settings" />
+        <item
+            android:id="@+id/navItem_PID"
+            android:icon="@drawable/ic_pid"
+            android:title="@string/navItem_PID" />
+    </group>
+    <group android:id="@+id/nav_group_social">
+        <item
+            android:id="@+id/navItem_Libs"
+            android:icon="@drawable/ic_used_libraries"
+            android:title="@string/navItem_Libs" />
+        <item
+            android:id="@+id/navItem_Github"
+            android:icon="@drawable/ic_github_logo"
+            android:title="@string/navItem_Github" />
+    </group>
+</menu>
