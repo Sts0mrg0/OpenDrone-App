@@ -58,6 +58,10 @@ import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt;
  * A simple {@link Fragment} subclass.
  */
 public class FlyManualFlight extends Fragment implements TCPMessageReceiver {
+    private static final String TAG = "manualFlighty";
+    private static final String TAG_ERROR = "errortcpreceive";
+    private static final int MIN_MOTOR_VALUE = 1000;
+    private static final int MAX_MOTOR_VALUE = 2000;
 
     private View view;
     private JoystickView throttle;
@@ -73,12 +77,6 @@ public class FlyManualFlight extends Fragment implements TCPMessageReceiver {
     private FrameLayout cameraView;
 
     private boolean mapViewShown = false;
-
-    public static final String TARGET = "192.168.1.254";
-    public static final int PORT = 2018;
-
-    private static final String TAG = "manualFlighty";
-    private static final String TAG_ERROR = "errortcpreceive";
 
     private SharedPreferences sp;
 
@@ -193,7 +191,6 @@ public class FlyManualFlight extends Fragment implements TCPMessageReceiver {
         Log.i(TAG, "onCreate");
         findViews();
         configureMap();
-        setValues();
         initJoysticks();
 
         stopAnimateErrorText();
@@ -247,15 +244,6 @@ public class FlyManualFlight extends Fragment implements TCPMessageReceiver {
         Log.i(TAG, mapView.getOverlayManager().size() + "");
     }
 
-    /*private void initStrings() {
-        positionTxt = getString(R.string.manual_flight_TxtView_Position);
-        heightTxt = getString(R.string.manual_flight_TxtView_Height);
-        airTempTxt = getString(R.string.manual_flight_TxtView_AirTemp);
-        controllerTempTxt = getString(R.string.manual_flight_TxtView_ControllerTemp);
-        statusTxt = getString(R.string.manual_flight_TxtView_Status);
-        velocityTxt = getString(R.string.manual_flight_TxtView_Velocity);
-    }*/
-
     private void fillCodeArray(int... codes) {
         this.codes = codes;
     }
@@ -303,27 +291,6 @@ public class FlyManualFlight extends Fragment implements TCPMessageReceiver {
         } catch (Exception ex) {
             Log.e(TAG_ERROR, "OpenDroneFrameError", ex);
         }
-    }
-
-    private static double round(double value, int precision) {
-        int scale = (int) Math.pow(10, precision);
-        return (double) Math.round(value * scale) / scale;
-    }
-
-    private String[] getValuesFromDataArray(String[] data, int fieldWithoutData) {
-        if (data == null || data.length <= 1) {
-            return new String[0];
-        }
-        ArrayList<String> ar = new ArrayList<>();
-
-        for (int i = 0; i < data.length; i++) {
-            if (i == fieldWithoutData) {
-                continue;
-            }
-            ar.add(data[i]);
-        }
-
-        return ar.toArray(new String[ar.size()]);
     }
 
     private void interpretData(String raw) {
@@ -388,23 +355,7 @@ public class FlyManualFlight extends Fragment implements TCPMessageReceiver {
                 .show();
     }
 
-    private void setValues() {
-        /*positionTxtView.setText(String.format(positionTxt, "40°5324324234", "34°5243542352354"));
-        //positionTxtView.setText(positionTxtView.getText() + "\nLat: 40°5324324234\nLong: 34°5243542352354");
-        heightTxtView.setText(String.format(heightTxt, "120"));
-        airTempTxtView.setText(String.format(airTempTxt, "14.8"));
-        controllerTempTxtView.setText(String.format(controllerTempTxt, "120"));
-        statusTxtView.setText(String.format(statusTxt, "OK"));
-        velocityTxtView.setText(String.format(velocityTxt, "302"));*/
-    }
-
     private void findViews() {
-        /*positionTxtView = view.findViewById(R.id.txt_MF_Position);
-        heightTxtView = view.findViewById(R.id.txt_MF_Height);
-        airTempTxtView = view.findViewById(R.id.txt_MF_AirTemp);
-        controllerTempTxtView = view.findViewById(R.id.txt_MF_ControllerTemp);
-        statusTxtView = view.findViewById(R.id.txt_MF_Connection);
-        velocityTxtView = view.findViewById(R.id.txt_MF_Velocity);*/
         homeBtn = view.findViewById(R.id.homeBtn);
         changeViewBtn = view.findViewById(R.id.changeViewBtn);
         stopRotorBtn = view.findViewById(R.id.stopRotorBtn);
@@ -518,14 +469,30 @@ public class FlyManualFlight extends Fragment implements TCPMessageReceiver {
         unarm();
     }
 
+    private int getPercentFromSticks(int center, int value){
+        int percent = center+value/2;
+        if(percent < 0){
+            percent = 0;
+        }
+        if(percent>100){
+            percent = 100;
+        }
+        return percent;
+    }
+
     private int[][] interpretThrottleStick(JoystickView stick, int angle, int strength) {
         int[][] values = new int[2][2];
         double rad = angle * Math.PI / 180;
+        int percent;
+        int powerDifference = MAX_MOTOR_VALUE - MIN_MOTOR_VALUE;
 
         //Calculation for the x-axis
         double hypothenusis = strength;
         int adjacentX = (int) (Math.cos(rad) * hypothenusis);
-        if (adjacentX < 0) {
+        percent = getPercentFromSticks(50, adjacentX);
+        values[0][0] = OpenDroneUtils.CODE_YAW;
+        values[0][1] = MIN_MOTOR_VALUE+(int)(powerDifference * (percent/100.0));
+        /*if (adjacentX < 0) {
             //returnValue += OpenDroneUtils.CODE_YAW_LEFT + "," + (adjacentX*(-1)) + ";";
             values[0][0] = OpenDroneUtils.CODE_YAW_LEFT;
             values[0][1] = (adjacentX * (-1));
@@ -533,12 +500,15 @@ public class FlyManualFlight extends Fragment implements TCPMessageReceiver {
             //returnValue += OpenDroneUtils.CODE_YAW_RIGHT + "," + adjacentX + ";";
             values[0][0] = OpenDroneUtils.CODE_YAW_RIGHT;
             values[0][1] = adjacentX;
-        }
+        }*/
 
         //Calculation for the y-axis
         int opposite = (int) (Math.sin(rad) * hypothenusis);
+        //values[1][1] = opposite;
+        percent = getPercentFromSticks(50, opposite);
+
         values[1][0] = OpenDroneUtils.CODE_THROTTLE;
-        values[1][1] = opposite;
+        values[1][1] = MIN_MOTOR_VALUE+(int)(powerDifference * (percent/100.0));
         /*if (opposite < 0) {
             //returnValue += OpenDroneUtils.CODE_THROTTLE_DOWN + "," + (opposite*(-1)) + ";";
             values[1][0] = OpenDroneUtils.CODE_THROTTLE_DOWN;
