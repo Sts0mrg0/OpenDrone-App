@@ -31,11 +31,14 @@ public class OpenDroneUtils {
     public static final int CODE_THROTTLE = 1;
     public static final int CODE_THROTTLE_DOWN= 2;
     public static final int CODE_YAW_RIGHT= 3;
+    public static final int CODE_YAW= 2;
     public static final int CODE_YAW_LEFT= 4;
     public static final int CODE_PITCH_FORWARD= 5;
     public static final int CODE_PITCH_BACKWARD= 6;
+    public static final int CODE_PITCH= 3;
     public static final int CODE_ROLL_LEFT= 7;
     public static final int CODE_ROLL_RIGHT= 8;
+    public static final int CODE_ROLL= 4;
     public static final int CODE_GO_HOME= 9;
     public static final int CODE_ABORT= 10;
     public static final int CODE_ARM = 30;

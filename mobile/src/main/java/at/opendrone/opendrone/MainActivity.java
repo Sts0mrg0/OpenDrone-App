@@ -34,10 +34,13 @@ import com.microsoft.appcenter.crashes.Crashes;
 
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity;
 
+import at.opendrone.opendrone.network.ConnectDisconnectTasks;
+
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private static final boolean INEEDPIDCONTROLS = true;
     //public static TCPSend client;
     public static FragmentManager fm;
+    private ConnectDisconnectTasks tasks = ConnectDisconnectTasks.getInstance();
 
     public DrawerLayout drawerLayout;
     private boolean isOpened = false;
