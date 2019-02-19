@@ -23,15 +23,21 @@ import android.widget.TextView;
 
 import com.wang.avi.AVLoadingIndicatorView;
 
+import at.opendrone.opendrone.network.ConnectDisconnectTasks;
+import at.opendrone.opendrone.network.OpenDroneFrame;
+
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class DroneCalibrationActivity extends AppCompatActivity {
+    private static final String TAG = "DroneCalibraty";
 
     private Button btn_calibration;
     private TextView txtView_calibration;
     private AVLoadingIndicatorView avi;
+
+    private ConnectDisconnectTasks tasks = ConnectDisconnectTasks.getInstance();
 
     private Drone drone;
     private String mode;
@@ -83,12 +89,7 @@ public class DroneCalibrationActivity extends AppCompatActivity {
         txtView_calibration = findViewById(R.id.txtView_calibration);
         avi = findViewById(R.id.avi);
 
-        btn_calibration.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startCalibration();
-            }
-        });
+        btn_calibration.setOnClickListener(v -> startCalibration());
 
 
     }
@@ -97,6 +98,12 @@ public class DroneCalibrationActivity extends AppCompatActivity {
         avi.show();
         txtView_calibration.setText(R.string.txt_calibration_inprogress);
 
+        try {
+            OpenDroneFrame frame = new OpenDroneFrame((byte)1, new String[]{"1"}, new int[OpenDroneUtils.CODE_CALIBRATE]);
+            tasks.sendMessage(frame.toString());
+        } catch (Exception e) {
+            Log.e(TAG, e.getMessage(),e);
+        }
         //TODO: Calibration
 
         txtView_calibration.setText(R.string.txt_calibration_end);

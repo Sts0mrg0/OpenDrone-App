@@ -27,18 +27,10 @@ public class OpenDroneUtils {
     public static final int LF_SETTINGS = 4;
     public static final int LF_ADJUST_PID = 5;
 
-    public static final int CODE_THROTTLE_UP= 1;
     public static final int CODE_THROTTLE = 1;
-    public static final int CODE_THROTTLE_DOWN= 2;
-    public static final int CODE_YAW_RIGHT= 3;
-    public static final int CODE_YAW= 2;
-    public static final int CODE_YAW_LEFT= 4;
-    public static final int CODE_PITCH_FORWARD= 5;
-    public static final int CODE_PITCH_BACKWARD= 6;
-    public static final int CODE_PITCH= 3;
-    public static final int CODE_ROLL_LEFT= 7;
-    public static final int CODE_ROLL_RIGHT= 8;
-    public static final int CODE_ROLL= 4;
+    public static final int CODE_YAW= 3;
+    public static final int CODE_PITCH= 5;
+    public static final int CODE_ROLL= 7;
     public static final int CODE_GO_HOME= 9;
     public static final int CODE_ABORT= 10;
     public static final int CODE_ARM = 30;
@@ -47,7 +39,6 @@ public class OpenDroneUtils {
     public static final int CODE_PID_P = 333;
     public static final int CODE_PID_I = 334;
     public static final int CODE_PID_D = 335;
-
 
     public static final int CODE_LOCAL_FAIL = -1;
     public static final int CODE_CONTROLLER_TEMP = 1;
