@@ -62,6 +62,7 @@ public class FlyManualFlight extends Fragment implements TCPMessageReceiver {
     private static final String TAG_ERROR = "errortcpreceive";
     private static final int MIN_MOTOR_VALUE = 1000;
     private static final int MAX_MOTOR_VALUE = 2000;
+    private static final int TOLERANCE_PERCENT = 5;
 
     private View view;
     private JoystickView throttle;
@@ -93,6 +94,8 @@ public class FlyManualFlight extends Fragment implements TCPMessageReceiver {
 
     private int[] codes;
     private String[] data;
+
+    private boolean stickTouchedBottom = false;
 
     private ConnectDisconnectTasks tasks = ConnectDisconnectTasks.getInstance();
 
@@ -240,8 +243,6 @@ public class FlyManualFlight extends Fragment implements TCPMessageReceiver {
         mapView.getOverlayManager().clear();
         setUserMarker(userLocation);
         setDroneMarker(droneLocation);
-
-        Log.i(TAG, mapView.getOverlayManager().size() + "");
     }
 
     private void fillCodeArray(int... codes) {
@@ -266,7 +267,7 @@ public class FlyManualFlight extends Fragment implements TCPMessageReceiver {
             int[][] cmd = interpretThrottleStick(throttle, angle, strength);
             fillCodeArray((byte) cmd[0][0], (byte) cmd[1][0]);
             fillDataArray(cmd[0][1], cmd[1][1]);
-            if (tasks.isArmed()) {
+            if (tasks.isArmed() && stickTouchedBottom) {
                 sendData(data, codes);
             }
         });
@@ -288,6 +289,7 @@ public class FlyManualFlight extends Fragment implements TCPMessageReceiver {
         try {
             OpenDroneFrame f = new OpenDroneFrame((byte) 1, data, codes);
             tasks.sendMessage(f.toString());
+            Log.i(TAG, f.toString());
         } catch (Exception ex) {
             Log.e(TAG_ERROR, "OpenDroneFrameError", ex);
         }
@@ -453,6 +455,7 @@ public class FlyManualFlight extends Fragment implements TCPMessageReceiver {
         ((MainActivity) getActivity()).canOpenDrawer = false;
         setImageBtnImage(stopRotorBtn, R.drawable.ic_stoprotor);
         tasks.setArmed(true);
+        Toast.makeText(getContext(), getResources().getString(R.string.manualflight_move_stick_down), Toast.LENGTH_LONG).show();
     }
 
     private void unarm(){
@@ -466,6 +469,7 @@ public class FlyManualFlight extends Fragment implements TCPMessageReceiver {
         fillDataArray(1);
         fillCodeArray(OpenDroneUtils.CODE_ABORT);
         sendData(data, codes);
+        Log.i(TAG, "CRASH");
         unarm();
     }
 
@@ -492,16 +496,6 @@ public class FlyManualFlight extends Fragment implements TCPMessageReceiver {
         percent = getPercentFromSticks(50, adjacentX);
         values[0][0] = OpenDroneUtils.CODE_YAW;
         values[0][1] = MIN_MOTOR_VALUE+(int)(powerDifference * (percent/100.0));
-        /*if (adjacentX < 0) {
-            //returnValue += OpenDroneUtils.CODE_YAW_LEFT + "," + (adjacentX*(-1)) + ";";
-            values[0][0] = OpenDroneUtils.CODE_YAW_LEFT;
-            values[0][1] = (adjacentX * (-1));
-        } else {
-            //returnValue += OpenDroneUtils.CODE_YAW_RIGHT + "," + adjacentX + ";";
-            values[0][0] = OpenDroneUtils.CODE_YAW_RIGHT;
-            values[0][1] = adjacentX;
-        }*/
-
         //Calculation for the y-axis
         int opposite = (int) (Math.sin(rad) * hypothenusis);
         //values[1][1] = opposite;
@@ -509,17 +503,11 @@ public class FlyManualFlight extends Fragment implements TCPMessageReceiver {
 
         values[1][0] = OpenDroneUtils.CODE_THROTTLE;
         values[1][1] = MIN_MOTOR_VALUE+(int)(powerDifference * (percent/100.0));
-        /*if (opposite < 0) {
-            //returnValue += OpenDroneUtils.CODE_THROTTLE_DOWN + "," + (opposite*(-1)) + ";";
-            values[1][0] = OpenDroneUtils.CODE_THROTTLE_DOWN;
-            values[1][1] = (opposite * (-1));
-        } else {
-            //returnValue += OpenDroneUtils.CODE_THROTTLE_UP + "," + opposite + ";";
-            values[1][0] = OpenDroneUtils.CODE_THROTTLE_UP;
-            values[1][1] = opposite;
-        }*/
 
-        Log.i("manualFlightys", values[1][1] + "");
+        if(values[1][1] <= MIN_MOTOR_VALUE+(MIN_MOTOR_VALUE*TOLERANCE_PERCENT/100) && values[1][1] >= MIN_MOTOR_VALUE){
+            stickTouchedBottom=true;
+        }
+
 
         return values;
     }
@@ -527,11 +515,16 @@ public class FlyManualFlight extends Fragment implements TCPMessageReceiver {
     private int[][] interpretDirectionStick(JoystickView stick, int angle, int strength) {
         int[][] values = new int[2][2];
         double rad = angle * Math.PI / 180;
+        int percent;
+        int powerDifference = MAX_MOTOR_VALUE - MIN_MOTOR_VALUE;
 
         //Calculation for the x-axis
         double hypothenusis = strength;
         int adjacentX = (int) (Math.cos(rad) * hypothenusis);
-        if (adjacentX < 0) {
+        percent = getPercentFromSticks(50, adjacentX);
+        values[0][0] = OpenDroneUtils.CODE_ROLL;
+        values[0][1] = MIN_MOTOR_VALUE+(int)(powerDifference * (percent/100.0));
+        /*if (adjacentX < 0) {
             values[0][0] = OpenDroneUtils.CODE_ROLL_LEFT;
             values[0][1] = (adjacentX * (-1));
             //returnValue += OpenDroneUtils.CODE_ROLL_LEFT + "," + (adjacentX*(-1)) + ";";
@@ -539,11 +532,14 @@ public class FlyManualFlight extends Fragment implements TCPMessageReceiver {
             values[0][0] = OpenDroneUtils.CODE_ROLL_RIGHT;
             values[0][1] = adjacentX;
             //returnValue += OpenDroneUtils.CODE_ROLL_RIGHT + "," + adjacentX + ";";
-        }
+        }*/
 
         //Calculation for the y-axis
         int opposite = (int) (Math.sin(rad) * hypothenusis);
-        if (opposite < 0) {
+        percent = getPercentFromSticks(50, opposite);
+        values[1][0] = OpenDroneUtils.CODE_PITCH;
+        values[1][1] = MIN_MOTOR_VALUE+(int)(powerDifference * (percent/100.0));
+        /*if (opposite < 0) {
             values[1][0] = OpenDroneUtils.CODE_PITCH_BACKWARD;
             values[1][1] = (opposite * (-1));
             //returnValue += OpenDroneUtils.CODE_PITCH_BACKWARD + "," + (opposite*(-1)) + ";";
@@ -551,7 +547,7 @@ public class FlyManualFlight extends Fragment implements TCPMessageReceiver {
             values[1][0] = OpenDroneUtils.CODE_PITCH_FORWARD;
             values[1][1] = opposite;
             //returnValue += OpenDroneUtils.CODE_PITCH_FORWARD + "," + opposite + ";";
-        }
+        }*/
         return values;
     }
 
@@ -716,57 +712,5 @@ public class FlyManualFlight extends Fragment implements TCPMessageReceiver {
     public void onMessageReceived(String... values) {
         interpretData(values[0]);
     }
-
-    /**
-     * Disconnects using a background task to avoid doing long/network operations on the UI thread
-     */
-    /*@SuppressLint("StaticFieldLeak")
-    public class DisconnectTask extends AsyncTask<Void, Void, Void> {
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-
-            // disconnect
-            mTCPHandler.stopClient();
-            mTCPHandler = null;
-
-            Log.i(TAG, (mTCPHandler == null) + "");
-
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void nothing) {
-            super.onPostExecute(nothing);
-        }
-    }
-
-    @SuppressLint("StaticFieldLeak")
-    public class ConnectTask extends AsyncTask<String, String, TCPHandler> {
-
-        @Override
-        protected TCPHandler doInBackground(String... message) {
-
-            //we create a TCPClient object and
-            mTCPHandler = new TCPHandler(TARGET, PORT, new TCPHandler.OnMessageReceived() {
-                @Override
-                //here the messageReceived method is implemented
-                public void messageReceived(String message) {
-                    //this method calls the onProgressUpdate
-                    publishProgress(message);
-                }
-            });
-            mTCPHandler.run();
-
-            return null;
-        }
-
-        @Override
-        protected void onProgressUpdate(String... values) {
-            super.onProgressUpdate(values);
-            Log.i(TAG, "RECEIVE: " + values[0]);
-            interpretData(values[0]);
-        }
-    }*/
 
 }
