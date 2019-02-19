@@ -28,7 +28,6 @@ import android.widget.Toast;
  */
 public class SettingsFragment extends Fragment {
 
-
     private Switch profiSwitch;
     private EditText maxHeight;
     private Spinner language;
@@ -76,6 +75,7 @@ public class SettingsFragment extends Fragment {
                     proMode = false;
                     maxHeight.setEnabled(false);
                 }
+                ((MainActivity)getActivity()).initNavView();
 
             }
         });
@@ -131,6 +131,7 @@ public class SettingsFragment extends Fragment {
         profiSwitch.setChecked(proMode);
         maxHeight.setEnabled(proMode);
         maxHeight.setText(""+sp.getInt(OpenDroneUtils.SP_SETTINGS_MAXHEIGHT,0));
+
     }
 
     private void configureLanguageSpinner(){
