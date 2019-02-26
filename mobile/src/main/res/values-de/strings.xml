@@ -1,0 +1,104 @@
+<!--
+  ~ Last modified: 09.09.18 18:56
+  ~ Copyright (c) OpenDrone, 2018.  All rights reserved.
+  ~ The entire project (including this file) is licensed under the GNU GPL v3.0
+  -->
+
+<resources>
+    <string name="app_name">OpenDrone</string>
+
+    <!--MainActivity-->
+    <string name="demo_btn_txt">OpenDrone is awesome!</string>
+
+    <!--Drawer-->
+    <string name="opd_nav_settings">Einstellungen</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hallo blank fragment</string>
+    <string name="txtView_Calibration">Kalibrierung</string>
+    <string name="txtView_PinConfiguration">Pin-Konfiguration</string>
+    <string name="txt_DroneName">Drohnen Name</string>
+    <string name="txtView_DroneTyp">Drohnen Typ</string>
+    <string name="navItem_FlightPlanner">Flugplaner</string>
+    <string name="navItem_Drones">Drohnen</string>
+    <string name="navItem_Fly">Flug</string>
+    <string name="navItem_Home">Home</string>
+    <string name="navItem_Settings">Einstellungen</string>
+    <string name="navItem_Libs">Benutzte Bibliotheken</string>
+    <string name="navItem_PID">PID adjustieren</string>
+    <string name="txt_Drone_description">Drohnen Beschreibung</string>
+    <string name="btn_saveChanges">Speichern</string>
+    <string name="txt_calibration">Platziere die Drohne auf einer ebenen Fläche</string>
+    <string name="btn_calibration">Kalibrierung starten</string>
+    <string name="txt_calibration_inprogress">Kalibrierung wird durchgeführt, bewege die Drohne nicht!</string>
+    <string name="txt_calibration_end">Kalibrierung erfolgreich</string>
+    <string name="btn_Fly">Flug</string>
+    <string name="btn_TestConn">Verbindung testen</string>
+    <string name="btn_Land">Landen</string>
+    <string name="btn_GoHome">Go Home</string>
+    <string name="btn_Control">Kontrolle übernehmen</string>
+    <string name="txtView_FlightMode">Flugmodus</string>
+    <string name="txtView_Mission">Flugmodus</string>
+    <string name="imgView_Logo_Description">Unser Produkt-Logo</string>
+    <string name="imageView_DronePicture_Description">Das Bild der gespeicherten Drohne. Wenn kein Bild vorhanden ist wird das Logo als Bild verwendet</string>
+    <string name="btn_Settings">Einstellungen</string>
+    <string name="editTxt_DroneName_Error">Das Feld darf nicht leer sein</string>
+    <string name="toolbar_Calibrate">Kalibrierung</string>
+    <string name="toolbar_PinConfiguration">Pin Konfiguration</string>
+    <string name="alertDialog_Delete">Möchtest du die Drohne wirklich entfernen?</string>
+    <string name="alertDialog_Accept">Ja!</string>
+    <string name="alertDialog_Deny">Nein!</string>
+    <string name="alertDialog_Picture_Title">Neues oder existierendes Bild verwenden?</string>
+    <string name="alertDialog_Picture_Message">Wir haben gehört, dass du ein neues Bild verwenden möchten. Möchtest du ein neues Bild aufnehmen oder möchtest du ein bereits vorhandenes Bild aus der Gallerie nehmen?</string>
+    <string name="alertDialog_Picture_Positive">Kamera</string>
+    <string name="alertDialog_Picture_Negative">Gallerie</string>
+    <string name="exception_sorry">Error</string>
+    <string name="exception_no_location">Bitte schalte dein GPS in den Einstellungen deines Smartphones ein</string>
+    <string name="manual_flight_change_speed">Geschwindigkeit anpassen</string>
+    <string name="manual_flight_ip_txt">Gib die IP-Adresse ein, zu der du dich verbinden willst</string>
+    <string name="manual_flight_connection_failed">Es konnte keine Verbindung zur Drohne aufgebaut werden/</string>
+    <string name="manual_flight_connection_success">Verbunden</string>
+    <string name="manual_flight_TxtView_Position">Lat: %1$s\nLng: %2$s</string>
+    <string name="manual_flight_TxtView_Height">%1$sm</string>
+    <string name="manual_flight_TxtView_AirTemp">Lufttemperatur: %1$s°C</string>
+    <string name="manual_flight_TxtView_ControllerTemp">Controller-Temp: %1$s°C</string>
+    <string name="manual_flight_TxtView_Status">Status: %1$s</string>
+    <string name="manual_flight_TxtView_Velocity">%1$s km/h</string>
+    <string name="stop_rotor_alarm_message">Möchtest du wirklich alle Motoren stoppen? Dies wird in einem unkontrollierten Absturz enden!</string>
+    <string name="stop_rotor_alarm_pos">Ja!</string>
+    <string name="stop_rotor_alarm_neg">Nein!</string>
+    <string name="go_home_alarm_message">Möchtest du wirklich die Drohne nach Hause fliegen lassen?</string>
+    <string name="go_home_alarm_pos">Verdammt ja!</string>
+    <string name="go_home_alarm_neg">Was mach ich hier?!</string>
+    <string name="flight_plan_save_add_coord">Koordinaten hinzufügen</string>
+    <string name="flight_plan_save_invalid_coord">"Bitte gib deine Eingabe konform ein!"</string>
+    <string name="flight_plan_save_add_coord_pos">Speichern</string>
+    <string name="flight_plan_save_add_coord_neg">Abbrechen</string>
+    <string name="flight_plan_save_error_read_fp">Flugpläne konnten nicht gelesen werden</string>
+    <string name="flight_plan_save_error_name_empty">Das Feld ist wichtig!</string>
+    <string name="flight_plan_start_txt">S</string>
+    <string name="flight_plan_end_txt">E</string>
+    <string name="flight_plan_could_not_load">Flugpläne konnten nicht geladen werden</string>
+    <string name="error_txt">Fataler Fehler!\n%1$s</string>
+    <string name="navItem_Github">on Github</string>
+    <string name="settings_header">Einstellungen</string>
+    <string name="max_height">Maximale Höhe: </string>
+    <string name="min_height">Minimale Höhe: </string>
+    <string name="height_metric">m</string>
+    <string name="language_text">Sprache: </string>
+    <string name="flightplan_coord_list_element">%1$f/\n%2$f</string>
+    <string name="manualflight_no_open_drawer">Bleib hier!</string>
+    <string name="adjust_pid_p">P: %1$s</string>
+    <string name="adjust_pid_i">I: %1$s</string>
+    <string name="adjust_pid_d">D: %1$s</string>
+    <string name="adjust_pid_connected">Status: %1$s</string>
+    <string name="adjust_pid_connect">Verbinden</string>
+    <string name="adjust_pid_disconnect">Verbindung beenden</string>
+    <string name="adjust_pid_state_connected">Verbunden</string>
+    <string name="adjust_pid_state_not_connected">Nicht verbunden</string>
+    <string name="adjust_pid_reset_values">Werte zurücksetzen</string>
+    <string name="manualflight_move_stick_down">Bewege den linken Stick ganz nach unten</string>
+    <string name="flightplan_rfab_search">Suche</string>
+    <string name="flightplan_rfab_add">Hinzufügen</string>
+    <string name="flightplan_rfab_ok">OK</string>
+</resources>
