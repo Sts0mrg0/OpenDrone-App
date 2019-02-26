@@ -4,7 +4,7 @@
  * The entire project (including this file) is licensed under the GNU GPL v3.0
  */
 
-package at.opendrone.opendrone;
+package at.opendrone.opendrone.flightplan;
 
 
 import android.content.Context;
@@ -12,7 +12,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -26,10 +25,12 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.microsoft.appcenter.analytics.Analytics;
 
-import java.io.Serializable;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+
+import at.opendrone.opendrone.utils.OpenDroneUtils;
+import at.opendrone.opendrone.R;
 
 
 /**

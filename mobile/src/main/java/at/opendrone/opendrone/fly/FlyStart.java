@@ -4,7 +4,7 @@
  * The entire project (including this file) is licensed under the GNU GPL v3.0
  */
 
-package at.opendrone.opendrone;
+package at.opendrone.opendrone.fly;
 
 
 import android.os.Bundle;
@@ -22,6 +22,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.microsoft.appcenter.analytics.Analytics;
+
+import at.opendrone.opendrone.R;
 
 
 /**

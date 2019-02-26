@@ -1,8 +1,6 @@
-package at.opendrone.opendrone;
+package at.opendrone.opendrone.settings;
 
 
-import android.annotation.SuppressLint;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -13,9 +11,11 @@ import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import at.opendrone.opendrone.utils.CustomFontTextView;
+import at.opendrone.opendrone.utils.OpenDroneUtils;
+import at.opendrone.opendrone.R;
 import at.opendrone.opendrone.network.ConnectDisconnectTasks;
 import at.opendrone.opendrone.network.OpenDroneFrame;
-import at.opendrone.opendrone.network.TCPHandler;
 
 
 /**

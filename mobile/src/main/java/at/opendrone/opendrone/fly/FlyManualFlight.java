@@ -1,4 +1,4 @@
-package at.opendrone.opendrone;
+package at.opendrone.opendrone.fly;
 
 
 import android.Manifest;
@@ -9,7 +9,6 @@ import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.location.Location;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
@@ -43,11 +42,11 @@ import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.Marker;
 
-import java.util.ArrayList;
-
+import at.opendrone.opendrone.MainActivity;
+import at.opendrone.opendrone.utils.OpenDroneUtils;
+import at.opendrone.opendrone.R;
 import at.opendrone.opendrone.network.ConnectDisconnectTasks;
 import at.opendrone.opendrone.network.OpenDroneFrame;
-import at.opendrone.opendrone.network.TCPHandler;
 import at.opendrone.opendrone.network.TCPMessageReceiver;
 import at.opendrone.opendrone.raspistats.RaspiStat;
 import at.opendrone.opendrone.raspistats.RaspiStatParser;

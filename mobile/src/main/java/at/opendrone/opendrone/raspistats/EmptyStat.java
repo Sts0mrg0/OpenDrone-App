@@ -4,7 +4,7 @@ import android.content.Context;
 import android.util.Log;
 import android.view.View;
 
-import at.opendrone.opendrone.OpenDroneUtils;
+import at.opendrone.opendrone.utils.OpenDroneUtils;
 
 public class EmptyStat implements RaspiStat {
     private static final int CODE = OpenDroneUtils.CODE_LOCAL_FAIL;
