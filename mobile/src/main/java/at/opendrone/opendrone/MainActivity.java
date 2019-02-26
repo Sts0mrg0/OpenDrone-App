@@ -34,7 +34,13 @@ import com.microsoft.appcenter.crashes.Crashes;
 
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity;
 
+import at.opendrone.opendrone.drone.DroneCardListRecyclerFragment;
+import at.opendrone.opendrone.flightplan.FlightPlanListFragment;
+import at.opendrone.opendrone.fly.FlyManualFlight;
 import at.opendrone.opendrone.network.ConnectDisconnectTasks;
+import at.opendrone.opendrone.settings.AdjustPIDFragment;
+import at.opendrone.opendrone.settings.SettingsFragment;
+import at.opendrone.opendrone.utils.OpenDroneUtils;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private static boolean INEEDPIDCONTROLS = true;

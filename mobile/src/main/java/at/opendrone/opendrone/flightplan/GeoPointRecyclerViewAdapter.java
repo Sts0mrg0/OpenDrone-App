@@ -4,14 +4,11 @@
  * The entire project (including this file) is licensed under the GNU GPL v3.0
  */
 
-package at.opendrone.opendrone;
+package at.opendrone.opendrone.flightplan;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,12 +16,13 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.osmdroid.util.GeoPoint;
 
 import java.util.LinkedList;
 import java.util.List;
+
+import at.opendrone.opendrone.R;
 
 public class GeoPointRecyclerViewAdapter extends RecyclerView.Adapter<GeoPointRecyclerViewAdapter.ViewHolder> {
 

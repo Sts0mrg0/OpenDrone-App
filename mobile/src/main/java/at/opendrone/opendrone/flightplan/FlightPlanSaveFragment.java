@@ -4,7 +4,7 @@
  * The entire project (including this file) is licensed under the GNU GPL v3.0
  */
 
-package at.opendrone.opendrone;
+package at.opendrone.opendrone.flightplan;
 
 
 import android.annotation.SuppressLint;
@@ -30,13 +30,16 @@ import com.google.gson.Gson;
 
 import org.osmdroid.util.GeoPoint;
 
-import java.sql.SQLOutput;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import at.opendrone.opendrone.utils.AndroidUtils;
+import at.opendrone.opendrone.utils.OpenDroneUtils;
+import at.opendrone.opendrone.R;
 
 
 public class FlightPlanSaveFragment extends Fragment {

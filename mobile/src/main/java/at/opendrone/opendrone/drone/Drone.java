@@ -1,4 +1,4 @@
-package at.opendrone.opendrone;
+package at.opendrone.opendrone.drone;
 
 import java.io.Serializable;
 

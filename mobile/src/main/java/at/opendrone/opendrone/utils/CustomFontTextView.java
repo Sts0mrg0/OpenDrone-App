@@ -1,4 +1,4 @@
-package at.opendrone.opendrone;
+package at.opendrone.opendrone.utils;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -6,6 +6,8 @@ import android.graphics.Typeface;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatTextView;
 import android.util.AttributeSet;
+
+import at.opendrone.opendrone.R;
 
 public class CustomFontTextView extends AppCompatTextView {
     public CustomFontTextView(Context context) {

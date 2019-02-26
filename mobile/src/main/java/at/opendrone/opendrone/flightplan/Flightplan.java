@@ -4,7 +4,7 @@
  * The entire project (including this file) is licensed under the GNU GPL v3.0
  */
 
-package at.opendrone.opendrone;
+package at.opendrone.opendrone.flightplan;
 
 import org.osmdroid.util.GeoPoint;
 
