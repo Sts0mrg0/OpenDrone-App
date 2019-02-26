@@ -98,4 +98,7 @@
     <string name="adjust_pid_state_not_connected">Not Connected</string>
     <string name="adjust_pid_reset_values">Reset Values</string>
     <string name="manualflight_move_stick_down">Move the left stick all the way down to fly</string>
+    <string name="flightplan_rfab_search">Search</string>
+    <string name="flightplan_rfab_add">Add</string>
+    <string name="flightplan_rfab_ok">OK</string>
 </resources>

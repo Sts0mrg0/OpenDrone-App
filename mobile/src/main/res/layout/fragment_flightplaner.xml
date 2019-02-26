@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.wangjie.rapidfloatingactionbutton.RapidFloatingActionLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:map="http://schemas.android.com/apk/res-auto"
     xmlns:app="http://schemas.android.com/tools"
+    android:id="@+id/flightplanRFABLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<FrameLayout
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -25,6 +29,19 @@
         android:src="@drawable/ic_tick"
         />
 
+    <com.wangjie.rapidfloatingactionbutton.RapidFloatingActionButton
+        xmlns:rfab="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/flightplanRFAB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:layout_gravity="bottom|end"
+        rfab:rfab_size="normal"
+        rfab:rfab_drawable="@drawable/ic_menu"
+        rfab:rfab_color_normal="#37474f"
+        rfab:rfab_color_pressed="#263238"
+        />
+
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/deleteFab"
         android:visibility="gone"
@@ -38,3 +55,4 @@
         android:src="@drawable/ic_delete"
         />
 </FrameLayout>
+</com.wangjie.rapidfloatingactionbutton.RapidFloatingActionLayout>

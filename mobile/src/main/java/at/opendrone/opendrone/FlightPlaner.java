@@ -13,6 +13,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
@@ -37,6 +38,11 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnFailureListener;
+import com.wangjie.rapidfloatingactionbutton.RapidFloatingActionButton;
+import com.wangjie.rapidfloatingactionbutton.RapidFloatingActionHelper;
+import com.wangjie.rapidfloatingactionbutton.RapidFloatingActionLayout;
+import com.wangjie.rapidfloatingactionbutton.contentimpl.labellist.RFACLabelItem;
+import com.wangjie.rapidfloatingactionbutton.contentimpl.labellist.RapidFloatingActionContentLabelList;
 
 import org.osmdroid.api.IMapController;
 import org.osmdroid.config.Configuration;
@@ -55,9 +61,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import at.opendrone.opendrone.raspistats.RaspiStatParser;
-
-public class FlightPlaner extends Fragment {
+public class FlightPlaner extends Fragment implements RapidFloatingActionContentLabelList.OnRapidFloatingActionContentLabelListListener {
 
     private static final String TAG = "FlightPlany";
 
@@ -71,6 +75,9 @@ public class FlightPlaner extends Fragment {
     private FloatingActionButton removeFAB;
     private boolean canAddMarker = true;
     private Location location;
+    private RapidFloatingActionLayout rfaLayout;
+    private RapidFloatingActionButton rfaBtn;
+    private RapidFloatingActionHelper rfabHelper;
 
     private boolean mRequestingLocationUpdates = false;
     private boolean hasAlreadyCentered = false;
@@ -90,7 +97,7 @@ public class FlightPlaner extends Fragment {
 
     private int draggedPosition = -1;
 
-    public FlightPlaner() {
+    public FlightPlaner(){
         // Required empty public constructor
         points = new LinkedHashMap<>();
     }
@@ -367,7 +374,7 @@ public class FlightPlaner extends Fragment {
 
     private void addListeners() {
         saveFAB.setOnClickListener(view -> savePointsAndAddInfo());
-
+        setRFABClickListener();
     }
 
     private void savePointsAndAddInfo() {
@@ -386,6 +393,8 @@ public class FlightPlaner extends Fragment {
         saveFAB = view.findViewById(R.id.fpFAB);
         removeFAB = view.findViewById(R.id.deleteFab);
         mMapView = view.findViewById(R.id.map);
+        rfaLayout = view.findViewById(R.id.flightplanRFABLayout);
+        rfaBtn = view.findViewById(R.id.flightplanRFAB);
     }
 
     @Override
@@ -599,5 +608,54 @@ public class FlightPlaner extends Fragment {
                 .endConfig()
                 .buildRound(number.toString(), getResources().getColor(R.color.primaryColor, getActivity().getTheme()));
         return drawable;
+    }
+
+    private void setRFABClickListener(){
+        RapidFloatingActionContentLabelList rfaContent = new RapidFloatingActionContentLabelList(getContext());
+        rfaContent.setOnRapidFloatingActionContentLabelListListener(this);
+        List<RFACLabelItem> items = new ArrayList<>();
+        items.add(new RFACLabelItem<Integer>()
+                .setLabel(getString(R.string.flightplan_rfab_add))
+                .setResId(R.drawable.ic_add)
+                .setIconNormalColor(0xffd84315)
+                .setIconPressedColor(0xffbf360c)
+                .setWrapper(0)
+        );
+        items.add(new RFACLabelItem<Integer>()
+                .setLabel(getString(R.string.flightplan_rfab_search))
+                .setResId(R.drawable.ic_location_search)
+                .setIconNormalColor(0xff4e342e)
+                .setIconPressedColor(0xff3e2723)
+                .setLabelColor(Color.WHITE)
+                .setLabelSizeSp(14)
+                .setWrapper(1)
+        );
+        items.add(new RFACLabelItem<Integer>()
+                .setLabel(getString(R.string.flightplan_rfab_ok))
+                .setResId(R.drawable.ic_tick)
+                .setIconNormalColor(0xff056f00)
+                .setIconPressedColor(0xff0d5302)
+                .setLabelColor(0xff056f00)
+                .setWrapper(2)
+        );
+        rfaContent
+                .setItems(items)
+        ;
+        rfabHelper = new RapidFloatingActionHelper(
+                getContext(),
+                rfaLayout,
+                rfaBtn,
+                rfaContent
+        ).build();
+    }
+
+    @Override
+    public void onRFACItemLabelClick(int position, RFACLabelItem item) {
+        Toast.makeText(getContext(), item.getLabel(), Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onRFACItemIconClick(int position, RFACLabelItem item) {
+
     }
 }
