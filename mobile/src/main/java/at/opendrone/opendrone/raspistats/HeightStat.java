@@ -5,7 +5,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
-import at.opendrone.opendrone.OpenDroneUtils;
+import at.opendrone.opendrone.utils.OpenDroneUtils;
 import at.opendrone.opendrone.R;
 
 public class HeightStat implements RaspiStat {

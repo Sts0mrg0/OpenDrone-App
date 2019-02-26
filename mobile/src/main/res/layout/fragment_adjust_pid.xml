@@ -4,9 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".AdjustPIDFragment">
+    tools:context=".settings.AdjustPIDFragment">
 
-    <at.opendrone.opendrone.CustomFontTextView
+    <at.opendrone.opendrone.utils.CustomFontTextView
         android:id="@+id/adjustPIDPTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -28,7 +28,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/adjustPIDPTextView" />
 
-    <at.opendrone.opendrone.CustomFontTextView
+    <at.opendrone.opendrone.utils.CustomFontTextView
         android:id="@+id/adjustPIDITextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -51,7 +51,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/adjustPIDITextView" />
 
-    <at.opendrone.opendrone.CustomFontTextView
+    <at.opendrone.opendrone.utils.CustomFontTextView
         android:id="@+id/adjustPIDDTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -74,7 +74,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/adjustPIDDTextView" />
 
-    <at.opendrone.opendrone.CustomFontTextView
+    <at.opendrone.opendrone.utils.CustomFontTextView
         android:id="@+id/adjustPIDConnectionTxtView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -1,15 +1,13 @@
-package at.opendrone.opendrone;
+package at.opendrone.opendrone.settings;
 
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.Path;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,15 +17,18 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Switch;
-import android.widget.TextView;
 import android.widget.Toast;
+
+import at.opendrone.opendrone.utils.AndroidUtils;
+import at.opendrone.opendrone.MainActivity;
+import at.opendrone.opendrone.utils.OpenDroneUtils;
+import at.opendrone.opendrone.R;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class SettingsFragment extends Fragment {
-
 
     private Switch profiSwitch;
     private EditText maxHeight;
@@ -76,6 +77,7 @@ public class SettingsFragment extends Fragment {
                     proMode = false;
                     maxHeight.setEnabled(false);
                 }
+                ((MainActivity)getActivity()).initNavView();
 
             }
         });
@@ -131,6 +133,7 @@ public class SettingsFragment extends Fragment {
         profiSwitch.setChecked(proMode);
         maxHeight.setEnabled(proMode);
         maxHeight.setText(""+sp.getInt(OpenDroneUtils.SP_SETTINGS_MAXHEIGHT,0));
+
     }
 
     private void configureLanguageSpinner(){

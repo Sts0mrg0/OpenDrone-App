@@ -7,7 +7,7 @@ import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.TextView;
 
-import at.opendrone.opendrone.OpenDroneUtils;
+import at.opendrone.opendrone.utils.OpenDroneUtils;
 import at.opendrone.opendrone.R;
 
 public class ErrorStat implements RaspiStat {

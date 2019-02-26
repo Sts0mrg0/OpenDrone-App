@@ -4,7 +4,7 @@
  * The entire project (including this file) is licensed under the GNU GPL v3.0
  */
 
-package at.opendrone.opendrone;
+package at.opendrone.opendrone.drone;
 
 
 import android.os.Bundle;
@@ -12,6 +12,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import at.opendrone.opendrone.R;
 
 
 /**

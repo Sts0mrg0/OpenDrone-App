@@ -1,7 +1,9 @@
-package at.opendrone.opendrone;
+package at.opendrone.opendrone.utils;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+
+import at.opendrone.opendrone.R;
 
 /**
  * Created by Mike on 02.10.2017.

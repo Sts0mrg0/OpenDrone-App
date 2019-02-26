@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FlyManualFlight">
+    tools:context=".fly.FlyManualFlight">
 
     <FrameLayout
         android:id="@+id/cameraView"
@@ -48,7 +48,7 @@
         custom:layout_constraintBottom_toBottomOf="parent"
         custom:layout_constraintStart_toStartOf="parent" />
 
-    <at.opendrone.opendrone.CustomFontTextView
+    <at.opendrone.opendrone.utils.CustomFontTextView
         android:id="@+id/txt_MF_Position"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -60,7 +60,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txt_MF_Velocity" />
 
-    <at.opendrone.opendrone.CustomFontTextView
+    <at.opendrone.opendrone.utils.CustomFontTextView
         android:id="@+id/txt_MF_Velocity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -72,7 +72,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <at.opendrone.opendrone.CustomFontTextView
+    <at.opendrone.opendrone.utils.CustomFontTextView
         android:id="@+id/txt_MF_AirTemp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -85,7 +85,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <at.opendrone.opendrone.CustomFontTextView
+    <at.opendrone.opendrone.utils.CustomFontTextView
         android:id="@+id/txt_MF_ControllerTemp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -98,7 +98,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txt_MF_AirTemp" />
 
-    <at.opendrone.opendrone.CustomFontTextView
+    <at.opendrone.opendrone.utils.CustomFontTextView
         android:id="@+id/txt_MF_Height"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -112,7 +112,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txt_MF_ControllerTemp" />
 
-    <at.opendrone.opendrone.CustomFontTextView
+    <at.opendrone.opendrone.utils.CustomFontTextView
         android:id="@+id/txt_MF_Connection"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

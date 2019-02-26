@@ -45,12 +45,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".DroneSettingsActivity" />
+        <activity android:name=".drone.DroneSettingsActivity" />
         <activity
-            android:name=".DroneCalibrationActivity"
-            android:parentActivityName=".DroneSettingsActivity" />
-        <activity android:name=".PinConfigurationActivity"
-            android:parentActivityName=".DroneSettingsActivity"/>
+            android:name=".drone.DroneCalibrationActivity"
+            android:parentActivityName=".drone.DroneSettingsActivity" />
+        <activity android:name=".drone.PinConfigurationActivity"
+            android:parentActivityName=".drone.DroneSettingsActivity"/>
     </application>
 
 </manifest>

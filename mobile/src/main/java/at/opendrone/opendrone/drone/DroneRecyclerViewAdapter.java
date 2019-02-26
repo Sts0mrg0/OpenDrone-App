@@ -4,7 +4,7 @@
  * The entire project (including this file) is licensed under the GNU GPL v3.0
  */
 
-package at.opendrone.opendrone;
+package at.opendrone.opendrone.drone;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -32,6 +32,8 @@ import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.util.List;
+
+import at.opendrone.opendrone.R;
 
 public class DroneRecyclerViewAdapter extends RecyclerView.Adapter<DroneRecyclerViewAdapter.ViewHolder> {
 

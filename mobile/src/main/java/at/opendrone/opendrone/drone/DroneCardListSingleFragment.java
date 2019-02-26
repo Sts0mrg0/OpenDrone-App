@@ -4,13 +4,15 @@
  * The entire project (including this file) is licensed under the GNU GPL v3.0
  */
 
-package at.opendrone.opendrone;
+package at.opendrone.opendrone.drone;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
+
+import at.opendrone.opendrone.R;
 
 public abstract class DroneCardListSingleFragment extends AppCompatActivity {
     protected abstract Fragment createFragment();

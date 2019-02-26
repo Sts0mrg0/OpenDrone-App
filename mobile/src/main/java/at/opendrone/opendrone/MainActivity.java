@@ -34,13 +34,20 @@ import com.microsoft.appcenter.crashes.Crashes;
 
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity;
 
+import at.opendrone.opendrone.drone.DroneCardListRecyclerFragment;
+import at.opendrone.opendrone.flightplan.FlightPlanListFragment;
+import at.opendrone.opendrone.fly.FlyManualFlight;
 import at.opendrone.opendrone.network.ConnectDisconnectTasks;
+import at.opendrone.opendrone.settings.AdjustPIDFragment;
+import at.opendrone.opendrone.settings.SettingsFragment;
+import at.opendrone.opendrone.utils.OpenDroneUtils;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-    private static final boolean INEEDPIDCONTROLS = true;
+    private static boolean INEEDPIDCONTROLS = true;
     //public static TCPSend client;
     public static FragmentManager fm;
     private ConnectDisconnectTasks tasks = ConnectDisconnectTasks.getInstance();
+    private SharedPreferences sp;
 
     public DrawerLayout drawerLayout;
     private boolean isOpened = false;
@@ -58,10 +65,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
     }
 
-    private void initNavView() {
+    public void initNavView() {
         drawerLayout = findViewById(R.id.drawerLayout);
         NavigationView navView = findViewById(R.id.navView);
-
+        navView.getMenu().clear();
+        sp = getSharedPreferences("at.opendrone.opendrone", Context.MODE_PRIVATE);
+        INEEDPIDCONTROLS =  sp.getBoolean(OpenDroneUtils.SP_SETTINGS_PROMODE,false);
         if(INEEDPIDCONTROLS){
             navView.inflateMenu(R.menu.navview_dev);
         }else{
