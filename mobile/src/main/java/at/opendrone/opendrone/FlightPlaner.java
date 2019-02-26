@@ -71,7 +71,6 @@ public class FlightPlaner extends Fragment implements RapidFloatingActionContent
     public LinkedHashMap<Double, GeoPoint> existingPoints = new LinkedHashMap<>();
 
     private SharedPreferences sp;
-    private FloatingActionButton saveFAB;
     private FloatingActionButton removeFAB;
     private boolean canAddMarker = true;
     private Location location;
@@ -263,7 +262,7 @@ public class FlightPlaner extends Fragment implements RapidFloatingActionContent
 
     @SuppressLint("RestrictedApi")
     private void showFAB() {
-        saveFAB.setVisibility(View.VISIBLE);
+        rfaBtn.setVisibility(View.VISIBLE);
     }
 
     private void addMarker(GeoPoint p, double position) {
@@ -373,7 +372,7 @@ public class FlightPlaner extends Fragment implements RapidFloatingActionContent
     }
 
     private void addListeners() {
-        saveFAB.setOnClickListener(view -> savePointsAndAddInfo());
+        //rfaBtn.setOnClickListener(view -> savePointsAndAddInfo());
         setRFABClickListener();
     }
 
@@ -390,7 +389,6 @@ public class FlightPlaner extends Fragment implements RapidFloatingActionContent
     }
 
     private void findViews(View view) {
-        saveFAB = view.findViewById(R.id.fpFAB);
         removeFAB = view.findViewById(R.id.deleteFab);
         mMapView = view.findViewById(R.id.map);
         rfaLayout = view.findViewById(R.id.flightplanRFABLayout);
@@ -447,7 +445,7 @@ public class FlightPlaner extends Fragment implements RapidFloatingActionContent
                     moveMarker(marker);
                 }
                 removeFAB.setVisibility(View.GONE);
-                saveFAB.setVisibility(View.VISIBLE);
+                rfaBtn.setVisibility(View.VISIBLE);
                 drawLine();
             }
 
@@ -457,7 +455,7 @@ public class FlightPlaner extends Fragment implements RapidFloatingActionContent
                 LinkedList<GeoPoint> pointList = new LinkedList<>(points.values());
                 draggedPosition = pointList.lastIndexOf(marker.getPosition());
                 removeFAB.setVisibility(View.VISIBLE);
-                saveFAB.setVisibility(View.GONE);
+                rfaBtn.setVisibility(View.GONE);
 
             }
         });
@@ -619,6 +617,7 @@ public class FlightPlaner extends Fragment implements RapidFloatingActionContent
                 .setResId(R.drawable.ic_add)
                 .setIconNormalColor(0xffd84315)
                 .setIconPressedColor(0xffbf360c)
+                .setLabelColor(Color.BLACK)
                 .setWrapper(0)
         );
         items.add(new RFACLabelItem<Integer>()
@@ -626,8 +625,7 @@ public class FlightPlaner extends Fragment implements RapidFloatingActionContent
                 .setResId(R.drawable.ic_location_search)
                 .setIconNormalColor(0xff4e342e)
                 .setIconPressedColor(0xff3e2723)
-                .setLabelColor(Color.WHITE)
-                .setLabelSizeSp(14)
+                .setLabelColor(Color.BLACK)
                 .setWrapper(1)
         );
         items.add(new RFACLabelItem<Integer>()
@@ -635,7 +633,7 @@ public class FlightPlaner extends Fragment implements RapidFloatingActionContent
                 .setResId(R.drawable.ic_tick)
                 .setIconNormalColor(0xff056f00)
                 .setIconPressedColor(0xff0d5302)
-                .setLabelColor(0xff056f00)
+                .setLabelColor(Color.BLACK)
                 .setWrapper(2)
         );
         rfaContent
@@ -656,6 +654,6 @@ public class FlightPlaner extends Fragment implements RapidFloatingActionContent
 
     @Override
     public void onRFACItemIconClick(int position, RFACLabelItem item) {
-
+        Toast.makeText(getContext(), item.getLabel(), Toast.LENGTH_LONG).show();
     }
 }
