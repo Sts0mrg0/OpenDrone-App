@@ -24,7 +24,7 @@
     <string name="navItem_Fly">Flug</string>
     <string name="navItem_Home">Home</string>
     <string name="navItem_Settings">Einstellungen</string>
-    <string name="navItem_Libs">Benutzte Bibliotheken</string>
+    <string name="navItem_Libs">Bibliotheken</string>
     <string name="navItem_PID">PID adjustieren</string>
     <string name="txt_Drone_description">Drohnen Beschreibung</string>
     <string name="btn_saveChanges">Speichern</string>
@@ -49,9 +49,9 @@
     <string name="alertDialog_Accept">Ja!</string>
     <string name="alertDialog_Deny">Nein!</string>
     <string name="alertDialog_Picture_Title">Neues oder existierendes Bild verwenden?</string>
-    <string name="alertDialog_Picture_Message">Wir haben gehört, dass du ein neues Bild verwenden möchten. Möchtest du ein neues Bild aufnehmen oder möchtest du ein bereits vorhandenes Bild aus der Gallerie nehmen?</string>
+    <string name="alertDialog_Picture_Message">Wir haben gehört, dass du ein neues Bild verwenden möchten. Möchtest du ein neues Bild aufnehmen oder möchtest du ein bereits vorhandenes Bild aus der Galerie nehmen?</string>
     <string name="alertDialog_Picture_Positive">Kamera</string>
-    <string name="alertDialog_Picture_Negative">Gallerie</string>
+    <string name="alertDialog_Picture_Negative">Galerie</string>
     <string name="exception_sorry">Error</string>
     <string name="exception_no_location">Bitte schalte dein GPS in den Einstellungen deines Smartphones ein</string>
     <string name="manual_flight_change_speed">Geschwindigkeit anpassen</string>
@@ -80,7 +80,7 @@
     <string name="flight_plan_end_txt">E</string>
     <string name="flight_plan_could_not_load">Flugpläne konnten nicht geladen werden</string>
     <string name="error_txt">Fataler Fehler!\n%1$s</string>
-    <string name="navItem_Github">on Github</string>
+    <string name="navItem_Github">auf Github</string>
     <string name="settings_header">Einstellungen</string>
     <string name="max_height">Maximale Höhe: </string>
     <string name="min_height">Minimale Höhe: </string>
