@@ -32,13 +32,10 @@ public class SettingsFragment extends Fragment {
 
     private Switch profiSwitch;
     private EditText maxHeight;
-    private Spinner language;
     private View view;
     private SharedPreferences sp;
     private boolean proMode;
     private static final String TAG = "SETTINGSY";
-
-    String[] supportedLanguages = new String[]{"English","English","English"};
 
     public SettingsFragment() {
         // Required empty public constructor
@@ -57,11 +54,9 @@ public class SettingsFragment extends Fragment {
     private void findView(){
         profiSwitch = view.findViewById(R.id.switchProfiMode);
         maxHeight = view.findViewById(R.id.valMaxHeight);
-        language = view.findViewById(R.id.spinner_Language);
         sp = getActivity().getSharedPreferences("at.opendrone.opendrone", Context.MODE_PRIVATE);
 
         configureProMode();
-        configureLanguageSpinner();
         addListeners();
     }
 
@@ -78,19 +73,6 @@ public class SettingsFragment extends Fragment {
                     maxHeight.setEnabled(false);
                 }
                 ((MainActivity)getActivity()).initNavView();
-
-            }
-        });
-
-        language.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String l = (String) parent.getItemAtPosition(position);
-                sp.edit().putString(OpenDroneUtils.SP_SETTINGS_LANGUAGE, l).apply();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
 
             }
         });
@@ -136,24 +118,6 @@ public class SettingsFragment extends Fragment {
 
     }
 
-    private void configureLanguageSpinner(){
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this.getContext(), R.array.array_Languages, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        language.setAdapter(adapter);
-
-        String preselected = sp.getString(OpenDroneUtils.SP_SETTINGS_LANGUAGE, "English");
-        int preselectedPos = 0;
-
-        for(int i = 0; i < adapter.getCount(); i++){
-            if(adapter.getItem(i).equals(preselected)){
-                preselectedPos = i;
-                break;
-            }
-        }
-
-        language.setSelection(preselectedPos);
-
-    }
 
     @Override
     public void onResume() {
