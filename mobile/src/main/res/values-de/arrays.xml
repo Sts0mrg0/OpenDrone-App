@@ -20,5 +20,6 @@
     <string-array name="array_Languages">
         <item>English</item>
         <item>Deutsch</item>
+        <item>Swedish</item>
     </string-array>
 </resources>

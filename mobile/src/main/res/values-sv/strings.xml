@@ -1,0 +1,104 @@
+<!--
+  ~ Last modified: 09.09.18 18:56
+  ~ Copyright (c) OpenDrone, 2018.  All rights reserved.
+  ~ The entire project (including this file) is licensed under the GNU GPL v3.0
+  -->
+
+<resources>
+    <string name="app_name">OpenDrone</string>
+
+    <!--MainActivity-->
+    <string name="demo_btn_txt">Opendrone är fantastisk!</string>
+
+    <!--Drawer-->
+    <string name="opd_nav_settings">Inställningar</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hej tomt fragment</string>
+    <string name="txtView_Calibration">Kalibrering </string>
+    <string name="txtView_PinConfiguration">Pin-konfiguration </string>
+    <string name="txt_DroneName">Drönarens namn</string>
+    <string name="txtView_DroneTyp">Drönar sort </string>
+    <string name="navItem_FlightPlanner">Flygplanerare</string>
+    <string name="navItem_Drones">Drönare</string>
+    <string name="navItem_Fly">Flyg</string>
+    <string name="navItem_Home">Hem</string>
+    <string name="navItem_Settings">Inställningar</string>
+    <string name="navItem_Libs">Inställningar </string>
+    <string name="navItem_PID">Justera PID</string>
+    <string name="txt_Drone_description">Drönar beskrivning</string>
+    <string name="btn_saveChanges">Spara</string>
+    <string name="txt_calibration">Placera drönaren på en platt yta</string>
+    <string name="btn_calibration">Starta kalibrering</string>
+    <string name="txt_calibration_inprogress">Kalibrering pågår, flytta inte drönaren</string>
+    <string name="txt_calibration_end">Kalibrering framgångsrik</string>
+    <string name="btn_Fly">Flyg</string>
+    <string name="btn_TestConn">Testa anslutning</string>
+    <string name="btn_Land">Landa</string>
+    <string name="btn_GoHome">Gå hem</string>
+    <string name="btn_Control">Kontroll</string>
+    <string name="txtView_FlightMode">Flygläge</string>
+    <string name="txtView_Mission">Flygläge</string>
+    <string name="imgView_Logo_Description">Vår produkt logga</string>
+    <string name="imageView_DronePicture_Description">Bilden av den sparade drönaren.</string>
+    <string name="btn_Settings">Inställningar</string>
+    <string name="editTxt_DroneName_Error">Detta fält är obligatoriskt </string>
+    <string name="toolbar_Calibrate">Kalibrering</string>
+    <string name="toolbar_PinConfiguration">Pin-konfiguration </string>
+    <string name="alertDialog_Delete">Vill du verkligen radera denna drönare?</string>
+    <string name="alertDialog_Accept">Ja för i helvete!</string>
+    <string name="alertDialog_Deny">Chill bro!</string>
+    <string name="alertDialog_Picture_Title">Ny eller existerande bild?</string>
+    <string name="alertDialog_Picture_Message">Så vi hörde att du vill lägga till en bild. Vill du ta en ny eller välja en existerande bild från ditt galleri?</string>
+    <string name="alertDialog_Picture_Positive">Kamera</string>
+    <string name="alertDialog_Picture_Negative">Galleri</string>
+    <string name="exception_sorry">Fel</string>
+    <string name="exception_no_location">Snälla aktivera platsen i din mobils inställningar</string>
+    <string name="manual_flight_change_speed">Justera hastigheten </string>
+    <string name="manual_flight_ip_txt">Ange en IP för att ansluta </string>
+    <string name="manual_flight_connection_failed">Ops, appen kunde inte ansluta till drönaren</string>
+    <string name="manual_flight_connection_success">Ansluten</string>
+    <string name="manual_flight_TxtView_Position">Lat: %1$s\nLng: %2$s</string>
+    <string name="manual_flight_TxtView_Height">%1$sm</string>
+    <string name="manual_flight_TxtView_AirTemp">Air: %1$s°C</string>
+    <string name="manual_flight_TxtView_ControllerTemp">Controller: %1$s°C</string>
+    <string name="manual_flight_TxtView_Status">Status: %1$s</string>
+    <string name="manual_flight_TxtView_Velocity">%1$s km/h</string>
+    <string name="stop_rotor_alarm_message">Vill du verkligen stoppa alla rotorer? Detta vill resultera i en okontrollerad krasch! </string>
+    <string name="stop_rotor_alarm_pos">Krascha den!</string>
+    <string name="stop_rotor_alarm_neg">Nej!</string>
+    <string name="go_home_alarm_message">Vill du verkligen gå hem?</string>
+    <string name="go_home_alarm_pos">Ja för i helvete!</string>
+    <string name="go_home_alarm_neg">Vad gör jag här?!</string>
+    <string name="flight_plan_save_add_coord">Lägg till koordinat</string>
+    <string name="flight_plan_save_invalid_coord">Snälla lägg till ett korrekt format i fältet</string>
+    <string name="flight_plan_save_add_coord_pos">Spara</string>
+    <string name="flight_plan_save_add_coord_neg">Häva </string>
+    <string name="flight_plan_save_error_read_fp">Kunde inte läsa flygplaner</string>
+    <string name="flight_plan_save_error_name_empty">Detta fält är obligatoriskt</string>
+    <string name="flight_plan_start_txt">S</string>
+    <string name="flight_plan_end_txt">E</string>
+    <string name="flight_plan_could_not_load">Kunde inte ladda flygplaner</string>
+    <string name="error_txt">Allvarligt fel!\n%1$s</string>
+    <string name="navItem_Github">på Github </string>
+    <string name="settings_header">Inställningar</string>
+    <string name="max_height">Maxhöjd: </string>
+    <string name="min_height">Minsta höjd: </string>
+    <string name="height_metric">m</string>
+    <string name="language_text">Språk: </string>
+    <string name="flightplan_coord_list_element">%1$f/\n%2$f</string>
+    <string name="manualflight_no_open_drawer">Stanna här!</string>
+    <string name="adjust_pid_p">P: %1$s</string>
+    <string name="adjust_pid_i">I: %1$s</string>
+    <string name="adjust_pid_d">D: %1$s</string>
+    <string name="adjust_pid_connected">Tillstånd: %1$s</string>
+    <string name="adjust_pid_connect">Anslut</string>
+    <string name="adjust_pid_disconnect">Koppla från</string>
+    <string name="adjust_pid_state_connected">Ansluten</string>
+    <string name="adjust_pid_state_not_connected">Bortkopplad</string>
+    <string name="adjust_pid_reset_values">Återställ värden</string>
+    <string name="manualflight_move_stick_down">Flytta den vänstra pinnen hela vägen ner för att flyga</string>
+    <string name="flightplan_rfab_search">Sök</string>
+    <string name="flightplan_rfab_add">Lägg till</string>
+    <string name="flightplan_rfab_ok">OK</string>
+</resources>
