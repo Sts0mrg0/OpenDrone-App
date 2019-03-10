@@ -13,8 +13,8 @@
     </string-array>
 
     <string-array name="array_FlightMode">
-        <item>Manual Flight</item>
-        <item>Automatic Flight</item>
+        <item>Manueller Flugmodus</item>
+        <item>Automatischer Flugmodus</item>
     </string-array>
 
     <string-array name="array_Languages">
@@ -22,5 +22,4 @@
         <item>Deutsch</item>
         <item>Swedish</item>
     </string-array>
-
 </resources>
