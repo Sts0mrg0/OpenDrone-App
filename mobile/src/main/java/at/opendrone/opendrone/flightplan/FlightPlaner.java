@@ -59,10 +59,8 @@ import org.osmdroid.views.overlay.Polyline;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 import at.opendrone.opendrone.utils.OpenDroneUtils;
 import at.opendrone.opendrone.R;
@@ -74,7 +72,7 @@ public class FlightPlaner extends Fragment implements RapidFloatingActionContent
 
     private MapView mMapView;
 
-    public LinkedHashMap<Double, GeoPoint> existingPoints = new LinkedHashMap<>();
+    public LinkedList<GeoPoint> existingPoints = new LinkedList<>();
 
     private SharedPreferences sp;
     private FloatingActionButton removeFAB;
@@ -99,6 +97,7 @@ public class FlightPlaner extends Fragment implements RapidFloatingActionContent
     private MotionEvent lastEvent;
 
     private List<Marker> markers = new LinkedList<>();
+    private List<GeoPoint> pointsDrag = new LinkedList<>(); //Should only be accessed while dragging
 
     private int draggedPosition = -1;
 
@@ -300,7 +299,7 @@ public class FlightPlaner extends Fragment implements RapidFloatingActionContent
         return true;
     }
 
-    private void addMarker(GeoPoint p, double position) {
+    private void addMarker(GeoPoint p) {
         if(!checkCanAddDistance(p)){
             return;
         }
@@ -314,16 +313,10 @@ public class FlightPlaner extends Fragment implements RapidFloatingActionContent
         if (markers.size() + 1 <= 1) {
             index = getString(R.string.flight_plan_start_txt).toUpperCase();
         }
-
-        if ((position != Math.floor(position))) {
+        int positionInList = getPositionAtGeoPointForwards(p);
+        if ((positionInList != -1)) {
             canAddMarker = false;
-            if (Math.floor(position) == 0) {
-                index = getString(R.string.flight_plan_start_txt) + "&" + getString(R.string.flight_plan_end_txt);
-            } else {
-                index = (int)(Math.floor(position)+1) + "&" + getString(R.string.flight_plan_end_txt);
-            }
-            Log.i(TAG, "Cant add marker");
-            startMarker = markers.get((int)Math.floor(position));
+            startMarker = markers.get((int)Math.floor(positionInList));
         }else{
             canAddMarker = true;
         }
@@ -332,17 +325,13 @@ public class FlightPlaner extends Fragment implements RapidFloatingActionContent
         addListenersToMarker(startMarker);
         mMapView.getOverlays().add(startMarker);
         markers.add(startMarker);
-        addToLine(position, p);
+        updateIcons();
         drawLine();
         showFAB();
     }
 
-    private void addMarker(GeoPoint p) {
-        addMarker(p, markers.size() + 0.0d);
-    }
-
-    private List<GeoPoint> buildPointList(){
-        List<GeoPoint> points = new LinkedList<>();
+    private LinkedList<GeoPoint> buildPointList(){
+        LinkedList<GeoPoint> points = new LinkedList<>();
         if(this.markers == null || this.markers.size() <= 0){
             return points;
         }
@@ -360,10 +349,6 @@ public class FlightPlaner extends Fragment implements RapidFloatingActionContent
         mMapView.getOverlayManager().remove(line);
         mMapView.getOverlayManager().add(0, line);
         mMapView.invalidate();
-    }
-
-    private void addToLine(double index, GeoPoint p) {
-        Log.i(TAG, "Adding: " + index);
     }
 
     private void addEventListener() {
@@ -423,7 +408,7 @@ public class FlightPlaner extends Fragment implements RapidFloatingActionContent
     }
 
     private void savePointsAndAddInfo() {
-        FlightPlanSaveFragment fp = new FlightPlanSaveFragment(points);
+        FlightPlanSaveFragment fp = new FlightPlanSaveFragment(buildPointList());
         fp.setFlightPlaner(this);
         FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.frameLayout_FragmentContainer, fp);
@@ -462,14 +447,8 @@ public class FlightPlaner extends Fragment implements RapidFloatingActionContent
         mMapView.setScrollableAreaLimitLatitude(MapView.getTileSystem().getMaxLatitude(), MapView.getTileSystem().getMinLatitude(), 0);
     }
 
-    public void setExistingPoints(LinkedHashMap<Double, GeoPoint> existingPoints) {
-        this.existingPoints = new LinkedHashMap<>(existingPoints);
-    }
-
-    private double getKeyAtIndex(int index) {
-        List<Double> keys = new ArrayList<Double>(points.keySet());
-        Log.i(TAG, "" + keys.size());
-        return keys.get(index);
+    public void setExistingPoints(LinkedList<GeoPoint> existingPoints) {
+        this.existingPoints = new LinkedList<>(existingPoints);
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -478,6 +457,7 @@ public class FlightPlaner extends Fragment implements RapidFloatingActionContent
         marker.setOnMarkerDragListener(new Marker.OnMarkerDragListener() {
             @Override
             public void onMarkerDrag(Marker marker) {
+                Log.i(TAG, "onMarkerDrag "+marker.getPosition());
                 moveMarker(marker);
                 drawLine();
             }
@@ -486,20 +466,22 @@ public class FlightPlaner extends Fragment implements RapidFloatingActionContent
             @Override
             public void onMarkerDragEnd(Marker marker) {
                 if (lastEvent != null && isViewInBounds(removeFAB, (int) lastEvent.getX(), (int) lastEvent.getY() + (int) (marker.getIcon().getIntrinsicHeight() * 2))) {
-                    removeMarker(marker);
+                    removeMarker();
                 } else {
                     moveMarker(marker);
                 }
                 removeFAB.setVisibility(View.GONE);
                 rfaBtn.setVisibility(View.VISIBLE);
                 drawLine();
+                FlightPlaner.this.pointsDrag = new LinkedList<>();
             }
 
             @SuppressLint("RestrictedApi")
             @Override
             public void onMarkerDragStart(Marker marker) {
-                LinkedList<GeoPoint> pointList = new LinkedList<>(points.values());
-                draggedPosition = pointList.lastIndexOf(marker.getPosition());
+                Log.i(TAG, "onMarkerDragStart "+marker.getPosition());
+                FlightPlaner.this.pointsDrag = buildPointList();
+                draggedPosition = FlightPlaner.this.pointsDrag.lastIndexOf(marker.getPosition());
                 removeFAB.setVisibility(View.VISIBLE);
                 rfaBtn.setVisibility(View.GONE);
 
@@ -510,9 +492,8 @@ public class FlightPlaner extends Fragment implements RapidFloatingActionContent
                 return true;
             }
             canAddMarker = false;
-            LinkedList<GeoPoint> pointList = new LinkedList<>(points.values());
+            List<GeoPoint> pointList = buildPointList();
             int index = pointList.lastIndexOf(marker1.getPosition());
-            double key = getKeyAtIndex(index);
 
             Object text = (index + 1) + "&" + getString(R.string.flight_plan_end_txt).toUpperCase();
             if (index == 0) {
@@ -520,9 +501,9 @@ public class FlightPlaner extends Fragment implements RapidFloatingActionContent
             }
             marker1.setIcon(getIconDrawable(text));
 
-            addToLine(key + 0.1d, marker1.getPosition());
             markers.add(marker1);
             drawLine();
+            updateIcons();
             return true;
         });
 
@@ -534,52 +515,47 @@ public class FlightPlaner extends Fragment implements RapidFloatingActionContent
 
     private void moveMarker(Marker marker) {
         if(!checkCanAddDistance(marker.getPosition())){
-
-            Double key = getKeyAtIndex(draggedPosition);
-            Log.i(TAG, "KEY: "+key+" / "+"DRAGGY: "+draggedPosition+" / "+points.keySet());
-            marker.setPosition(points.get(key));
+            marker.setPosition(pointsDrag.get(draggedPosition));
 
             return;
-        }
-        if (!canAddMarker) {
-            Log.i(TAG, "MOVY: "+draggedPosition+" / "+points.keySet());
-            int lastIndex = points.size() - 1;
-            double originalPosition = Math.floor(getKeyAtIndex(lastIndex));
-
-            if (draggedPosition == originalPosition || draggedPosition == lastIndex) {
-
-                double lastKey = getKeyAtIndex(lastIndex);
-                points.put(originalPosition, marker.getPosition());
-                points.put(lastKey, marker.getPosition());
-            } else {
-                points.put(draggedPosition + 0d, marker.getPosition());
-            }
-        } else {
-            points.put(draggedPosition + 0d, marker.getPosition());
-        }
+        }this.pointsDrag = buildPointList();
     }
 
-    private void removeMarker(Marker marker) {
-        int lastIndex = points.size() - 1;
-        Double originalPosition = Math.floor(getKeyAtIndex(lastIndex));
+    private int getPositionAtGeoPointForwards(GeoPoint p){
+        for(int i = 0; i<markers.size(); i++){
+            if(markers.get(i).getPosition().distanceToAsDouble(p) <= 0){
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    private int getPositionAtGeoPointBackwards(GeoPoint p){
+        for(int i = markers.size()-1; i>=0; i--){
+            if(markers.get(i).getPosition().distanceToAsDouble(p) <= 0){
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    private boolean isAlsoEnd(GeoPoint p){
+        return getPositionAtGeoPointForwards(p) != getPositionAtGeoPointBackwards(p);
+    }
+
+    private void removeMarker() {
         if (!canAddMarker) {
-            if (draggedPosition == originalPosition || draggedPosition == lastIndex) {
-                double lastKey = getKeyAtIndex(lastIndex);
-                removeFromMarkers(lastIndex);
-                removeFromMarkers(originalPosition.intValue());
-                removeFromPoints(lastKey);
-                removeFromPoints(originalPosition);
-                updateKeys(originalPosition);
+            if (isAlsoEnd(markers.get(draggedPosition).getPosition())) {
+                int lastPosition = getPositionAtGeoPointBackwards(markers.get(draggedPosition).getPosition());
+                int originalPosition = getPositionAtGeoPointForwards(markers.get(draggedPosition).getPosition());
+                removeFromMarkers(lastPosition);
+                removeFromMarkers(originalPosition);
                 canAddMarker = true;
             } else {
                 removeFromMarkers(draggedPosition);
-                removeFromPoints(draggedPosition + 0d);
-                updateKeys(draggedPosition + 0d);
             }
         } else {
             removeFromMarkers(draggedPosition);
-            removeFromPoints(draggedPosition + 0d);
-            updateKeys(draggedPosition + 0d);
         }
         updateIcons();
         drawLine();
@@ -598,31 +574,17 @@ public class FlightPlaner extends Fragment implements RapidFloatingActionContent
             if (i == 0) {
                 text = getString(R.string.flight_plan_start_txt).toUpperCase();
             }
+            if(i == markers.size()-1 && canAddMarker){
+                text=getString(R.string.flight_plan_end_txt).toUpperCase();
+            }
             m.setIcon(getIconDrawable(text));
             alreadyUpdated.put(m.getPosition(), text.toString());
         }
     }
 
-    private void updateKeys(double start) {
-        LinkedHashMap<Double, GeoPoint> newPoints = new LinkedHashMap<>();
-        for (Map.Entry<Double, GeoPoint> entry : points.entrySet()) {
-            double key = entry.getKey();
-            if (key > start) {
-                key = key - 1;
-            }
-            newPoints.put(key, entry.getValue());
-        }
-        points = newPoints;
-    }
-
     private void removeFromMarkers(int position) {
         Marker tmp = markers.remove(position);
         mMapView.getOverlayManager().remove(tmp);
-        mMapView.invalidate();
-    }
-
-    private void removeFromPoints(double key) {
-        points.remove(key);
         mMapView.invalidate();
     }
 
@@ -634,7 +596,7 @@ public class FlightPlaner extends Fragment implements RapidFloatingActionContent
     }
 
     private void clearLists() {
-        points.clear();
+       // points.clear();
         markers.clear();
     }
 
@@ -646,9 +608,9 @@ public class FlightPlaner extends Fragment implements RapidFloatingActionContent
         }
 
         Log.i(TAG, existingPoints.toString());
-        for (Map.Entry<Double, GeoPoint> entry : existingPoints.entrySet()) {
-            Log.i(TAG, "Existing: " + entry.getKey());
-            addMarker(entry.getValue(), entry.getKey());
+        for (GeoPoint point : this.existingPoints) {
+            Log.i(TAG, "Existing: " + point);
+            addMarker(point);
         }
         existingPoints.clear();
     }
