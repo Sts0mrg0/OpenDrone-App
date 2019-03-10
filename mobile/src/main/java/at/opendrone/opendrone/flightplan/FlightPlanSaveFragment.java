@@ -31,11 +31,8 @@ import com.google.gson.Gson;
 import org.osmdroid.util.GeoPoint;
 
 import java.util.Arrays;
-import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 import at.opendrone.opendrone.utils.AndroidUtils;
 import at.opendrone.opendrone.utils.OpenDroneUtils;
@@ -54,7 +51,7 @@ public class FlightPlanSaveFragment extends Fragment {
 
     private String name = "";
     private String desc = "";
-    private LinkedHashMap<Double, GeoPoint> points = new LinkedHashMap<>();
+    private LinkedList<GeoPoint> points = new LinkedList<>();
     private List<Flightplan> flightplans = new LinkedList<>();
     private FlightPlaner planer;
 
@@ -68,13 +65,13 @@ public class FlightPlanSaveFragment extends Fragment {
     }
 
     @SuppressLint("ValidFragment")
-    public FlightPlanSaveFragment(LinkedHashMap<Double, GeoPoint> points) {
+    public FlightPlanSaveFragment(LinkedList<GeoPoint> points) {
         Log.i(TAG, "Points in Constructor: "+points.size());
         this.points = points;
     }
 
     @SuppressLint("ValidFragment")
-    public FlightPlanSaveFragment(String name, String desc, LinkedHashMap<Double, GeoPoint> points) {
+    public FlightPlanSaveFragment(String name, String desc, LinkedList<GeoPoint> points) {
         this.name = name;
         this.desc = desc;
         this.points = points;
@@ -84,7 +81,6 @@ public class FlightPlanSaveFragment extends Fragment {
     public void onResume() {
         super.onResume();
         AndroidUtils.hideKeyboard(flightPlanContainer, getActivity());
-        //AndroidUtils.hideKeyboard( getActivity(), getActivity().getActionBar().getCustomView());
         lockOrientation();
     }
 
@@ -109,7 +105,7 @@ public class FlightPlanSaveFragment extends Fragment {
     }
 
     private void setAdapter() {
-        GeoPointRecyclerViewAdapter adapter = new GeoPointRecyclerViewAdapter(new LinkedList<GeoPoint>(points.values()), getActivity(), this);
+        GeoPointRecyclerViewAdapter adapter = new GeoPointRecyclerViewAdapter(points, getActivity(), this);
         flightPlanContainer.setAdapter(adapter);
     }
 
@@ -174,9 +170,7 @@ public class FlightPlanSaveFragment extends Fragment {
         if(planer == null){
             this.planer = new FlightPlaner();
         }
-        Log.i(TAG, "Before setting: "+points.size());
         planer.setExistingPoints(points);
-        Log.i(TAG, "After setting: "+planer.existingPoints.size());
         updateFragment(planer);
     }
 
@@ -216,11 +210,30 @@ public class FlightPlanSaveFragment extends Fragment {
 
     private void updateFragment(Fragment fragment){
         FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-        //Log.i(TAG, "After FragmentTransaction: "+planer.existingPoints.size());
         ft.replace(R.id.frameLayout_FragmentContainer, fragment);
-        //Log.i(TAG, "After replace: "+planer.existingPoints.size());
         ft.commit();
-        //Log.i(TAG, "After commit: "+planer.existingPoints.size());
+    }
+
+    private int getPositionAtGeoPointForwards(GeoPoint p){
+        for(int i = 0; i<points.size(); i++){
+            if(points.get(i).distanceToAsDouble(p) <= 0){
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    private int getPositionAtGeoPointBackwards(GeoPoint p){
+        for(int i = points.size()-1; i>=0; i--){
+            if(points.get(i).distanceToAsDouble(p) <= 0){
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    private boolean isAlsoEnd(GeoPoint p){
+        return getPositionAtGeoPointForwards(p) != getPositionAtGeoPointBackwards(p);
     }
 
     public void setAttributes() {
@@ -229,47 +242,28 @@ public class FlightPlanSaveFragment extends Fragment {
     }
 
     public void updatePoint(int position, GeoPoint p){
-        double key = getKeyFromPosition(position);
-        if(Math.floor(key) != key || points.containsKey(key+0.1d)){//the route is closed
-            points.put(Math.floor(key), p);
-            points.put(Math.floor(key)+0.1, p);
+        //double key = getKeyFromPosition(position);
+        int lastIndex = points.size()-1;
+        if(isAlsoEnd(p)){//the route is closed
+            points.set(lastIndex, p);
+            points.set(getPositionAtGeoPointForwards(p), p);
         }else{
-            points.put(key,p);
+            points.set(getPositionAtGeoPointForwards(p), p);
         }
         setAdapter();
     }
 
     public void removePoint(int position){
-        double key = getKeyFromPosition(position);
-        if(Math.floor(key) != key || points.containsKey(key+0.1d)){//the route is closed
-            points.remove(Math.floor(key));
-            points.remove(Math.floor(key)+0.1);
+        //double key = getKeyFromPosition(position);
+        GeoPoint p = points.get(position);
+        if(isAlsoEnd(p)){//the route is closed
+            points.remove(getPositionAtGeoPointBackwards(p));
+            points.remove(getPositionAtGeoPointForwards(p));
         }else{
-            points.remove(key);
+            points.remove(position);
         }
-
-        updateKeys(position);
         Log.i(TAG, points.toString());
         setAdapter();
-    }
-
-    private void updateKeys(double start) {
-        LinkedHashMap<Double, GeoPoint> newPoints = new LinkedHashMap<>();
-        for (Map.Entry<Double, GeoPoint> entry : points.entrySet()) {
-            double key = entry.getKey();
-            if (key > start) {
-                key = key - 1;
-            }
-            newPoints.put(key, entry.getValue());
-        }
-        points = newPoints;
-    }
-
-    private double getKeyFromPosition(int position){
-        List<GeoPoint> pointList = new LinkedList<>(points.values());
-        Set<Double> keySet = points.keySet();
-        double key = keySet.toArray(new Double[pointList.size()])[position];
-        return key;
     }
 
     public void setFlightPlaner(FlightPlaner fp) {
@@ -293,7 +287,7 @@ public class FlightPlanSaveFragment extends Fragment {
                 double lat = Double.parseDouble(latitude);
                 double lon = Double.parseDouble(longitude);
                 GeoPoint p = new GeoPoint(lat, lon);
-                points.put(points.size() + 0d, p);
+                points.add(p);
                 showFAB();
             } catch (NumberFormatException e) {
                 Toast.makeText(getActivity(), getString(R.string.flight_plan_save_invalid_coord), Toast.LENGTH_LONG).show();
