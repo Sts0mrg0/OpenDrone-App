@@ -59,8 +59,8 @@ import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt;
 public class FlyManualFlight extends Fragment implements TCPMessageReceiver {
     private static final String TAG = "manualFlighty";
     private static final String TAG_ERROR = "errortcpreceive";
-    private static final int MIN_MOTOR_VALUE = 1000;
-    private static final int MAX_MOTOR_VALUE = 2000;
+    private static final int MIN_MOTOR_VALUE = 1050;
+    private static final int MAX_MOTOR_VALUE = 1800;
     private static final int TOLERANCE_PERCENT = 5;
 
     private View view;
@@ -168,6 +168,10 @@ public class FlyManualFlight extends Fragment implements TCPMessageReceiver {
         stopLocationUpdates();
     }
 
+    private boolean isPro(){
+        return sp.getBoolean(OpenDroneUtils.SP_SETTINGS_PROMODE, false);
+    }
+
     private void loadConfig() {
         Context ctx = getActivity().getApplicationContext();
         Configuration.getInstance().load(ctx, PreferenceManager.getDefaultSharedPreferences(ctx));
@@ -264,9 +268,11 @@ public class FlyManualFlight extends Fragment implements TCPMessageReceiver {
         throttle = view.findViewById(R.id.throttleStick);
         throttle.setOnMoveListener((angle, strength) -> {
             int[][] cmd = interpretThrottleStick(throttle, angle, strength);
-            fillCodeArray((byte) cmd[0][0], (byte) cmd[1][0]);
-            fillDataArray(cmd[0][1], cmd[1][1]);
-            if (tasks.isArmed() && stickTouchedBottom) {
+
+            boolean areNewValues = areNewValues(new int[]{ cmd[0][0],cmd[1][0]}, new String[]{String.valueOf(cmd[0][1]), String.valueOf(cmd[1][1])});
+            if (tasks.isArmed() && stickTouchedBottom && areNewValues) {
+                fillCodeArray((byte) cmd[0][0], (byte) cmd[1][0]);
+                fillDataArray(cmd[0][1], cmd[1][1]);
                 sendData(data, codes);
             }
         });
@@ -274,9 +280,11 @@ public class FlyManualFlight extends Fragment implements TCPMessageReceiver {
         direction = view.findViewById(R.id.directionStick);
         direction.setOnMoveListener((angle, strength) -> {
             int[][] cmd = interpretDirectionStick(direction, angle, strength);
-            fillCodeArray((byte) cmd[0][0], (byte) cmd[1][0]);
-            fillDataArray(cmd[0][1], cmd[1][1]);
-            if (tasks.isArmed()) {
+
+            boolean areNewValues = areNewValues(new int[]{ cmd[0][0],cmd[1][0]}, new String[]{String.valueOf(cmd[0][1]), String.valueOf(cmd[1][1])});
+            if (tasks.isArmed() && stickTouchedBottom && areNewValues) {
+                fillCodeArray((byte) cmd[0][0], (byte) cmd[1][0]);
+                fillDataArray(cmd[0][1], cmd[1][1]);
                 sendData(data, codes);
             }
 
@@ -284,11 +292,27 @@ public class FlyManualFlight extends Fragment implements TCPMessageReceiver {
 
     }
 
+    private boolean areNewValues(int[] newCodes, String[]newData){
+        try{
+            for(int i = 0; i<newCodes.length; i++){
+                if(newCodes[i] != codes[i] || !newData[i].equals(data[i])){
+                    Log.i(TAG, "new values");
+                    return true;
+                }
+            }
+        }catch(Exception ex){
+            Log.e(TAG, ex.getMessage(), ex);
+            return false;
+        }
+
+        return false;
+    }
+
     private void sendData(String[] data, int[] codes) {
         try {
             OpenDroneFrame f = new OpenDroneFrame((byte) 1, data, codes);
-            tasks.sendMessage(f.toString());
             Log.i(TAG, f.toString());
+            tasks.sendMessage(f.toString());
         } catch (Exception ex) {
             Log.e(TAG_ERROR, "OpenDroneFrameError", ex);
         }
@@ -451,7 +475,9 @@ public class FlyManualFlight extends Fragment implements TCPMessageReceiver {
 
     private void arm(){
         Log.i(TAG, "ARM");
-        ((MainActivity) getActivity()).canOpenDrawer = false;
+        if(!isPro()){
+            ((MainActivity) getActivity()).canOpenDrawer = false;
+        }
         setImageBtnImage(stopRotorBtn, R.drawable.ic_stoprotor);
         tasks.setArmed(true);
         Toast.makeText(getContext(), getResources().getString(R.string.manualflight_move_stick_down), Toast.LENGTH_LONG).show();

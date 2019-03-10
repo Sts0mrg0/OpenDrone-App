@@ -9,6 +9,7 @@ package at.opendrone.opendrone.flightplan;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
@@ -29,6 +30,8 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.amulyakhare.textdrawable.TextDrawable;
@@ -67,10 +70,10 @@ import at.opendrone.opendrone.R;
 public class FlightPlaner extends Fragment implements RapidFloatingActionContentLabelList.OnRapidFloatingActionContentLabelListListener {
 
     private static final String TAG = "FlightPlany";
+    private static final int MAX_DISTANCE_FROM_START_KM = 10;
 
     private MapView mMapView;
 
-    private LinkedHashMap<Double, GeoPoint> points = new LinkedHashMap<>();
     public LinkedHashMap<Double, GeoPoint> existingPoints = new LinkedHashMap<>();
 
     private SharedPreferences sp;
@@ -101,7 +104,6 @@ public class FlightPlaner extends Fragment implements RapidFloatingActionContent
 
     public FlightPlaner(){
         // Required empty public constructor
-        points = new LinkedHashMap<>();
     }
 
     public void onResume() {
@@ -241,9 +243,8 @@ public class FlightPlaner extends Fragment implements RapidFloatingActionContent
         mMapView.setMultiTouchControls(true);
 
         //Manually entered a point -> jump to that location
-        if (points.size() > 0) {
-            List<GeoPoint> pointList = new LinkedList<>(points.values());
-            GeoPoint p = pointList.get(0);
+        if (markers.size() > 0) {
+            GeoPoint p = markers.get(0).getPosition();
             setCenter(p.getLatitude(), p.getLongitude());
         } else {
             requestPermissionAndSetLocation();
@@ -268,15 +269,49 @@ public class FlightPlaner extends Fragment implements RapidFloatingActionContent
         rfaBtn.setVisibility(View.VISIBLE);
     }
 
+    private boolean isDistanceTooFarFromStart(GeoPoint start, GeoPoint p2){
+        boolean isVeryGood = sp.getBoolean(OpenDroneUtils.SP_SETTINGS_PROMODE, false);
+        if(!isVeryGood){
+            return start.distanceToAsDouble(p2)>MAX_DISTANCE_FROM_START_KM * 1000;
+        }
+        return false;
+    }
+
+    private boolean checkCanAddDistance(GeoPoint p){
+        if(markers == null || markers.size() <= 1){
+            return true;
+        }
+        Marker firstMarker = markers.get(0);
+        GeoPoint firstPoint = firstMarker.getPosition();
+        Marker lastMarker = markers.get(markers.size()-1);
+        GeoPoint lastPoint = lastMarker.getPosition();
+
+        Marker secondMarker = markers.get(1);
+        GeoPoint secondPoint = secondMarker.getPosition();
+        if((p.distanceToAsDouble(firstPoint) <= 0 || (!canAddMarker && p.distanceToAsDouble(lastPoint)<= 0)) && firstPoint.distanceToAsDouble(secondPoint) > MAX_DISTANCE_FROM_START_KM*1000){
+            Toast.makeText(getContext(), "The distance from the start to the other points must not be greater than " +MAX_DISTANCE_FROM_START_KM+" km", Toast.LENGTH_LONG).show();
+            return false;
+        }
+
+        if(isDistanceTooFarFromStart(firstPoint, p)){
+            Toast.makeText(getContext(), "The distance from the start must not be greater than" +MAX_DISTANCE_FROM_START_KM+" km", Toast.LENGTH_LONG).show();
+            return false;
+        }
+        return true;
+    }
+
     private void addMarker(GeoPoint p, double position) {
+        if(!checkCanAddDistance(p)){
+            return;
+        }
         Marker startMarker = new Marker(mMapView);
         startMarker.setPosition(p);
         startMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
         startMarker.setEnableTextLabelsWhenNoImage(true);
 
-        Object index = points.size() + 1;
+        Object index = markers.size() + 1;
 
-        if (points.size() + 1 <= 1) {
+        if (markers.size() + 1 <= 1) {
             index = getString(R.string.flight_plan_start_txt).toUpperCase();
         }
 
@@ -303,13 +338,23 @@ public class FlightPlaner extends Fragment implements RapidFloatingActionContent
     }
 
     private void addMarker(GeoPoint p) {
-        addMarker(p, points.size() + 0.0d);
+        addMarker(p, markers.size() + 0.0d);
+    }
+
+    private List<GeoPoint> buildPointList(){
+        List<GeoPoint> points = new LinkedList<>();
+        if(this.markers == null || this.markers.size() <= 0){
+            return points;
+        }
+        for(Marker marker: this.markers){
+            points.add(marker.getPosition());
+        }
+        return points;
     }
 
     private void drawLine() {
-        List<GeoPoint> pointList = new LinkedList<GeoPoint>((points.values()));
-        line.setPoints(new ArrayList<>(pointList));
-        Log.i(TAG, points.entrySet().toString());
+        List<GeoPoint> points = buildPointList();
+        line.setPoints(points);
         //Do nothing on click
         line.setOnClickListener((polyline, mapView, eventPos) -> false);
         mMapView.getOverlayManager().remove(line);
@@ -319,7 +364,6 @@ public class FlightPlaner extends Fragment implements RapidFloatingActionContent
 
     private void addToLine(double index, GeoPoint p) {
         Log.i(TAG, "Adding: " + index);
-        points.put(index + 0d, p);
     }
 
     private void addEventListener() {
@@ -375,7 +419,6 @@ public class FlightPlaner extends Fragment implements RapidFloatingActionContent
     }
 
     private void addListeners() {
-        //rfaBtn.setOnClickListener(view -> savePointsAndAddInfo());
         setRFABClickListener();
     }
 
@@ -490,15 +533,24 @@ public class FlightPlaner extends Fragment implements RapidFloatingActionContent
     }
 
     private void moveMarker(Marker marker) {
+        if(!checkCanAddDistance(marker.getPosition())){
+
+            Double key = getKeyAtIndex(draggedPosition);
+            Log.i(TAG, "KEY: "+key+" / "+"DRAGGY: "+draggedPosition+" / "+points.keySet());
+            marker.setPosition(points.get(key));
+
+            return;
+        }
         if (!canAddMarker) {
+            Log.i(TAG, "MOVY: "+draggedPosition+" / "+points.keySet());
             int lastIndex = points.size() - 1;
             double originalPosition = Math.floor(getKeyAtIndex(lastIndex));
 
             if (draggedPosition == originalPosition || draggedPosition == lastIndex) {
+
                 double lastKey = getKeyAtIndex(lastIndex);
                 points.put(originalPosition, marker.getPosition());
                 points.put(lastKey, marker.getPosition());
-                Log.i(TAG, " / " + originalPosition + " / " + draggedPosition + " / " + lastKey);
             } else {
                 points.put(draggedPosition + 0d, marker.getPosition());
             }
@@ -602,13 +654,12 @@ public class FlightPlaner extends Fragment implements RapidFloatingActionContent
     }
 
     private Drawable getIconDrawable(Object number) {
-        TextDrawable drawable = TextDrawable.builder()
+        return TextDrawable.builder()
                 .beginConfig()
                 .width(100)
                 .height(100)
                 .endConfig()
                 .buildRound(number.toString(), getResources().getColor(R.color.primaryColor, getActivity().getTheme()));
-        return drawable;
     }
 
     private void setRFABClickListener(){
@@ -650,13 +701,57 @@ public class FlightPlaner extends Fragment implements RapidFloatingActionContent
         ).build();
     }
 
+    private void handleRFABClick(int position, RFACLabelItem item){
+        Toast.makeText(getContext(), position+"", Toast.LENGTH_LONG).show();
+        switch(position){
+            case 0: //Add
+                displayAddDialog();
+                return;
+            case 1: //Search
+                return;
+            case 2: //OK
+                savePointsAndAddInfo();
+                return;
+            default:
+                Log.i(TAG, "Should never happen");
+        }
+    }
+
+    private void displayAddDialog() {
+        LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
+        View promptView = layoutInflater.inflate(R.layout.fragment_edit_geopoint, null);
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
+        alertDialogBuilder.setView(promptView);
+        TextView view = promptView.findViewById(R.id.txt_HeaderEdit);
+        view.setText(getString(R.string.flight_plan_save_add_coord));
+        // setup a dialog window
+        alertDialogBuilder.setPositiveButton(getString(R.string.flight_plan_save_add_coord_pos), (dialog, which) -> {
+            EditText txt_latitude = promptView.findViewById(R.id.txt_lat);
+            EditText txt_longitude = promptView.findViewById(R.id.txt_long);
+            String latitude = txt_latitude.getText().toString();
+            String longitude = txt_longitude.getText().toString();
+            try {
+                double lat = Double.parseDouble(latitude);
+                double lon = Double.parseDouble(longitude);
+                GeoPoint p = new GeoPoint(lat, lon);
+                addMarker(p);
+                setCenter(p.getLatitude(), p.getLongitude());
+            } catch (NumberFormatException e) {
+                Toast.makeText(getActivity(), getString(R.string.flight_plan_save_invalid_coord), Toast.LENGTH_LONG).show();
+            }
+
+        });
+        alertDialogBuilder.setNegativeButton(getString(R.string.flight_plan_save_add_coord_neg), (dialog, which) -> dialog.cancel());
+        alertDialogBuilder.show();
+    }
+
     @Override
     public void onRFACItemLabelClick(int position, RFACLabelItem item) {
-        Toast.makeText(getContext(), item.getLabel(), Toast.LENGTH_LONG).show();
+        handleRFABClick(position, item);
     }
 
     @Override
     public void onRFACItemIconClick(int position, RFACLabelItem item) {
-        Toast.makeText(getContext(), item.getLabel(), Toast.LENGTH_LONG).show();
+        handleRFABClick(position, item);
     }
 }
