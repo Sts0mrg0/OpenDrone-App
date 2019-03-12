@@ -373,7 +373,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                     while(isRunning){
                         boolean connected = tasks.ping();
-                        Log.i("TAGGY","ConnectionState:"+connected);
+                        Log.i("TAGGY","Connection failed:"+connected);
                         publishProgress(connected);
                         try {
                             Thread.sleep(2000);
@@ -402,16 +402,25 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         @Override
         protected void onProgressUpdate(Boolean... values) {
-            Log.i("CHANGY","Änderung!");
+
             ActionMenuItemView btn = (ActionMenuItemView)findViewById(R.id.connected);
             runOnUiThread(new Runnable() {
                 @SuppressLint("RestrictedApi")
                 @Override
                 public void run() {
-                    if(values[0]){
-                        if(btn != null){
-                            btn.setIcon(getResources().getDrawable(R.drawable.ic_connected));
+                    Log.i("CHANGY","Änderung! "+values[0]);
+                    if(values[0] != null){
+                        if(values[0] == true){
+                            if(btn != null){
+                                btn.setIcon(getResources().getDrawable(R.drawable.ic_disconnected));
+                            }
                         }
+                        if(values[0] == false){
+                            if(btn != null){
+                                btn.setIcon(getResources().getDrawable(R.drawable.ic_connected));
+                            }
+                        }
+
                     }else{
                         if(btn != null){
                             btn.setIcon(getResources().getDrawable(R.drawable.ic_disconnected));
