@@ -191,13 +191,13 @@ public class DroneSettingsActivity extends AppCompatActivity {
     }
 
     public void setValuesForDrone(Drone drone) {
-        txt_DroneDescription.setText(drone.description);
-        txt_DroneName.setText(drone.name);
+        txt_DroneDescription.setText(drone.getDescription());
+        txt_DroneName.setText(drone.getName());
 
         String[] values = getResources().getStringArray(R.array.array_DroneTyp);
 
         for (int i = 0; i < values.length; i++) {
-            if (values[i].equals(drone.type)) {
+            if (values[i].equals(drone.getType())) {
                 spinner_DroneTyp.setSelection(i);
                 break;
             }
@@ -244,8 +244,7 @@ public class DroneSettingsActivity extends AppCompatActivity {
 
     private void initImgView() {
         dronePicture = findViewById(R.id.imageView_DronePicture);
-        Log.i("Loady123","DroneImg" + position);
-        String uriStr = sp.getString("DroneImg" + position, "");
+        String uriStr = sp.getString("DroneImg" + selectedDrone.getId(), "");
         if (!uriStr.equals("")) {
             Uri imgUri = Uri.parse(uriStr);
             Picasso.get().load(imgUri).into(dronePicture);
@@ -290,8 +289,12 @@ public class DroneSettingsActivity extends AppCompatActivity {
         String droneName = String.valueOf(txt_DroneName.getText());
         String droneDescription = String.valueOf(txt_DroneDescription.getText());
         String droneType = String.valueOf(spinner_DroneTyp.getSelectedItem().toString());
+        String imageUri = "";
+        if (imgUri != null && !imgUri.toString().equals("")) {
+            imageUri = picturePath;
+        }
 
-        return new Drone(droneName, droneDescription, droneType);
+        return new Drone(droneName, droneDescription, droneType, imageUri);
     }
 
 
@@ -310,6 +313,7 @@ public class DroneSettingsActivity extends AppCompatActivity {
             return;
         }
         Drone drone = readData();
+        this.selectedDrone = drone;
         checkMode(mode, drone);
         saveInSP();
         finish();
@@ -333,10 +337,6 @@ public class DroneSettingsActivity extends AppCompatActivity {
         Gson gson = new Gson();
         String serialized = gson.toJson(DroneCardListRecyclerFragment.drones.toArray());
         sp.edit().putString("DroneList", serialized).apply();
-        if (imgUri != null && !imgUri.toString().equals("")) {
-            Log.i("Loady123", "DroneImg" + position);
-            sp.edit().putString("DroneImg" + position, picturePath).apply();
-        }
     }
 
     @Override

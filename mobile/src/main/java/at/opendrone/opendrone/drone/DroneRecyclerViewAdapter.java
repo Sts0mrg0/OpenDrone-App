@@ -11,6 +11,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -31,6 +32,7 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 import at.opendrone.opendrone.R;
@@ -60,15 +62,20 @@ public class DroneRecyclerViewAdapter extends RecyclerView.Adapter<DroneRecycler
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         final Drone drone = drones.get(position);
-        holder.text_droneName.setText(drone.name);
-        holder.text_droneDescription.setText(drone.description);
+        holder.text_droneName.setText(drone.getName());
+        holder.text_droneDescription.setText(drone.getDescription());
         final ConstraintLayout sourceView = holder.itemView.findViewById(R.id.constraintLayout_Item);
 
-        final String imgString = sp.getString("DroneImg" + position, "");
+        final String imgString = drone.getImageURI();
         if (!imgString.equals("")) {
             Uri imgUri = Uri.fromFile(new File(imgString));
-            Log.i("Picky", "asdf: " + imgString);
-            Picasso.get().load(imgUri).into(holder.imageView);
+            try {
+                Bitmap bm = ImageCompression.getThumbnail(imgUri, activity);
+                holder.imageView.setImageBitmap(bm);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            //Picasso.get().load(imgUri).into(holder.imageView);
         }
 
         holder.btn_Settings.setOnClickListener(new View.OnClickListener() {
