@@ -10,22 +10,23 @@ import org.osmdroid.util.GeoPoint;
 
 import java.io.Serializable;
 import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
 
 public class Flightplan implements Serializable {
     private int id;
     private String name;
     private String description;
-    public LinkedHashMap<Double, GeoPoint> points;
+    public LinkedList<GeoPoint> points;
 
     public Flightplan() {
     }
 
-    public Flightplan(int id, String name, String desc, LinkedHashMap<Double, GeoPoint> coords) {
+    public Flightplan(int id, String name, String desc, LinkedList<GeoPoint> points) {
         this.name = name;
         this.description = desc;
         this.id = id;
-        this.points = coords;
+        this.points = points;
     }
 
     public int getId() {
@@ -52,11 +53,11 @@ public class Flightplan implements Serializable {
         this.description = description;
     }
 
-    public LinkedHashMap<Double, GeoPoint> getCoordinates() {
+    public LinkedList<GeoPoint> getCoordinates() {
         return points;
     }
 
-    public void setCoordinates(LinkedHashMap<Double, GeoPoint> points) {
+    public void setCoordinates(LinkedList<GeoPoint> points) {
         this.points = points;
     }
 }

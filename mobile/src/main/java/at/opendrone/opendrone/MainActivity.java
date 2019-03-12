@@ -188,6 +188,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case OpenDroneUtils.LF_FLY:
                 initFlyStartFragment();
                 break;
+            case OpenDroneUtils.LF_ADJUST_PID:
+                initPIDAdjustFragment();
+                break;
             default:
                 Log.i("Mainy", "Default onRestore");
                 break;

@@ -180,22 +180,22 @@ category#android.intent.category.LAUNCHER
 ADDED from C:\Projects\OpenDrone-App\mobile\src\main\AndroidManifest.xml:45:17-77
 	android:name
 		ADDED from C:\Projects\OpenDrone-App\mobile\src\main\AndroidManifest.xml:45:27-74
-activity#at.opendrone.opendrone.DroneSettingsActivity
-ADDED from C:\Projects\OpenDrone-App\mobile\src\main\AndroidManifest.xml:48:9-59
+activity#at.opendrone.opendrone.drone.DroneSettingsActivity
+ADDED from C:\Projects\OpenDrone-App\mobile\src\main\AndroidManifest.xml:48:9-65
 	android:name
-		ADDED from C:\Projects\OpenDrone-App\mobile\src\main\AndroidManifest.xml:48:19-56
-activity#at.opendrone.opendrone.DroneCalibrationActivity
-ADDED from C:\Projects\OpenDrone-App\mobile\src\main\AndroidManifest.xml:49:9-51:67
+		ADDED from C:\Projects\OpenDrone-App\mobile\src\main\AndroidManifest.xml:48:19-62
+activity#at.opendrone.opendrone.drone.DroneCalibrationActivity
+ADDED from C:\Projects\OpenDrone-App\mobile\src\main\AndroidManifest.xml:49:9-51:73
 	android:parentActivityName
-		ADDED from C:\Projects\OpenDrone-App\mobile\src\main\AndroidManifest.xml:51:13-64
+		ADDED from C:\Projects\OpenDrone-App\mobile\src\main\AndroidManifest.xml:51:13-70
 	android:name
-		ADDED from C:\Projects\OpenDrone-App\mobile\src\main\AndroidManifest.xml:50:13-53
-activity#at.opendrone.opendrone.PinConfigurationActivity
-ADDED from C:\Projects\OpenDrone-App\mobile\src\main\AndroidManifest.xml:52:9-53:66
+		ADDED from C:\Projects\OpenDrone-App\mobile\src\main\AndroidManifest.xml:50:13-59
+activity#at.opendrone.opendrone.drone.PinConfigurationActivity
+ADDED from C:\Projects\OpenDrone-App\mobile\src\main\AndroidManifest.xml:52:9-53:72
 	android:parentActivityName
-		ADDED from C:\Projects\OpenDrone-App\mobile\src\main\AndroidManifest.xml:53:13-64
+		ADDED from C:\Projects\OpenDrone-App\mobile\src\main\AndroidManifest.xml:53:13-70
 	android:name
-		ADDED from C:\Projects\OpenDrone-App\mobile\src\main\AndroidManifest.xml:52:19-59
+		ADDED from C:\Projects\OpenDrone-App\mobile\src\main\AndroidManifest.xml:52:19-65
 uses-sdk
 INJECTED from C:\Projects\OpenDrone-App\mobile\src\main\AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from C:\Projects\OpenDrone-App\mobile\src\main\AndroidManifest.xml

@@ -134,6 +134,8 @@ public class TCPHandler {
 
         } catch (Exception e) {
             Log.e("TCPERROR", "C: Error", e);
+            Log.i(TAG, "trying again...");
+            this.run();
         }
 
     }
