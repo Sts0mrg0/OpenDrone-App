@@ -12,8 +12,9 @@ import java.net.Socket;
 import at.opendrone.opendrone.MainActivity;
 
 public class TCPHandler {
-
-    public static final String TAG = TCPHandler.class.getSimpleName();
+    private static final String TAG = TCPHandler.class.getSimpleName();
+    private static final int TIME_BETWEEN_TRYING_S = 5;
+    private static final int MAX_TRIES = 3;
     public String serverIP = "192.168.1.254"; //server IP address
     public int serverPort = 2018;
     // message to send to the server
@@ -28,6 +29,7 @@ public class TCPHandler {
     private BufferedReader mBufferIn;
     public Socket socket;
     public boolean failed = false;
+    private int tries = 0;
 
     /**
      * Constructor of the class. OnMessagedReceived listens for the messages received from server
@@ -104,9 +106,9 @@ public class TCPHandler {
 
                 //receives the message which the server sends back
                 mBufferIn = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-
                 //in this while the client listens for the messages sent by the server
                 while (mRun) {
+                    tries = 0;
                     mServerMessage = "";
                     int c;
                     while((c = mBufferIn.read()) != '*'){
@@ -135,7 +137,18 @@ public class TCPHandler {
         } catch (Exception e) {
             Log.e("TCPERROR", "C: Error", e);
             Log.i(TAG, "trying again...");
-            //this.run();
+            try {
+                tries++;
+                if (tries < MAX_TRIES) {
+                    Thread.sleep(TIME_BETWEEN_TRYING_S * 1000);
+                    this.run();
+                } else {
+                    Log.i(TAG, "Tried " + tries + " times without success. Giving up :(");
+                }
+            } catch (InterruptedException e1) {
+                Log.e(TAG, e.getMessage(), e);
+            }
+            //
         }
 
     }
