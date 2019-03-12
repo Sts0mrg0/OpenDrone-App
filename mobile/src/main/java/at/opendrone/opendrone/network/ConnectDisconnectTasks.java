@@ -4,6 +4,9 @@ import android.annotation.SuppressLint;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+
 public class ConnectDisconnectTasks {
     private TCPHandler mTCPHandler;
     private static ConnectDisconnectTasks instance;
@@ -26,10 +29,22 @@ public class ConnectDisconnectTasks {
     }
 
     public boolean isConnected(){
-        if(mTCPHandler == null){
+        if(mTCPHandler == null || mTCPHandler.mBufferOut == null){
             return false;
         }
-        return mTCPHandler.mRun;
+        return true;
+        /*if(mTCPHandler != null || mTCPHandler.mBufferOut != null){
+            return mTCPHandler.socket.isConnected();
+        }
+        return false;*/
+    }
+
+    public boolean sendFailed(){
+        return mTCPHandler.failed;
+    }
+
+    public void setFailed(){
+        mTCPHandler.failed = false;
     }
 
     public void connect(){
@@ -68,6 +83,35 @@ public class ConnectDisconnectTasks {
     public boolean isArmed() {
         return isArmed;
     }
+
+    public boolean ping(){
+        runSystemCommand("ping 192.168.1.254");
+        return
+                mTCPHandler.failed;
+    }
+
+    public void runSystemCommand(String command) {
+
+        try {
+            Process p = Runtime.getRuntime().exec(command);
+            BufferedReader inputStream = new BufferedReader(
+                    new InputStreamReader(p.getInputStream()));
+
+            String s = "";
+            // reading output stream of the command
+            if ((s = inputStream.readLine()) != null) {
+                this.mTCPHandler.failed = false;
+                return;
+            }
+            this.mTCPHandler.failed = true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+
+    }
+
 
     /**
      * Disconnects using a background task to avoid doing long/network operations on the UI thread
@@ -117,6 +161,7 @@ public class ConnectDisconnectTasks {
                 }
             });
             //setButtonText();
+
             mTCPHandler.run();
 
             return null;

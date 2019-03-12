@@ -6,11 +6,14 @@
 
 package at.opendrone.opendrone;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
+import android.content.res.Resources;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -21,8 +24,10 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.view.menu.ActionMenuItemView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -38,6 +43,8 @@ import at.opendrone.opendrone.drone.DroneCardListRecyclerFragment;
 import at.opendrone.opendrone.flightplan.FlightPlanListFragment;
 import at.opendrone.opendrone.fly.FlyManualFlight;
 import at.opendrone.opendrone.network.ConnectDisconnectTasks;
+import at.opendrone.opendrone.network.OpenDroneFrame;
+import at.opendrone.opendrone.network.TCPHandler;
 import at.opendrone.opendrone.settings.AdjustPIDFragment;
 import at.opendrone.opendrone.settings.SettingsFragment;
 import at.opendrone.opendrone.utils.OpenDroneUtils;
@@ -48,7 +55,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public static FragmentManager fm;
     private ConnectDisconnectTasks tasks = ConnectDisconnectTasks.getInstance();
     private SharedPreferences sp;
-
+    boolean isRunning = true;
     public DrawerLayout drawerLayout;
     private boolean isOpened = false;
     private FrameLayout fragmentContainer;
@@ -94,14 +101,33 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         findViews();
 
         initToolbar();
+        new CheckConnectionTask().execute();
+
         initNavView();
         fm = getSupportFragmentManager();
         initHomeFragment();
         //initHomeFragment();
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu, this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.toolbar_main, menu);
+        return true;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+    }
+
     private void findViews() {
         fragmentContainer = findViewById(R.id.frameLayout_FragmentContainer);
+    }
+
+    private void listenForConnection(){
+
     }
 
 
@@ -308,6 +334,92 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private void displayLibraries() {
 // When the user selects an option to see the licenses:
         startActivity(new Intent(this, OssLicensesMenuActivity.class));
+    }
+
+    private boolean sendPing(){
+        boolean connected;
+        try{
+            OpenDroneFrame f = new OpenDroneFrame((byte)1, new String[]{"999"}, new int[]{0});
+            if(f != null){
+                tasks.sendMessage(f.toString());
+            }
+        }catch(Exception e){
+            connected = false;
+        }
+        if(tasks != null){
+            if(tasks.sendFailed() == true){
+                tasks.connect();
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private class CheckConnectionTask extends AsyncTask<String, Boolean, Void> {
+
+        @Override
+        protected void onPreExecute() {
+            Log.i("TAGGY","PreExecute:");
+
+            Thread t = new Thread(){
+
+
+                @Override
+                public void run() {
+
+                    while(isRunning){
+                        boolean connected = tasks.ping();
+                        Log.i("TAGGY","ConnectionState:"+connected);
+                        publishProgress(connected);
+                        try {
+                            Thread.sleep(2000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            };
+            t.start();
+            super.onPreExecute();
+        }
+
+        @Override
+        protected Void doInBackground(String... voids) {
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void nothing) {
+            Log.i("TAGGY","PostExecute:");
+
+            super.onPostExecute(nothing);
+        }
+
+        @Override
+        protected void onProgressUpdate(Boolean... values) {
+            Log.i("CHANGY","Änderung!");
+            ActionMenuItemView btn = (ActionMenuItemView)findViewById(R.id.connected);
+            runOnUiThread(new Runnable() {
+                @SuppressLint("RestrictedApi")
+                @Override
+                public void run() {
+                    if(values[0]){
+                        if(btn != null){
+                            btn.setIcon(getResources().getDrawable(R.drawable.ic_connected));
+                        }
+                    }else{
+                        if(btn != null){
+                            btn.setIcon(getResources().getDrawable(R.drawable.ic_disconnected));
+                        }
+
+                    }
+                }
+            });
+
+            super.onProgressUpdate(values);
+        }
     }
 
 
