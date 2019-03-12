@@ -9,6 +9,8 @@ import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.Socket;
 
+import at.opendrone.opendrone.MainActivity;
+
 public class TCPHandler {
 
     public static final String TAG = TCPHandler.class.getSimpleName();
@@ -21,9 +23,11 @@ public class TCPHandler {
     // while this is true, the server will continue running
     protected boolean mRun = false;
     // used to send messages
-    private PrintWriter mBufferOut;
+    public PrintWriter mBufferOut;
     // used to read messages from the server
     private BufferedReader mBufferIn;
+    public Socket socket;
+    public boolean failed = false;
 
     /**
      * Constructor of the class. OnMessagedReceived listens for the messages received from server
@@ -47,8 +51,10 @@ public class TCPHandler {
                     Log.d(TAG, "Sending: " + message);
                     mBufferOut.println(message);
                     mBufferOut.flush();
+                    failed = false;
                 }else{
                     Log.i(TAG, "BUFFER IS NULL");
+                    failed = true;
                 }
             }
         };
@@ -90,7 +96,7 @@ public class TCPHandler {
             Log.i("TCPClient", "C: Connecting...");
 
             //create a socket to make the connection with the server
-            Socket socket = new Socket(serverAddr, serverPort);
+            socket = new Socket(serverAddr, serverPort);
             try {
 
                 //sends the message to the server

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Last modified: 06.09.18 16:46
+  ~ Copyright (c) OpenDrone, 2018.  All rights reserved.
+  ~ The entire project (including this file) is licensed under the GNU GPL v3.0
+  -->
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <group android:id="@+id/nav_group_app">
+        <item
+            android:id="@+id/connected"
+            android:icon="@drawable/ic_disconnected"
+            app:showAsAction="ifRoom"
+            android:iconTint="#FFFFFF"
+            android:title="@string/adjust_pid_disconnect"/>
+    </group>
+</menu>
