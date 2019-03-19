@@ -74,28 +74,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/adjustPIDDTextView" />
 
-    <at.opendrone.opendrone.utils.CustomFontTextView
-        android:id="@+id/adjustPIDConnectionTxtView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/adjust_pid_connected"
-        android:textColor="@color/primaryTextColor"
-        android:textSize="20sp"
-        android:textAlignment="center"
-        app:customFont="Roboto-Regular.ttf"
-        app:layout_constraintTop_toBottomOf="@+id/seekbarD" />
-
-    <Button
-        android:id="@+id/adjustPIDConnectButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:background="#00FFFFFF"
-        android:text="@string/adjust_pid_connect"
-        android:textColor="@color/primaryColor"
-        android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@+id/adjustPIDConnectionTxtView" />
-
     <Button
         android:id="@+id/adjustPIDResetButton"
         android:layout_width="match_parent"
@@ -105,5 +83,5 @@
         android:text="@string/adjust_pid_reset_values"
         android:textColor="@color/primaryColor"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@+id/adjustPIDConnectButton" />
+        app:layout_constraintTop_toBottomOf="@+id/seekbarD" />
 </android.support.constraint.ConstraintLayout>

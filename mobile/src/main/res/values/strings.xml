@@ -101,4 +101,8 @@
     <string name="flightplan_rfab_search">Search</string>
     <string name="flightplan_rfab_add">Add</string>
     <string name="flightplan_rfab_ok">OK</string>
+    <string name="fligthplan_point_edit_height">height</string>
+    <string name="fligthplan_point_edit_end">end</string>
+    <string name="point_label">Point %1$s</string>
+
 </resources>
