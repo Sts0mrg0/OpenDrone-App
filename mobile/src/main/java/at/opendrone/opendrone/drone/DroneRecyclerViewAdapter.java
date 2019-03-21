@@ -133,7 +133,7 @@ public class DroneRecyclerViewAdapter extends RecyclerView.Adapter<DroneRecycler
             @Override
             public boolean onLongClick(View view) {
                 fragment.remove(position);
-                fragment.updateAdapter();
+                fragment.updateAdapterAndSaveList();
                 return true;
             }
         });

@@ -33,4 +33,13 @@
         app:rippleColor="@color/secondaryColor"
         android:src="@android:drawable/ic_input_add" />
 
+    <ImageView
+        android:id="@+id/droneTutorialImgView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_tutorial_start"
+        android:tint="@color/primaryColor"
+        android:visibility="invisible"
+        android:layout_gravity="center" />
+
 </FrameLayout>

@@ -17,6 +17,7 @@ public class OpenDroneUtils {
     public static String SP_SETTINGS_LANGUAGE = "sp_settings_language";
     public static String SP_SETTINGS_PROMODE = "sp_settings_promode";
     public static String SP_SETTINGS_MAXHEIGHT = "sp_settings_maxHeight";
+    public static String SP_TUTORIAL = "tutorial_finished";
     public static final double DEFAULT_LAT = 48.2468036;
     public static final double DEFAULT_LNG = 14.6199875;
 

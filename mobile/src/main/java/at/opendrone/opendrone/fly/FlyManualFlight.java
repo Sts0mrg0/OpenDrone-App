@@ -24,6 +24,7 @@ import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -66,6 +67,7 @@ public class FlyManualFlight extends Fragment implements TCPMessageReceiver {
     private View view;
     private JoystickView throttle;
     private JoystickView direction;
+    private ImageView tutorialImg;
 
     private DrawerLayout.DrawerListener listener;
 
@@ -107,7 +109,7 @@ public class FlyManualFlight extends Fragment implements TCPMessageReceiver {
         getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         ((MainActivity) getActivity()).closeDrawer();
         super.onResume();
-
+        startTutorial();
         tasks.setMessageReceiver(this);
 
         if (mapView != null) {
@@ -200,7 +202,6 @@ public class FlyManualFlight extends Fragment implements TCPMessageReceiver {
         initJoysticks();
 
         stopAnimateErrorText();
-        checkShowTargetPrompt();
 
         if(tasks.isArmed()){
             arm();
@@ -346,35 +347,30 @@ public class FlyManualFlight extends Fragment implements TCPMessageReceiver {
         setDroneLocation(droneLocation);
     }
 
-    private void checkShowTargetPrompt() {
-        boolean isHomeTutorialShown = sp.getBoolean(R.id.homeBtn + "", false);
-        boolean isChangeViewTutorialShown = sp.getBoolean(R.id.changeViewBtn + "", false);
-        boolean isArmStopRotorTutorialShown = sp.getBoolean(R.id.stopRotorBtn + "", false);
-
-        if (!isHomeTutorialShown) {
-            showTargetPrompt(R.id.homeBtn);
-            return;
-        }
-        if (!isChangeViewTutorialShown) {
-            showTargetPrompt(R.id.changeViewBtn);
-            return;
-        }
-        if (!isArmStopRotorTutorialShown) {
-            showTargetPrompt(R.id.stopRotorBtn);
-            return;
+    private void startTutorial() {
+        if (!sp.getBoolean(OpenDroneUtils.SP_TUTORIAL, false)) {
+            tutorialImg.setVisibility(View.VISIBLE);
+            showTargetPrompt(tutorialImg.getId());
+            ((MainActivity) getActivity()).canOpenDrawer = false;
+        } else {
+            tutorialImg.setVisibility(View.GONE);
+            ((MainActivity) getActivity()).canOpenDrawer = true;
         }
     }
 
     private void showTargetPrompt(int targetID) {
-        Log.i(TAG, "target");
-        new MaterialTapTargetPrompt.Builder(getActivity())
+        new MaterialTapTargetPrompt.Builder(this)
                 .setTarget(targetID)
-                .setPrimaryText("Send your first email")
-                .setSecondaryText("Tap the envelope to start composing your first email")
+                .setAutoDismiss(false)
+                .setBackgroundColour(getActivity().getColor(R.color.tutorial_prompt_bg))
+                .setPrimaryText("FLYING")
+                .setSecondaryText("You have found yourself in the Manual Flight UI. Here you can manually control the drone. To arm the motors, press the rotor icon below")
                 .setPromptStateChangeListener((prompt, state) -> {
                     if (state == MaterialTapTargetPrompt.STATE_FOCAL_PRESSED) {
-                        sp.edit().putBoolean(targetID + "", true).apply();
-                        //checkShowTargetPrompt();
+                        prompt.finish();
+                        tutorialImg.setVisibility(View.GONE);
+                        sp.edit().putBoolean(OpenDroneUtils.SP_TUTORIAL, true).apply();
+                        ((MainActivity) getActivity()).canOpenDrawer = true;
                     }
                 })
                 .show();
@@ -387,6 +383,7 @@ public class FlyManualFlight extends Fragment implements TCPMessageReceiver {
         mapView = view.findViewById(R.id.mapView);
         cameraView = view.findViewById(R.id.cameraView);
         errorTxtView = view.findViewById(R.id.errorTxtView);
+        tutorialImg = view.findViewById(R.id.mfTutorialImage);
 
         parser = new RaspiStatParser(view, getContext());
 
@@ -549,30 +546,12 @@ public class FlyManualFlight extends Fragment implements TCPMessageReceiver {
         percent = getPercentFromSticks(50, adjacentX);
         values[0][0] = OpenDroneUtils.CODE_ROLL;
         values[0][1] = MIN_MOTOR_VALUE+(int)(powerDifference * (percent/100.0));
-        /*if (adjacentX < 0) {
-            values[0][0] = OpenDroneUtils.CODE_ROLL_LEFT;
-            values[0][1] = (adjacentX * (-1));
-            //returnValue += OpenDroneUtils.CODE_ROLL_LEFT + "," + (adjacentX*(-1)) + ";";
-        } else {
-            values[0][0] = OpenDroneUtils.CODE_ROLL_RIGHT;
-            values[0][1] = adjacentX;
-            //returnValue += OpenDroneUtils.CODE_ROLL_RIGHT + "," + adjacentX + ";";
-        }*/
 
         //Calculation for the y-axis
         int opposite = (int) (Math.sin(rad) * hypothenusis);
         percent = getPercentFromSticks(50, opposite);
         values[1][0] = OpenDroneUtils.CODE_PITCH;
         values[1][1] = MIN_MOTOR_VALUE+(int)(powerDifference * (percent/100.0));
-        /*if (opposite < 0) {
-            values[1][0] = OpenDroneUtils.CODE_PITCH_BACKWARD;
-            values[1][1] = (opposite * (-1));
-            //returnValue += OpenDroneUtils.CODE_PITCH_BACKWARD + "," + (opposite*(-1)) + ";";
-        } else {
-            values[1][0] = OpenDroneUtils.CODE_PITCH_FORWARD;
-            values[1][1] = opposite;
-            //returnValue += OpenDroneUtils.CODE_PITCH_FORWARD + "," + opposite + ";";
-        }*/
         return values;
     }
 

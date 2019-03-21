@@ -48,8 +48,10 @@ import at.opendrone.opendrone.network.TCPHandler;
 import at.opendrone.opendrone.settings.AdjustPIDFragment;
 import at.opendrone.opendrone.settings.SettingsFragment;
 import at.opendrone.opendrone.utils.OpenDroneUtils;
+import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+    private static final String TAG = "Mainy";
     private static boolean INEEDPIDCONTROLS = true;
     //public static TCPSend client;
     public static FragmentManager fm;
@@ -126,10 +128,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         fragmentContainer = findViewById(R.id.frameLayout_FragmentContainer);
     }
 
-    private void listenForConnection(){
-
-    }
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -187,6 +185,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case OpenDroneUtils.LF_FLY:
                 initFlyStartFragment();
+                break;
+            case OpenDroneUtils.LF_SETTINGS:
+                initSettingsFragment();
                 break;
             case OpenDroneUtils.LF_ADJUST_PID:
                 initPIDAdjustFragment();
@@ -292,7 +293,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setRequestedOrientation(getResources().getConfiguration().orientation);
     }
 
-    private void initDronesFragment() {
+    public void initDronesFragment() {
         lastFragment = OpenDroneUtils.LF_DRONE;
         Fragment defFragment = new DroneCardListRecyclerFragment();
         updateFragment(defFragment);
@@ -312,14 +313,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
 
-    private void initFlyStartFragment() {
+    public void initFlyStartFragment() {
         //FlyStart defFragment = new FlyStart();
         lastFragment = OpenDroneUtils.LF_FLY;
         FlyManualFlight defFragment = new FlyManualFlight();
         updateFragment(defFragment);
     }
 
-    private void initFlightplaner() {
+    public void initFlightplaner() {
         lastFragment = OpenDroneUtils.LF_FP;
         SharedPreferences sp = getApplication().getSharedPreferences("at.opendrone.opendrone", Context.MODE_PRIVATE);
         //sp.edit().remove(OpenDroneUtils.SP_FLIGHTPLAN_HOLDER).apply();
@@ -327,7 +328,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         updateFragment(defFragment);
     }
 
-    private void initSettingsFragment(){
+    public void initSettingsFragment() {
         lastFragment = OpenDroneUtils.LF_SETTINGS;
         Fragment defFragment = new SettingsFragment();
         updateFragment(defFragment);
@@ -337,26 +338,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private void displayLibraries() {
 // When the user selects an option to see the licenses:
         startActivity(new Intent(this, OssLicensesMenuActivity.class));
-    }
-
-    private boolean sendPing(){
-        boolean connected;
-        try{
-            OpenDroneFrame f = new OpenDroneFrame((byte)1, new String[]{"999"}, new int[]{0});
-            if(f != null){
-                tasks.sendMessage(f.toString());
-            }
-        }catch(Exception e){
-            connected = false;
-        }
-        if(tasks != null){
-            if(tasks.sendFailed() == true){
-                tasks.connect();
-                return false;
-            }
-        }
-
-        return true;
     }
 
     private class CheckConnectionTask extends AsyncTask<String, Boolean, Void> {
