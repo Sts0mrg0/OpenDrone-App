@@ -105,9 +105,10 @@ public class ConnectDisconnectTasks {
 
                     String s = "";
                     // reading output stream of the command
+                    inputStream.readLine();
                     if ((s = inputStream.readLine()) != null) {
                         Log.i("TAGGY","\t\t"+s);
-                        if(!s.contains("Host unreachable") || !s.contains("Zielhost nicht erreichbar") || !s.contains("Request timed out")){
+                        if (s.toLowerCase().contains(" time=")) {
                             ConnectDisconnectTasks.this.mTCPHandler.failed = false;
                             Log.i(TAG, "Could ping: " + true);
                             return;

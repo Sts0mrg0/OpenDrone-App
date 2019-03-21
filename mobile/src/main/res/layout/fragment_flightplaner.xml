@@ -30,6 +30,120 @@
             android:visibility="gone"
             app:rippleColor="@color/delete_color" />
     </FrameLayout>
+
+    <FrameLayout
+
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/buttonEditOverlay"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clickable="true"
+            android:focusable="true"
+            android:visibility="gone">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/marker_detail_background"></ImageView>
+
+            <at.opendrone.opendrone.utils.CustomFontTextView
+                android:id="@+id/pointNrTxtView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Point #3"
+                android:layout_gravity="bottom"
+                android:textSize="20sp"
+                android:elevation="4dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:padding="10dp"
+                android:textColor="@color/primaryColor"
+                android:background="@drawable/height_input_background"
+                map:customFont="Roboto-Bold.ttf" />
+
+            <LinearLayout
+                android:id="@+id/heightLayoutContainer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginStart="8dp"
+                android:elevation="4dp"
+                android:layout_below="@id/pointNrTxtView"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/height_input_background">
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:hint="height"
+                    android:textColor="@color/primaryTextColor">
+
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/heightTxtInput"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAlignment="textEnd"
+                        android:inputType="number"
+                        android:padding="10dp"
+                        android:background="@color/secondaryTextColor" />
+                </android.support.design.widget.TextInputLayout>
+
+                <at.opendrone.opendrone.utils.CustomFontTextView
+                    android:id="@+id/heightUnitTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="m"
+                    android:layout_gravity="bottom"
+                    android:gravity="bottom"
+                    android:textSize="20sp"
+                    android:paddingEnd="10dp"
+                    android:paddingBottom="10dp"
+                    android:textColor="@color/primaryTextColor"
+                    map:customFont="Roboto-Bold.ttf" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/endLayoutContainer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="8dp"
+                android:elevation="4dp"
+                android:layout_below="@id/heightLayoutContainer"
+                android:background="@drawable/height_input_background"
+                android:padding="10dp">
+
+                <CheckBox
+                    android:id="@+id/isEndCheckbox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <at.opendrone.opendrone.utils.CustomFontTextView
+                    android:id="@+id/isEndTxtView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:text="end"
+                    android:textColor="@color/primaryTextColor"
+                    android:layout_marginStart="8dp"
+                    map:customFont="Roboto-Bold.ttf" />
+            </LinearLayout>
+        </RelativeLayout>
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/markerEditFAB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="16dp"
+            android:src="@drawable/ic_tick"
+            android:backgroundTint="@color/primaryColor" />
+    </FrameLayout>
     <com.wangjie.rapidfloatingactionbutton.RapidFloatingActionButton xmlns:rfab="http://schemas.android.com/apk/res-auto"
         android:id="@+id/flightplanRFAB"
         android:layout_width="wrap_content"
@@ -43,5 +157,6 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_marginEnd="15dp"
+        android:visibility="gone"
         android:layout_marginBottom="15dp"/>
 </com.wangjie.rapidfloatingactionbutton.RapidFloatingActionLayout>

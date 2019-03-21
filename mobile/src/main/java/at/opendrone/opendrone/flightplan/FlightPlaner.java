@@ -22,6 +22,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
@@ -30,7 +31,10 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -62,10 +66,11 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
+import at.opendrone.opendrone.utils.CustomFontTextView;
 import at.opendrone.opendrone.utils.OpenDroneUtils;
 import at.opendrone.opendrone.R;
 
-public class FlightPlaner extends Fragment implements RapidFloatingActionContentLabelList.OnRapidFloatingActionContentLabelListListener {
+public class FlightPlaner extends Fragment implements RapidFloatingActionContentLabelList.OnRapidFloatingActionContentLabelListListener, CompoundButton.OnCheckedChangeListener {
 
     private static final String TAG = "FlightPlany";
     private static final int MAX_DISTANCE_FROM_START_KM = 10;
@@ -81,7 +86,13 @@ public class FlightPlaner extends Fragment implements RapidFloatingActionContent
     private RapidFloatingActionLayout rfaLayout;
     private RapidFloatingActionButton rfaBtn;
     private RapidFloatingActionHelper rfabHelper;
+    private RelativeLayout buttonEditOverlay;
+    private CheckBox isEndCheckbox;
+    private CustomFontTextView markerPointLabel;
+    private TextInputEditText heightEditText;
+    private FloatingActionButton markerEditFAB;
 
+    private Marker currentSelectedMarker = null;
     private boolean mRequestingLocationUpdates = false;
     private boolean hasAlreadyCentered = false;
 
@@ -118,7 +129,7 @@ public class FlightPlaner extends Fragment implements RapidFloatingActionContent
         if (mRequestingLocationUpdates) {
             startLocationUpdates();
         }
-
+        hideMarkerDialog();
         drawExistingPoints();
     }
 
@@ -424,6 +435,14 @@ public class FlightPlaner extends Fragment implements RapidFloatingActionContent
         mMapView = view.findViewById(R.id.map);
         rfaLayout = view.findViewById(R.id.flightplanRFABLayout);
         rfaBtn = view.findViewById(R.id.flightplanRFAB);
+        buttonEditOverlay = view.findViewById(R.id.buttonEditOverlay);
+        isEndCheckbox = view.findViewById(R.id.isEndCheckbox);
+        markerPointLabel = view.findViewById(R.id.pointNrTxtView);
+        heightEditText = view.findViewById(R.id.heightTxtInput);
+        markerEditFAB = view.findViewById(R.id.markerEditFAB);
+
+        markerEditFAB.setOnClickListener(v -> saveMarkerEdits());
+        isEndCheckbox.setOnCheckedChangeListener(this);
     }
 
     @Override
@@ -488,22 +507,7 @@ public class FlightPlaner extends Fragment implements RapidFloatingActionContent
             }
         });
         marker.setOnMarkerClickListener((marker1, mapView) -> {
-            if (!canAddMarker) {
-                return true;
-            }
-            canAddMarker = false;
-            List<GeoPoint> pointList = buildPointList();
-            int index = pointList.lastIndexOf(marker1.getPosition());
-
-            Object text = (index + 1) + "&" + getString(R.string.flight_plan_end_txt).toUpperCase();
-            if (index == 0) {
-                text = getString(R.string.flight_plan_start_txt) + "&" + getString(R.string.flight_plan_end_txt).toUpperCase();
-            }
-            marker1.setIcon(getIconDrawable(text));
-
-            markers.add(marker1);
-            drawLine();
-            updateIcons();
+            showMarkerDialog(marker1);
             return true;
         });
 
@@ -541,6 +545,15 @@ public class FlightPlaner extends Fragment implements RapidFloatingActionContent
 
     private boolean isAlsoEnd(GeoPoint p){
         return getPositionAtGeoPointForwards(p) != getPositionAtGeoPointBackwards(p);
+    }
+
+    private boolean isEndExisting() {
+        for (Marker marker : markers) {
+            if (isAlsoEnd(marker.getPosition())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private void removeMarker() {
@@ -679,6 +692,65 @@ public class FlightPlaner extends Fragment implements RapidFloatingActionContent
         }
     }
 
+    private String getMarkerIndexFromMarkerAsString(Marker m) {
+        for (int i = 0; i < markers.size(); i++) {
+            if (markers.get(i) == m) {
+                if (isAlsoEnd(m.getPosition())) {
+                    if (i == 0) {
+                        return "S&E";
+                    } else {
+                        return "#" + (i + 1) + "&E";
+                    }
+                }
+                return "#" + (i + 1);
+            }
+        }
+        return "#-1"; //Should never happen
+    }
+
+    @SuppressLint({"SetTextI18n", "RestrictedApi"})
+    private void showMarkerDialog(Marker selectedMarker) {
+        currentSelectedMarker = selectedMarker;
+        buttonEditOverlay.setVisibility(View.VISIBLE);
+        String index = getMarkerIndexFromMarkerAsString(selectedMarker);
+        markerPointLabel.setText(String.format(getString(R.string.point_label), index));
+        if (isAlsoEnd(selectedMarker.getPosition())) {
+            isEndCheckbox.setSelected(true);
+            isEndCheckbox.setChecked(true);
+        } else if (isEndExisting()) {
+            isEndCheckbox.setEnabled(false);
+            isEndCheckbox.setChecked(false);
+        }
+        heightEditText.setText(currentSelectedMarker.getPosition().getAltitude() + "");
+        markerEditFAB.setVisibility(View.VISIBLE);
+        rfaBtn.setVisibility(View.GONE);
+    }
+
+    @SuppressLint("RestrictedApi")
+    private void hideMarkerDialog() {
+        buttonEditOverlay.setVisibility(View.GONE);
+        rfaBtn.setVisibility(View.VISIBLE);
+        markerEditFAB.setVisibility(View.GONE);
+        currentSelectedMarker = null;
+
+    }
+
+    private void saveMarkerEdits() {
+        String heightStr = heightEditText.getText().toString();
+        try {
+            double height = Double.parseDouble(heightStr);
+            currentSelectedMarker.getPosition().setAltitude(height);
+        } catch (Exception ex) {
+            Log.e(TAG, ex.getMessage(), ex);
+        }
+        if (isEndCheckbox.isEnabled() && isEndCheckbox.isChecked()) {
+            addEnd();
+        } else if (isEndCheckbox.isEnabled()) {
+            removeEnd();
+        }
+        hideMarkerDialog();
+    }
+
     private void displayAddDialog() {
         LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
         View promptView = layoutInflater.inflate(R.layout.fragment_edit_geopoint, null);
@@ -707,6 +779,35 @@ public class FlightPlaner extends Fragment implements RapidFloatingActionContent
         alertDialogBuilder.show();
     }
 
+    private void addEnd() {
+        if (!canAddMarker) {
+            return;
+        }
+        canAddMarker = false;
+        List<GeoPoint> pointList = buildPointList();
+        int index = pointList.lastIndexOf(currentSelectedMarker.getPosition());
+
+        Object text = (index + 1) + "&" + getString(R.string.flight_plan_end_txt).toUpperCase();
+        if (index == 0) {
+            text = getString(R.string.flight_plan_start_txt) + "&" + getString(R.string.flight_plan_end_txt).toUpperCase();
+        }
+        currentSelectedMarker.setIcon(getIconDrawable(text));
+
+        markers.add(currentSelectedMarker);
+        drawLine();
+        updateIcons();
+    }
+
+    private void removeEnd() {
+        if (isEndExisting()) {
+            canAddMarker = true;
+            markers.remove(markers.size() - 1);
+            mMapView.getOverlays().clear();
+            this.existingPoints = buildPointList();
+            this.drawExistingPoints();
+        }
+    }
+
     @Override
     public void onRFACItemLabelClick(int position, RFACLabelItem item) {
         handleRFABClick(position, item);
@@ -715,5 +816,9 @@ public class FlightPlaner extends Fragment implements RapidFloatingActionContent
     @Override
     public void onRFACItemIconClick(int position, RFACLabelItem item) {
         handleRFABClick(position, item);
+    }
+
+    @Override
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
     }
 }

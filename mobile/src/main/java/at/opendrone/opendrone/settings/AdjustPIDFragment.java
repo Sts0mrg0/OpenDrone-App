@@ -36,11 +36,9 @@ public class AdjustPIDFragment extends Fragment implements SeekBar.OnSeekBarChan
     private CustomFontTextView pTextView;
     private CustomFontTextView iTextView;
     private CustomFontTextView dTextView;
-    private CustomFontTextView connectionTxtView;
 
     private ConnectDisconnectTasks tasks = ConnectDisconnectTasks.getInstance();
 
-    private Button connectBtn;
     private Button resetButton;
 
     private SeekBar pSeekbar;
@@ -62,7 +60,6 @@ public class AdjustPIDFragment extends Fragment implements SeekBar.OnSeekBarChan
         findViews();
         setSeekbarListeners();
         setInitalText();
-        setButtonText();
         return view;
     }
 
@@ -81,23 +78,9 @@ public class AdjustPIDFragment extends Fragment implements SeekBar.OnSeekBarChan
         iSeekbar = view.findViewById(R.id.seekbarI);
         dSeekbar = view.findViewById(R.id.seekbarD);
 
-        connectionTxtView = view.findViewById(R.id.adjustPIDConnectionTxtView);
-        connectBtn = view.findViewById(R.id.adjustPIDConnectButton);
         resetButton = view.findViewById(R.id.adjustPIDResetButton);
 
-        connectBtn.setOnClickListener(v -> connectOrDisconnect());
-        connectionTxtView.setText(String.format(getString(R.string.adjust_pid_connected), getString(R.string.adjust_pid_state_not_connected)));
         resetButton.setOnClickListener(v -> setInitalText());
-    }
-
-    private void setButtonText(){
-        getActivity().runOnUiThread(() -> {
-            if(tasks.isConnected()){
-                connectBtn.setText(getString(R.string.adjust_pid_disconnect));
-            }else{
-                connectBtn.setText(getString(R.string.adjust_pid_connect));
-            }
-        });
     }
 
     private void sendMessage(String val, int code){
@@ -130,18 +113,6 @@ public class AdjustPIDFragment extends Fragment implements SeekBar.OnSeekBarChan
     private void setSeekbarText(TextView txtView, String format, double value){
         txtView.setText(String.format(format, value+""));
     }
-
-    private void connectOrDisconnect(){
-        if(tasks.isConnected()){
-            connectionTxtView.setText(String.format(getString(R.string.adjust_pid_connected), getString(R.string.adjust_pid_state_not_connected)));
-            tasks.disconnect();
-        }else{
-            connectionTxtView.setText(String.format(getString(R.string.adjust_pid_connected), getString(R.string.adjust_pid_state_connected)));
-            tasks.connect();
-        }
-        setButtonText();
-    }
-
 
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
