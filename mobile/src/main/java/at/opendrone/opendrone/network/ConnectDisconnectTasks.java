@@ -40,10 +40,6 @@ public class ConnectDisconnectTasks {
             return false;
         }
         return true;
-        /*if(mTCPHandler != null || mTCPHandler.mBufferOut != null){
-            return mTCPHandler.socket.isConnected();
-        }
-        return false;*/
     }
 
     public boolean sendFailed(){
@@ -113,15 +109,16 @@ public class ConnectDisconnectTasks {
                         Log.i("TAGGY","\t\t"+s);
                         if(!s.contains("Host unreachable") || !s.contains("Zielhost nicht erreichbar") || !s.contains("Request timed out")){
                             ConnectDisconnectTasks.this.mTCPHandler.failed = false;
-                            Log.i("TAGGY","\tPinged");
+                            Log.i(TAG, "Could ping: " + true);
                             return;
                         }
 
                     }
                     ConnectDisconnectTasks.this.mTCPHandler.failed = true;
-                    Log.i("TAGGY","\tFailed");
+                    Log.i(TAG, "Could ping: " + false);
                 } catch (Exception e) {
                     ConnectDisconnectTasks.this.mTCPHandler.failed = true;
+                    Log.i(TAG, "Could ping: " + false);
                 }
             }
         };
