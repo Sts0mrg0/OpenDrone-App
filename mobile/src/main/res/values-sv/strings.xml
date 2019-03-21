@@ -101,4 +101,17 @@
     <string name="flightplan_rfab_search">Sök</string>
     <string name="flightplan_rfab_add">Lägg till</string>
     <string name="flightplan_rfab_ok">OK</string>
+    <string name="fligthplan_point_edit_height">Höjd</string>
+    <string name="fligthplan_point_edit_end">Slutet</string>
+    <string name="point_label">Punkt %1$s</string>
+    <string name="home_greeting">Hej!</string>
+    <string name="home_like">Likker OpenDrone?</string>
+    <string name="home_follow">Följ oss på</string>
+    <string name="home_visit">eller träffa oss på</string>
+    <string name="home_date_day">04\-05</string>
+    <string name="home_date_month">Maj</string>
+    <string name="event_nr_1_name">Maker Faire Vienna</string>
+    <string name="event_nr_1_location">Wien</string>
+    <string name="settings_pro_mode">Jag är en pro </string>
+    <string name="settings_start_tutorial">Börja Tutorial</string>
 </resources>

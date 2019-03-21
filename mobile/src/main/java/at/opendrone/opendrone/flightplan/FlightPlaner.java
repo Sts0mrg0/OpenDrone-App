@@ -81,7 +81,6 @@ public class FlightPlaner extends Fragment implements RapidFloatingActionContent
 
     private SharedPreferences sp;
     private FloatingActionButton removeFAB;
-    private boolean canAddMarker = true;
     private Location location;
     private RapidFloatingActionLayout rfaLayout;
     private RapidFloatingActionButton rfaBtn;
@@ -298,7 +297,7 @@ public class FlightPlaner extends Fragment implements RapidFloatingActionContent
 
         Marker secondMarker = markers.get(1);
         GeoPoint secondPoint = secondMarker.getPosition();
-        if((p.distanceToAsDouble(firstPoint) <= 0 || (!canAddMarker && p.distanceToAsDouble(lastPoint)<= 0)) && firstPoint.distanceToAsDouble(secondPoint) > MAX_DISTANCE_FROM_START_KM*1000){
+        if ((p.distanceToAsDouble(firstPoint) <= 0 || (isRouteClosed() && p.distanceToAsDouble(lastPoint) <= 0)) && firstPoint.distanceToAsDouble(secondPoint) > MAX_DISTANCE_FROM_START_KM * 1000) {
             Toast.makeText(getContext(), "The distance from the start to the other points must not be greater than " +MAX_DISTANCE_FROM_START_KM+" km", Toast.LENGTH_LONG).show();
             return false;
         }
@@ -326,10 +325,7 @@ public class FlightPlaner extends Fragment implements RapidFloatingActionContent
         }
         int positionInList = getPositionAtGeoPointForwards(p);
         if ((positionInList != -1)) {
-            canAddMarker = false;
             startMarker = markers.get((int)Math.floor(positionInList));
-        }else{
-            canAddMarker = true;
         }
 
         startMarker.setIcon(getIconDrawable(index));
@@ -366,7 +362,8 @@ public class FlightPlaner extends Fragment implements RapidFloatingActionContent
         MapEventsReceiver mReceive = new MapEventsReceiver() {
             @Override
             public boolean singleTapConfirmedHelper(GeoPoint p) {
-                if (canAddMarker) {
+                if (!isRouteClosed()) {
+                    Log.i(TAG, "Adding point");
                     addMarker(p);
                 }
 
@@ -473,6 +470,7 @@ public class FlightPlaner extends Fragment implements RapidFloatingActionContent
     @SuppressLint("ClickableViewAccessibility")
     private void addListenersToMarker(Marker marker) {
         marker.setDraggable(true);
+        Log.i(TAG, "ADD LISTENERS TO MARKER");
         marker.setOnMarkerDragListener(new Marker.OnMarkerDragListener() {
             @Override
             public void onMarkerDrag(Marker marker) {
@@ -507,6 +505,7 @@ public class FlightPlaner extends Fragment implements RapidFloatingActionContent
             }
         });
         marker.setOnMarkerClickListener((marker1, mapView) -> {
+            Log.i(TAG, "THIS SHIT SHOULD BE DEISPLAYED");
             showMarkerDialog(marker1);
             return true;
         });
@@ -544,26 +543,28 @@ public class FlightPlaner extends Fragment implements RapidFloatingActionContent
     }
 
     private boolean isAlsoEnd(GeoPoint p){
+        Log.i(TAG, getPositionAtGeoPointBackwards(p) + " / " + getPositionAtGeoPointForwards(p));
         return getPositionAtGeoPointForwards(p) != getPositionAtGeoPointBackwards(p);
     }
 
-    private boolean isEndExisting() {
+    private boolean isRouteClosed() {
         for (Marker marker : markers) {
             if (isAlsoEnd(marker.getPosition())) {
+                Log.i(TAG, "The route IS closed");
                 return true;
             }
         }
+        Log.i(TAG, "Houston, we have a problem");
         return false;
     }
 
     private void removeMarker() {
-        if (!canAddMarker) {
+        if (isRouteClosed()) {
             if (isAlsoEnd(markers.get(draggedPosition).getPosition())) {
                 int lastPosition = getPositionAtGeoPointBackwards(markers.get(draggedPosition).getPosition());
                 int originalPosition = getPositionAtGeoPointForwards(markers.get(draggedPosition).getPosition());
                 removeFromMarkers(lastPosition);
                 removeFromMarkers(originalPosition);
-                canAddMarker = true;
             } else {
                 removeFromMarkers(draggedPosition);
             }
@@ -587,7 +588,7 @@ public class FlightPlaner extends Fragment implements RapidFloatingActionContent
             if (i == 0) {
                 text = getString(R.string.flight_plan_start_txt).toUpperCase();
             }
-            if(i == markers.size()-1 && canAddMarker){
+            if (i == markers.size() - 1 && !isRouteClosed()) {
                 text=getString(R.string.flight_plan_end_txt).toUpperCase();
             }
             m.setIcon(getIconDrawable(text));
@@ -616,7 +617,6 @@ public class FlightPlaner extends Fragment implements RapidFloatingActionContent
     private void drawExistingPoints() {
         clearLists();
         if(existingPoints.size() <= 0){
-            canAddMarker = true;
             return;
         }
 
@@ -715,9 +715,9 @@ public class FlightPlaner extends Fragment implements RapidFloatingActionContent
         String index = getMarkerIndexFromMarkerAsString(selectedMarker);
         markerPointLabel.setText(String.format(getString(R.string.point_label), index));
         if (isAlsoEnd(selectedMarker.getPosition())) {
-            isEndCheckbox.setSelected(true);
+            isEndCheckbox.setEnabled(true);
             isEndCheckbox.setChecked(true);
-        } else if (isEndExisting()) {
+        } else if (isRouteClosed()) {
             isEndCheckbox.setEnabled(false);
             isEndCheckbox.setChecked(false);
         }
@@ -780,10 +780,9 @@ public class FlightPlaner extends Fragment implements RapidFloatingActionContent
     }
 
     private void addEnd() {
-        if (!canAddMarker) {
+        if (isRouteClosed()) {
             return;
         }
-        canAddMarker = false;
         List<GeoPoint> pointList = buildPointList();
         int index = pointList.lastIndexOf(currentSelectedMarker.getPosition());
 
@@ -799,11 +798,11 @@ public class FlightPlaner extends Fragment implements RapidFloatingActionContent
     }
 
     private void removeEnd() {
-        if (isEndExisting()) {
-            canAddMarker = true;
+        if (isRouteClosed()) {
             markers.remove(markers.size() - 1);
             mMapView.getOverlays().clear();
             this.existingPoints = buildPointList();
+            this.addEventListener();
             this.drawExistingPoints();
         }
     }

@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -33,6 +34,7 @@ public class SettingsFragment extends Fragment {
     private Switch profiSwitch;
     private EditText maxHeight;
     private View view;
+    private Button startTutorialButton;
     private SharedPreferences sp;
     private boolean proMode;
     private static final String TAG = "SETTINGSY";
@@ -54,10 +56,15 @@ public class SettingsFragment extends Fragment {
     private void findView(){
         profiSwitch = view.findViewById(R.id.switchProfiMode);
         maxHeight = view.findViewById(R.id.valMaxHeight);
+        startTutorialButton = view.findViewById(R.id.startTutorialButton);
         sp = getActivity().getSharedPreferences("at.opendrone.opendrone", Context.MODE_PRIVATE);
-
         configureProMode();
         addListeners();
+    }
+
+    private void startTutorial() {
+        sp.edit().remove(OpenDroneUtils.SP_TUTORIAL).apply();
+        ((MainActivity) getActivity()).initHomeFragment();
     }
 
     private void addListeners(){
@@ -108,6 +115,8 @@ public class SettingsFragment extends Fragment {
                 }
             }
         });
+
+        startTutorialButton.setOnClickListener((view) -> startTutorial());
     }
 
     private void configureProMode(){

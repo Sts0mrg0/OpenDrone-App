@@ -10,7 +10,7 @@
 
     <!-- TODO: Update blank fragment layout -->
 
-    <TextView
+    <at.opendrone.opendrone.utils.CustomFontTextView
         android:id="@+id/txtSettingsTitle"
         android:layout_width="155dp"
         android:layout_height="35dp"
@@ -18,26 +18,46 @@
         android:layout_marginTop="16dp"
         android:text="@string/settings_header"
         android:textSize="24sp"
+        android:textColor="@color/primaryColor"
+        app:customFont="Roboto-Bold.ttf"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <at.opendrone.opendrone.utils.CustomFontTextView
+        android:id="@+id/proLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:text="@string/settings_pro_mode"
+        android:textColor="@color/primaryTextColor"
+        app:customFont="Roboto-Regular.ttf"
+        app:layout_constraintBottom_toBottomOf="@+id/switchProfiMode"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtSettingsTitle" />
 
     <Switch
         android:id="@+id/switchProfiMode"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
-        android:text="Profi-mode "
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/proLabel"
         app:layout_constraintTop_toBottomOf="@+id/txtSettingsTitle" />
 
-    <TextView
+    <at.opendrone.opendrone.utils.CustomFontTextView
         android:id="@+id/txtMaxHeight"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:gravity="center"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:layout_marginBottom="8dp"
         android:text="@string/max_height"
+        android:textColor="@color/primaryTextColor"
+        app:customFont="Roboto-Regular.ttf"
+        app:layout_constraintBottom_toBottomOf="@+id/valMaxHeight"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/switchProfiMode" />
 
@@ -52,13 +72,27 @@
         app:layout_constraintStart_toEndOf="@+id/txtMaxHeight"
         app:layout_constraintTop_toBottomOf="@+id/txtSettingsTitle" />
 
-    <TextView
+    <at.opendrone.opendrone.utils.CustomFontTextView
         android:id="@+id/txtMeter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="112dp"
         android:text="@string/height_metric"
+        android:textColor="@color/primaryTextColor"
         app:layout_constraintStart_toEndOf="@+id/valMaxHeight"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:customFont="Roboto-Bold.ttf" />
+
+    <Button
+        android:id="@+id/startTutorialButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:background="#00FFFFFF"
+        android:text="@string/settings_start_tutorial"
+        android:textColor="@color/primaryColor"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtMaxHeight" />
 
 </android.support.constraint.ConstraintLayout>

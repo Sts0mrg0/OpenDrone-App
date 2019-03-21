@@ -20,6 +20,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -29,8 +30,10 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
+import at.opendrone.opendrone.MainActivity;
 import at.opendrone.opendrone.utils.OpenDroneUtils;
 import at.opendrone.opendrone.R;
+import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt;
 
 
 /**
@@ -43,6 +46,7 @@ public class FlightPlanListFragment extends Fragment {
     private FloatingActionButton btn_AddFP;
     private List<Flightplan> plans;
     private SharedPreferences sp;
+    private ImageView tutorialImg;
 
     public FlightPlanListFragment() {
         // Required empty public constructor
@@ -61,7 +65,43 @@ public class FlightPlanListFragment extends Fragment {
         return view;
     }
 
-    private void getSavedFlightPlans(){
+    @Override
+    public void onResume() {
+        super.onResume();
+        startTutorial();
+    }
+
+    private void startTutorial() {
+        if (!sp.getBoolean(OpenDroneUtils.SP_TUTORIAL, false)) {
+            tutorialImg.setVisibility(View.VISIBLE);
+            showTargetPrompt(tutorialImg.getId());
+            btn_AddFP.setEnabled(false);
+            ((MainActivity) getActivity()).canOpenDrawer = false;
+        } else {
+            tutorialImg.setVisibility(View.GONE);
+            btn_AddFP.setEnabled(true);
+            ((MainActivity) getActivity()).canOpenDrawer = true;
+        }
+    }
+
+    private void showTargetPrompt(int targetID) {
+        new MaterialTapTargetPrompt.Builder(this)
+                .setTarget(targetID)
+                .setAutoDismiss(false)
+                .setBackgroundColour(getActivity().getColor(R.color.tutorial_prompt_bg))
+                .setPrimaryText("The Flightplan List")
+                .setSecondaryText("This is the place where your saved flightplans are kept. To add one, click the + Button in the bottom right")
+                .setPromptStateChangeListener((prompt, state) -> {
+                    if (state == MaterialTapTargetPrompt.STATE_FOCAL_PRESSED) {
+                        btn_AddFP.setEnabled(true);
+                        ((MainActivity) getActivity()).canOpenDrawer = true;
+                        ((MainActivity) getActivity()).initFlyStartFragment();
+                    }
+                })
+                .show();
+    }
+
+    private void getSavedFlightPlans() {
         try {
             Gson gson = new Gson();
             String flightplanJSON = sp.getString(OpenDroneUtils.SP_FLIGHTPLANS, "");
@@ -75,16 +115,16 @@ public class FlightPlanListFragment extends Fragment {
         }
     }
 
-    private void findViews(){
+    private void findViews() {
         recyclerView = view.findViewById(R.id.flightplans);
         btn_AddFP = view.findViewById(R.id.btn_AddFlightPlan);
-
+        tutorialImg = view.findViewById(R.id.droneTutorialImgView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         setAddBtnListener();
     }
 
-    private void setAddBtnListener(){
+    private void setAddBtnListener() {
         btn_AddFP.setOnClickListener(v -> {
             Analytics.trackEvent("NewFlightPlanAdded");
             sp.edit().putString(OpenDroneUtils.SP_FLIGHTPLAN_NAME, "").apply();
@@ -105,7 +145,7 @@ public class FlightPlanListFragment extends Fragment {
             String serialized = gson.toJson(plans.toArray());
             sp.edit().putString(OpenDroneUtils.SP_FLIGHTPLANS, serialized).apply();
         } catch (Exception e) {
-            Log.e("FlightPlanError", "Something went wrong",e);
+            Log.e("FlightPlanError", "Something went wrong", e);
         }
 
     }
