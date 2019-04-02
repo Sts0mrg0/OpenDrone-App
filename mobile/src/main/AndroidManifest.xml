@@ -1,21 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-  ~ Last modified: 30.09.18 15:07
-  ~ Copyright (c) OpenDrone, 2018.  All rights reserved.
-  ~ The entire project (including this file) is licensed under the GNU GPL v3.0
-  -->
-
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="at.opendrone.opendrone">
 
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.CAMERA"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"  />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
         android:allowBackup="true"
@@ -24,6 +19,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        <activity android:name=".drone.TestMotorsActivity"></activity>
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -32,8 +28,9 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/provider_paths"/>
+                android:resource="@xml/provider_paths" />
         </provider>
+
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
@@ -49,8 +46,9 @@
         <activity
             android:name=".drone.DroneCalibrationActivity"
             android:parentActivityName=".drone.DroneSettingsActivity" />
-        <activity android:name=".drone.PinConfigurationActivity"
-            android:parentActivityName=".drone.DroneSettingsActivity"/>
+        <activity
+            android:name=".drone.PinConfigurationActivity"
+            android:parentActivityName=".drone.DroneSettingsActivity" />
     </application>
 
 </manifest>

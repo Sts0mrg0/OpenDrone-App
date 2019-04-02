@@ -153,7 +153,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/txt_Drone_description" />
 
-                <TextView
+                <Button
                     android:id="@+id/txtView_Calibration"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/txtView_default_height"
@@ -165,10 +165,11 @@
                     android:gravity="center_vertical"
                     android:text="@string/txtView_Calibration"
                     android:textSize="@dimen/textSize_default"
+                    android:background="#00FFFFFF"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/txtView_DroneTyp" />
 
-                <TextView
+                <Button
                     android:id="@+id/txtView_PinConfiguration"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/txtView_default_height"
@@ -180,9 +181,27 @@
                     android:focusableInTouchMode="true"
                     android:gravity="center_vertical"
                     android:text="@string/txtView_PinConfiguration"
+                    android:background="#00FFFFFF"
                     android:textSize="@dimen/textSize_default"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/txtView_Calibration" />
+
+                <Button
+                    android:id="@+id/btn_testMotors"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/txtView_default_height"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:gravity="center_vertical"
+                    android:text="@string/btn_TestMotors"
+                    android:background="#00FFFFFF"
+                    android:textSize="@dimen/textSize_default"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txtView_PinConfiguration" />
 
                 <View
                     android:id="@+id/divider"
@@ -198,14 +217,28 @@
                     android:visibility="visible"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/txtView_PinConfiguration" />
+                    app:layout_constraintTop_toBottomOf="@+id/btn_testMotors" />
+
+                <Button
+                    android:id="@+id/btn_goBack"
+                    style="@style/AlertDialog.AppCompat.Light"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="#00FFFFFF"
+                    android:text="@string/btn_goBack"
+                    android:textAllCaps="true"
+
+                    android:textColor="@color/primaryColor"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
 
                 <Button
                     android:id="@+id/btn_saveChanges"
                     style="@style/AlertDialog.AppCompat.Light"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
                     android:layout_marginEnd="8dp"
                     android:layout_marginBottom="8dp"
                     android:background="#00FFFFFF"
@@ -214,8 +247,7 @@
 
                     android:textColor="@color/primaryColor"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
+                    app:layout_constraintEnd_toEndOf="parent" />
             </android.support.constraint.ConstraintLayout>
         </ScrollView>
         

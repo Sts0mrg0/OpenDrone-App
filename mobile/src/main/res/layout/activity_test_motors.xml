@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".drone.TestMotorsActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_TestMotors"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/primaryColor"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="@string/toolbar_PinConfiguration"
+        app:titleTextColor="@color/secondaryTextColor" />
+
+    <at.opendrone.opendrone.utils.CustomFontTextView
+        android:id="@+id/infoTxt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:text="@string/txt_test_motor_instructions"
+        android:textAlignment="center"
+        android:textColor="@color/primaryTextColor"
+        android:textSize="20sp"
+        app:customFont="Roboto-Bold.ttf"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_TestMotors" />
+
+    <ImageView
+        android:id="@+id/imageForward"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:src="@drawable/big_arrow"
+        app:layout_constraintBottom_toTopOf="@+id/imageView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <at.opendrone.opendrone.utils.CustomFontTextView
+        android:id="@+id/motor4TxtView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="4"
+        android:textColor="@color/primaryTextColor"
+        android:textSize="24sp"
+        app:customFont="Roboto-Bold.ttf"
+        app:layout_constraintBottom_toTopOf="@+id/imageView2"
+        app:layout_constraintEnd_toStartOf="@+id/imageView2" />
+
+    <at.opendrone.opendrone.utils.CustomFontTextView
+        android:id="@+id/motor2TxtView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="2"
+        android:textColor="@color/primaryTextColor"
+        android:textSize="24sp"
+        app:customFont="Roboto-Bold.ttf"
+        app:layout_constraintBottom_toTopOf="@+id/imageView2"
+        app:layout_constraintStart_toEndOf="@+id/imageView2" />
+
+    <at.opendrone.opendrone.utils.CustomFontTextView
+        android:id="@+id/motor3TxtView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
+        android:text="3"
+        android:textColor="@color/primaryTextColor"
+        android:textSize="24sp"
+        app:customFont="Roboto-Bold.ttf"
+        app:layout_constraintEnd_toStartOf="@+id/imageView2"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+
+    <at.opendrone.opendrone.utils.CustomFontTextView
+        android:id="@+id/motor1TxtView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="1"
+        android:textColor="@color/primaryTextColor"
+        android:textSize="24sp"
+        app:customFont="Roboto-Bold.ttf"
+        app:layout_constraintStart_toEndOf="@+id/imageView2"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+
+    <ImageView
+        android:id="@+id/motor1Img"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/circle_direction_cw"
+        app:layout_constraintBottom_toBottomOf="@+id/motor1TxtView"
+        app:layout_constraintEnd_toEndOf="@+id/motor1TxtView"
+        app:layout_constraintStart_toStartOf="@+id/motor1TxtView"
+        app:layout_constraintTop_toTopOf="@+id/motor1TxtView"
+        android:rotation="-180" />
+
+    <ImageView
+        android:id="@+id/motor3Img"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/circle_direction_ccw"
+        app:layout_constraintBottom_toBottomOf="@+id/motor3TxtView"
+        app:layout_constraintEnd_toEndOf="@+id/motor3TxtView"
+        app:layout_constraintStart_toStartOf="@+id/motor3TxtView"
+        app:layout_constraintTop_toTopOf="@+id/motor3TxtView"
+        android:rotation="-180" />
+
+    <ImageView
+        android:id="@+id/motor4Img"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/circle_direction_cw"
+        app:layout_constraintBottom_toBottomOf="@+id/motor4TxtView"
+        app:layout_constraintEnd_toEndOf="@+id/motor4TxtView"
+        app:layout_constraintStart_toStartOf="@+id/motor4TxtView"
+        app:layout_constraintTop_toTopOf="@+id/motor4TxtView" />
+
+    <ImageView
+        android:id="@+id/motor2Img"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/circle_direction_ccw"
+        app:layout_constraintBottom_toBottomOf="@+id/motor2TxtView"
+        app:layout_constraintEnd_toEndOf="@+id/motor2TxtView"
+        app:layout_constraintStart_toStartOf="@+id/motor2TxtView"
+        app:layout_constraintTop_toTopOf="@+id/motor2TxtView" />
+
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_margin="16dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:src="@drawable/opendrone_4motors"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_TestMotors" />
+
+</android.support.constraint.ConstraintLayout>

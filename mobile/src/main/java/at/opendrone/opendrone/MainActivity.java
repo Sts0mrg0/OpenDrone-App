@@ -45,6 +45,9 @@ import at.opendrone.opendrone.fly.FlyManualFlight;
 import at.opendrone.opendrone.network.ConnectDisconnectTasks;
 import at.opendrone.opendrone.network.OpenDroneFrame;
 import at.opendrone.opendrone.network.TCPHandler;
+import at.opendrone.opendrone.network.TCPMessageReceiver;
+import at.opendrone.opendrone.raspistats.RaspiStat;
+import at.opendrone.opendrone.raspistats.RaspiStatParser;
 import at.opendrone.opendrone.settings.AdjustPIDFragment;
 import at.opendrone.opendrone.settings.SettingsFragment;
 import at.opendrone.opendrone.utils.OpenDroneUtils;
@@ -62,6 +65,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private boolean isOpened = false;
     private FrameLayout fragmentContainer;
     private int lastFragment;
+
 
     public boolean canOpenDrawer = true;
 
@@ -96,19 +100,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         AppCenter.start(getApplication(), "3a5cb885-3ad1-4141-a8da-f2901d36fb2f",
                 Analytics.class, Crashes.class);
-
-        //client = new TCPSend(TARGET);
-        //client.start();
-
         findViews();
 
         initToolbar();
         new CheckConnectionTask().execute();
-
         initNavView();
         fm = getSupportFragmentManager();
         initHomeFragment();
-        //initHomeFragment();
     }
 
     @Override
@@ -338,6 +336,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private void displayLibraries() {
 // When the user selects an option to see the licenses:
         startActivity(new Intent(this, OssLicensesMenuActivity.class));
+    }
+
+    @SuppressLint("RestrictedApi")
+    private void setConnectBtnImg(boolean isConnected) {
+        ActionMenuItemView btn = findViewById(R.id.connected);
+        runOnUiThread(() -> {
+            if (btn != null && isConnected) {
+                btn.setIcon(getResources().getDrawable(R.drawable.ic_connected));
+            } else if (btn != null && !isConnected) {
+                btn.setIcon(getResources().getDrawable(R.drawable.ic_disconnected));
+            }
+        });
+
+
     }
 
     private class CheckConnectionTask extends AsyncTask<String, Boolean, Void> {

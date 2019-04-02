@@ -18,4 +18,5 @@
 
     <color name="delete_color">#b71c1c</color>
     <color name="tutorial_prompt_bg">#aaffc401</color>
+    <color name="transparent">#00FFFFFF</color>
 </resources>

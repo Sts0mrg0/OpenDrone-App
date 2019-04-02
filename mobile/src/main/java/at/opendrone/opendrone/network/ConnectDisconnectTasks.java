@@ -2,6 +2,7 @@ package at.opendrone.opendrone.network;
 
 import android.annotation.SuppressLint;
 import android.os.AsyncTask;
+import android.os.Handler;
 import android.util.Log;
 
 import java.io.BufferedReader;
@@ -14,6 +15,8 @@ import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
+import at.opendrone.opendrone.utils.OpenDroneUtils;
+
 public class ConnectDisconnectTasks {
     private TCPHandler mTCPHandler;
     private static ConnectDisconnectTasks instance;
@@ -21,6 +24,8 @@ public class ConnectDisconnectTasks {
     public static final String TARGET = "192.168.1.254";
     public static final int PORT = 2018;
     private boolean isArmed = false;
+    private Handler handler = new Handler();
+
 
     private TCPMessageReceiver receiver;
 
@@ -93,6 +98,23 @@ public class ConnectDisconnectTasks {
         return mTCPHandler.failed;
     }
 
+    private void startSendingIAmStillThere() {
+        final Runnable[] runnables = new Runnable[1];
+        final Runnable runnable = () -> {
+            try {
+                OpenDroneFrame msg = new OpenDroneFrame((byte) 1, new String[]{"0"}, new int[]{OpenDroneUtils.CODE_I_AM_STILL_THERE});
+                if (mTCPHandler != null) {
+                    mTCPHandler.sendMessage(msg.toString());
+                }
+                handler.postDelayed(runnables[0], 1000);
+            } catch (Exception e) {
+                Log.e(TAG, e.getMessage(), e);
+            }
+        };
+        runnables[0] = runnable;
+        handler.post(runnable);
+    }
+
     public void runSystemCommand(String command) {
         Runnable stuffToDo = new Thread() {
             @Override
@@ -150,7 +172,6 @@ public class ConnectDisconnectTasks {
 
     }
 
-
     /**
      * Disconnects using a background task to avoid doing long/network operations on the UI thread
      */
@@ -199,7 +220,7 @@ public class ConnectDisconnectTasks {
                 }
             });
             //setButtonText();
-
+            startSendingIAmStillThere();
             mTCPHandler.run();
 
             return null;

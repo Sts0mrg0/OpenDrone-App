@@ -41,6 +41,8 @@ import at.opendrone.opendrone.R;
 
 public class DroneSettingsActivity extends AppCompatActivity {
 
+    private static final String TAG = "DroneStettingsy";
+
     private static final int TAKE_PICTURE = 69;
     private static final int CAMERA_CODE = 88;
     private static final int GALLERY_CODE = 18;
@@ -48,14 +50,17 @@ public class DroneSettingsActivity extends AppCompatActivity {
     private static final int MODE_NEW = 7;
     private static final int MODE_EDIT = 27;
     private ConstraintLayout parent;
-    private TextView txtView_Calibration;
-    private TextView txtView_PinConfiguration;
+    private Button btn_Calibration;
+    private Button btn_PinConfiguration;
+    private Button btn_TestMotors;
     private TextView txtView_DroneName;
     private TextView txtView_DroneDescription;
     private EditText txt_DroneDescription;
     private EditText txt_DroneName;
     private Spinner spinner_DroneTyp;
     private ImageView dronePicture;
+    private Button goBackBtn;
+    private Button btn_SaveSettings;
     private AppCompatImageView cameraOverlay;
     private int position;
     private boolean fromIntent = false;
@@ -110,6 +115,10 @@ public class DroneSettingsActivity extends AppCompatActivity {
 
     private void takePhoto(View view) {
         showInfo();
+    }
+
+    private void goBack() {
+        onBackPressed();
     }
 
 
@@ -222,7 +231,7 @@ public class DroneSettingsActivity extends AppCompatActivity {
     }
 
     public void startCalibration() {
-
+        Log.i(TAG, "DroneCalibrationPressed");
         Intent i = new Intent(getApplicationContext(), DroneCalibrationActivity.class);
         startActivity(i);
     }
@@ -233,9 +242,17 @@ public class DroneSettingsActivity extends AppCompatActivity {
 
     }
 
+    private void startTestMotors() {
+        Intent i = new Intent(getApplicationContext(), TestMotorsActivity.class);
+        startActivity(i);
+
+    }
     private void initViews() {
         dronePicture = findViewById(R.id.imageView_DronePicture);
         cameraOverlay = findViewById(R.id.imgView_CameraOverlay);
+        goBackBtn = findViewById(R.id.btn_goBack);
+        btn_TestMotors = findViewById(R.id.btn_testMotors);
+        btn_SaveSettings = findViewById(R.id.btn_saveChanges);
         parent = findViewById(R.id.parent);
 
         cameraOverlay.setOnClickListener(this::takePhoto);
@@ -252,8 +269,8 @@ public class DroneSettingsActivity extends AppCompatActivity {
     }
 
     public void initButtons() {
-        txtView_Calibration = findViewById(R.id.txtView_Calibration);
-        txtView_PinConfiguration = findViewById(R.id.txtView_PinConfiguration);
+        btn_Calibration = findViewById(R.id.txtView_Calibration);
+        btn_PinConfiguration = findViewById(R.id.txtView_PinConfiguration);
         txt_DroneName = findViewById(R.id.txt_DroneName);
 
         txtView_DroneName = findViewById(R.id.txtView_DroneName);
@@ -265,9 +282,10 @@ public class DroneSettingsActivity extends AppCompatActivity {
         addTextWatcher(txt_DroneName, txtView_DroneName);
         addTextWatcher(txt_DroneDescription, txtView_DroneDescription);
 
-        txtView_Calibration.setOnClickListener(v -> startCalibration());
-
-        txtView_PinConfiguration.setOnClickListener(v -> startPinConfig());
+        btn_Calibration.setOnClickListener(v -> startCalibration());
+        btn_PinConfiguration.setOnClickListener(v -> startPinConfig());
+        btn_TestMotors.setOnClickListener(v -> startTestMotors());
+        goBackBtn.setOnClickListener(v -> goBack());
 
         switch (this.mode) {
             case ("edit"): {
@@ -303,7 +321,6 @@ public class DroneSettingsActivity extends AppCompatActivity {
     }
 
     private void editDrone(final int mode) {
-        Button btn_SaveSettings = findViewById(R.id.btn_saveChanges);
         btn_SaveSettings.setOnClickListener(v -> handleEditDrone(mode));
     }
 
