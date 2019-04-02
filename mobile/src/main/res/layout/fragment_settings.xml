@@ -83,6 +83,44 @@
         app:layout_constraintTop_toTopOf="parent"
         app:customFont="Roboto-Bold.ttf" />
 
+    <at.opendrone.opendrone.utils.CustomFontTextView
+        android:id="@+id/txtMaxAngle"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:text="Maximum Angle"
+        android:textColor="@color/primaryTextColor"
+        app:customFont="Roboto-Regular.ttf"
+        app:layout_constraintBottom_toBottomOf="@+id/valMaxAngle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/valMaxAngle" />
+
+    <EditText
+        android:id="@+id/valMaxAngle"
+        android:layout_width="99dp"
+        android:layout_height="52dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:inputType="number"
+        app:layout_constraintStart_toEndOf="@+id/txtMaxHeight"
+        app:layout_constraintTop_toBottomOf="@+id/txtMaxHeight" />
+
+    <at.opendrone.opendrone.utils.CustomFontTextView
+        android:id="@+id/txtDegreees"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="@string/degrees_metric"
+        android:textColor="@color/primaryTextColor"
+        app:customFont="Roboto-Bold.ttf"
+        app:layout_constraintBottom_toBottomOf="@+id/valMaxAngle"
+        app:layout_constraintStart_toEndOf="@+id/valMaxAngle"
+        app:layout_constraintTop_toBottomOf="@+id/txtMeter" />
+
     <Button
         android:id="@+id/startTutorialButton"
         android:layout_width="wrap_content"
@@ -93,6 +131,6 @@
         android:text="@string/settings_start_tutorial"
         android:textColor="@color/primaryColor"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtMaxHeight" />
+        app:layout_constraintTop_toBottomOf="@+id/txtMaxAngle" />
 
 </android.support.constraint.ConstraintLayout>

@@ -98,7 +98,8 @@ public class DroneCalibrationActivity extends AppCompatActivity {
         txtView_calibration.setText(R.string.txt_calibration_inprogress);
 
         try {
-            OpenDroneFrame frame = new OpenDroneFrame((byte)1, new String[]{"1"}, new int[OpenDroneUtils.CODE_CALIBRATE]);
+            OpenDroneFrame frame = new OpenDroneFrame((byte) 1, new String[]{"1"}, new int[]{OpenDroneUtils.CODE_CALIBRATE});
+            Log.i(TAG, frame.toString());
             tasks.sendMessage(frame.toString());
         } catch (Exception e) {
             Log.e(TAG, e.getMessage(),e);

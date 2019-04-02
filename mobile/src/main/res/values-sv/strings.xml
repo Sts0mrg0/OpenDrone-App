@@ -17,6 +17,7 @@
     <string name="hello_blank_fragment">Hej tomt fragment</string>
     <string name="txtView_Calibration">Kalibrering </string>
     <string name="txtView_PinConfiguration">Pin-konfiguration </string>
+    <string name="btn_TestMotors">testmotorer</string>
     <string name="txt_DroneName">Drönarens namn</string>
     <string name="txtView_DroneTyp">Drönar sort </string>
     <string name="navItem_FlightPlanner">Flygplanerare</string>
@@ -28,6 +29,7 @@
     <string name="navItem_PID">Justera PID</string>
     <string name="txt_Drone_description">Drönar beskrivning</string>
     <string name="btn_saveChanges">Spara</string>
+    <string name="btn_goBack">Tillbaka</string>
     <string name="txt_calibration">Placera drönaren på en platt yta</string>
     <string name="btn_calibration">Starta kalibrering</string>
     <string name="txt_calibration_inprogress">Kalibrering pågår, flytta inte drönaren</string>
@@ -84,7 +86,9 @@
     <string name="settings_header">Inställningar</string>
     <string name="max_height">Maxhöjd: </string>
     <string name="min_height">Minsta höjd: </string>
+    <string name="max_angle">Minsta vinkel: </string>
     <string name="height_metric">m</string>
+    <string name="degrees_metric">°</string>
     <string name="language_text">Språk: </string>
     <string name="flightplan_coord_list_element">%1$f/\n%2$f</string>
     <string name="manualflight_no_open_drawer">Stanna här!</string>
@@ -114,4 +118,6 @@
     <string name="event_nr_1_location">Wien</string>
     <string name="settings_pro_mode">Jag är en pro </string>
     <string name="settings_start_tutorial">Börja Tutorial</string>
+    <string name="txt_test_motor_instructions">Tryck på ett nummer. Den högra motorn på dronen bör börja snurra.</string>
+    <string name="fly_forward">Flyger framåt i</string>
 </resources>

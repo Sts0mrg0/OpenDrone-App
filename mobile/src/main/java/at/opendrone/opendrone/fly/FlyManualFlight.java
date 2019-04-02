@@ -62,6 +62,8 @@ public class FlyManualFlight extends Fragment implements TCPMessageReceiver {
     private static final String TAG_ERROR = "errortcpreceive";
     private static final int MIN_MOTOR_VALUE = 1050;
     private static final int MAX_MOTOR_VALUE = 1800;
+    private static final int MIN_DIRECTION_VALUE = 1000;
+    private static final int MAX_DIRECTION_VALUE = 2000;
     private static final int TOLERANCE_PERCENT = 5;
 
     private View view;
@@ -538,20 +540,20 @@ public class FlyManualFlight extends Fragment implements TCPMessageReceiver {
         int[][] values = new int[2][2];
         double rad = angle * Math.PI / 180;
         int percent;
-        int powerDifference = MAX_MOTOR_VALUE - MIN_MOTOR_VALUE;
+        int powerDifference = MAX_DIRECTION_VALUE - MIN_DIRECTION_VALUE;
 
         //Calculation for the x-axis
         double hypothenusis = strength;
         int adjacentX = (int) (Math.cos(rad) * hypothenusis);
         percent = getPercentFromSticks(50, adjacentX);
         values[0][0] = OpenDroneUtils.CODE_ROLL;
-        values[0][1] = MIN_MOTOR_VALUE+(int)(powerDifference * (percent/100.0));
+        values[0][1] = MIN_DIRECTION_VALUE + (int) (powerDifference * (percent / 100.0));
 
         //Calculation for the y-axis
         int opposite = (int) (Math.sin(rad) * hypothenusis);
         percent = getPercentFromSticks(50, opposite);
         values[1][0] = OpenDroneUtils.CODE_PITCH;
-        values[1][1] = MIN_MOTOR_VALUE+(int)(powerDifference * (percent/100.0));
+        values[1][1] = MIN_DIRECTION_VALUE + (int) (powerDifference * (percent / 100.0));
         return values;
     }
 

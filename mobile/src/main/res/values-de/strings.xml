@@ -17,6 +17,7 @@
     <string name="hello_blank_fragment">Hallo blank fragment</string>
     <string name="txtView_Calibration">Kalibrierung</string>
     <string name="txtView_PinConfiguration">Pin-Konfiguration</string>
+    <string name="btn_TestMotors">Motoren Testen</string>
     <string name="txt_DroneName">Drohnen Name</string>
     <string name="txtView_DroneTyp">Drohnen Typ</string>
     <string name="navItem_FlightPlanner">Flugplaner</string>
@@ -28,6 +29,7 @@
     <string name="navItem_PID">PID adjustieren</string>
     <string name="txt_Drone_description">Drohnen Beschreibung</string>
     <string name="btn_saveChanges">Speichern</string>
+    <string name="btn_goBack">Zurück</string>
     <string name="txt_calibration">Platziere die Drohne auf einer ebenen Fläche</string>
     <string name="btn_calibration">Kalibrierung starten</string>
     <string name="txt_calibration_inprogress">Kalibrierung wird durchgeführt, bewege die Drohne nicht!</string>
@@ -84,7 +86,9 @@
     <string name="settings_header">Einstellungen</string>
     <string name="max_height">Maximale Höhe: </string>
     <string name="min_height">Minimale Höhe: </string>
+    <string name="max_angle">Maximaler Winkel: </string>
     <string name="height_metric">m</string>
+    <string name="degrees_metric">°</string>
     <string name="language_text">Sprache: </string>
     <string name="flightplan_coord_list_element">%1$f/\n%2$f</string>
     <string name="manualflight_no_open_drawer">Bleib hier!</string>
@@ -114,4 +118,6 @@
     <string name="event_nr_1_location">Wien</string>
     <string name="settings_pro_mode">Ich bin Profi </string>
     <string name="settings_start_tutorial">Tutorial starten</string>
+    <string name="txt_test_motor_instructions">Drücke auf eine Nummer. Der richtige Motor auf der Drohne sollte beginnen sich zu drehen.</string>
+    <string name="fly_forward">Fliege vorwärts in</string>
 </resources>

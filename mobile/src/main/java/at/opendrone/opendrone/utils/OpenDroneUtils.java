@@ -34,8 +34,10 @@ public class OpenDroneUtils {
     public static final int CODE_ROLL= 7;
     public static final int CODE_GO_HOME= 9;
     public static final int CODE_ABORT= 10;
+    public static final int CODE_SPIN_MOTOR = 17;
     public static final int CODE_ARM = 30;
     public static final int CODE_CALIBRATE = 20;
+    public static final int CODE_I_AM_STILL_THERE = 1337;
 
     public static final int CODE_PID_P = 333;
     public static final int CODE_PID_I = 334;

@@ -17,6 +17,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="txtView_Calibration">Calibration</string>
     <string name="txtView_PinConfiguration">Pin-Configuration</string>
+    <string name="btn_TestMotors">Test Motors</string>
     <string name="txt_DroneName">Drone Name</string>
     <string name="txtView_DroneTyp">Drone Typ</string>
     <string name="navItem_FlightPlanner">Flight Planner</string>
@@ -28,6 +29,7 @@
     <string name="navItem_PID">Adjust PID</string>
     <string name="txt_Drone_description">Drone Description</string>
     <string name="btn_saveChanges">Save</string>
+    <string name="btn_goBack">Back</string>
     <string name="txt_calibration">Place the Drone on a flat surface</string>
     <string name="btn_calibration">Start Calibration</string>
     <string name="txt_calibration_inprogress">Calibration in Progress, do not move the Drone</string>
@@ -84,7 +86,9 @@
     <string name="settings_header">Settings</string>
     <string name="max_height">Maximum height: </string>
     <string name="min_height">Minimum height: </string>
+    <string name="max_angle">Maximum angle: </string>
     <string name="height_metric">m</string>
+    <string name="degrees_metric">°</string>
     <string name="language_text">Language: </string>
     <string name="flightplan_coord_list_element">%1$f/\n%2$f</string>
     <string name="manualflight_no_open_drawer">stay here!</string>
@@ -114,5 +118,6 @@
     <string name="event_nr_1_location">Vienna</string>
     <string name="settings_pro_mode">I am a pro </string>
     <string name="settings_start_tutorial">Start Tutorial</string>
-
+    <string name="txt_test_motor_instructions">Press a number. The right motor on the drone should begin to spin.</string>
+    <string name="fly_forward">Flying forward in</string>
 </resources>
