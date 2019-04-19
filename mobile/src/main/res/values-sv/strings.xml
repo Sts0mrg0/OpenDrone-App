@@ -120,4 +120,9 @@
     <string name="settings_start_tutorial">Börja Tutorial</string>
     <string name="txt_test_motor_instructions">Tryck på ett nummer. Den högra motorn på dronen bör börja snurra.</string>
     <string name="fly_forward">Flyger framåt i</string>
+    <string name="flightmode_race">Race</string>
+    <string name="flightmode_ah">Altitude Hold</string>
+    <string name="flightmode_gps">GPS</string>
+    <string name="flightmode_heading">Flygläge</string>
+    <string name="dialog_close">stänga</string>
 </resources>

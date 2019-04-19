@@ -18,6 +18,7 @@ public class OpenDroneUtils {
     public static String SP_SETTINGS_PROMODE = "sp_settings_promode";
     public static String SP_SETTINGS_MAXHEIGHT = "sp_settings_maxHeight";
     public static String SP_TUTORIAL = "tutorial_finished";
+    public static String SP_FLIGHTMODE = "flightmode";
     public static final double DEFAULT_LAT = 48.2468036;
     public static final double DEFAULT_LNG = 14.6199875;
 
@@ -54,4 +55,9 @@ public class OpenDroneUtils {
     public static final int CODE_ERROR = 255;
 
     public static final int CODE_CALIBRATE_START = 1;
+
+    public static final String API_BASE_URL = "https://reqres.in/api/";
+    public static final String API_ARM = API_BASE_URL + "arm";
+    public static final String API_STEER = API_BASE_URL + "opendrone/command";
+    public static final String API_GO_HOME = API_BASE_URL + "home";
 }

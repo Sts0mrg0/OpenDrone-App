@@ -25,6 +25,8 @@ import android.view.animation.Animation;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,11 +46,14 @@ import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.Marker;
 
 import at.opendrone.opendrone.MainActivity;
+import at.opendrone.opendrone.network.RESTManager;
+import at.opendrone.opendrone.network.RESTMessageReceiver;
+import at.opendrone.opendrone.network.requests.ArmRequest;
+import at.opendrone.opendrone.network.requests.GoHomeRequest;
+import at.opendrone.opendrone.network.requests.SteerRequest;
 import at.opendrone.opendrone.utils.OpenDroneUtils;
 import at.opendrone.opendrone.R;
-import at.opendrone.opendrone.network.ConnectDisconnectTasks;
 import at.opendrone.opendrone.network.OpenDroneFrame;
-import at.opendrone.opendrone.network.TCPMessageReceiver;
 import at.opendrone.opendrone.raspistats.RaspiStat;
 import at.opendrone.opendrone.raspistats.RaspiStatParser;
 import io.github.controlwear.virtual.joystick.android.JoystickView;
@@ -57,7 +62,7 @@ import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FlyManualFlight extends Fragment implements TCPMessageReceiver {
+public class FlyManualFlight extends Fragment implements RESTMessageReceiver<Boolean>, RadioGroup.OnCheckedChangeListener {
     private static final String TAG = "manualFlighty";
     private static final String TAG_ERROR = "errortcpreceive";
     private static final int MIN_MOTOR_VALUE = 1050;
@@ -79,6 +84,7 @@ public class FlyManualFlight extends Fragment implements TCPMessageReceiver {
     private ImageButton changeViewBtn;
     private MapView mapView;
     private FrameLayout cameraView;
+    private ImageButton settingsBtn;
 
     private boolean mapViewShown = false;
 
@@ -95,16 +101,19 @@ public class FlyManualFlight extends Fragment implements TCPMessageReceiver {
     private LocationCallback mLocationCallback;
     private LocationRequest mLocationRequest;
 
-    private int[] codes;
-    private String[] data;
-
     private boolean stickTouchedBottom = false;
 
-    private ConnectDisconnectTasks tasks = ConnectDisconnectTasks.getInstance();
+    private RESTManager manager;
+    private SteerRequest steerRequest = new SteerRequest(1000, 1500, 1500, 1500);
+
+    private boolean isArmed;
+
 
     public FlyManualFlight() {
         // Required empty public constructor
     }
+
+    //TODO Implement ARM.
 
     @Override
     public void onResume() {
@@ -112,7 +121,6 @@ public class FlyManualFlight extends Fragment implements TCPMessageReceiver {
         ((MainActivity) getActivity()).closeDrawer();
         super.onResume();
         startTutorial();
-        tasks.setMessageReceiver(this);
 
         if (mapView != null) {
             mapView.onResume();
@@ -162,7 +170,6 @@ public class FlyManualFlight extends Fragment implements TCPMessageReceiver {
     public void onPause() {
         super.onPause();
         getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
-        tasks.removeMessageReceiver();
         if (mapView != null) {
             mapView.onPause();
         }
@@ -172,7 +179,7 @@ public class FlyManualFlight extends Fragment implements TCPMessageReceiver {
         stopLocationUpdates();
     }
 
-    private boolean isPro(){
+    private boolean isPro() {
         return sp.getBoolean(OpenDroneUtils.SP_SETTINGS_PROMODE, false);
     }
 
@@ -188,6 +195,36 @@ public class FlyManualFlight extends Fragment implements TCPMessageReceiver {
         mapView.setScrollableAreaLimitLatitude(MapView.getTileSystem().getMaxLatitude(), MapView.getTileSystem().getMinLatitude(), 0);
     }
 
+    private void showSettings() {
+        LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
+        View promptView = layoutInflater.inflate(R.layout.dialog_fly_settings, null);
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
+        alertDialogBuilder.setView(promptView);
+        RadioGroup group = promptView.findViewById(R.id.flightmodeRadioGroup);
+
+        int selected = sp.getInt(OpenDroneUtils.SP_FLIGHTMODE, R.id.flightmode_race);
+        group.check(selected);
+        group.setOnCheckedChangeListener(this);
+        alertDialogBuilder.setNegativeButton(R.string.dialog_close, null);
+        alertDialogBuilder.create().show();
+    }
+
+    public void onFlightmodeClicked(View view) {
+        boolean checked = ((RadioButton) view).isChecked();
+        Log.i(TAG, checked + " flight mode");
+        switch (view.getId()) {
+            case R.id.flightmode_race:
+                break;
+            case R.id.flightmode_ah:
+                break;
+            case R.id.flightmode_gps:
+                break;
+            default:
+                Log.i(TAG, "Default Flight Mode. Should never happen");
+                break;
+        }
+    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -198,18 +235,15 @@ public class FlyManualFlight extends Fragment implements TCPMessageReceiver {
         sp = getActivity().getSharedPreferences("at.opendrone.opendrone", Context.MODE_PRIVATE);
         //initStrings();
         setRetainInstance(true);
-        Log.i(TAG, "onCreate");
+        manager = new RESTManager(getContext());
+        manager.setMessageReceiver(this);
         findViews();
         configureMap();
         initJoysticks();
 
         stopAnimateErrorText();
 
-        if(tasks.isArmed()){
-            arm();
-        }else{
-            unarm();
-        }
+        unarm();
         //Try to connect!
 
         return view;
@@ -251,71 +285,44 @@ public class FlyManualFlight extends Fragment implements TCPMessageReceiver {
         setDroneMarker(droneLocation);
     }
 
-    private void fillCodeArray(int... codes) {
-        this.codes = codes;
-    }
-
-    private void fillDataArray(String... data) {
-        this.data = data;
-    }
-
-    private void fillDataArray(int... data) {
-        String[] strData = new String[data.length];
-        for (int i = 0; i < data.length; i++) {
-            strData[i] = data[i] + "";
-        }
-        fillDataArray(strData);
-    }
-
     private void initJoysticks() {
         throttle = view.findViewById(R.id.throttleStick);
         throttle.setOnMoveListener((angle, strength) -> {
-            int[][] cmd = interpretThrottleStick(throttle, angle, strength);
-
-            boolean areNewValues = areNewValues(new int[]{ cmd[0][0],cmd[1][0]}, new String[]{String.valueOf(cmd[0][1]), String.valueOf(cmd[1][1])});
-            if (tasks.isArmed() && stickTouchedBottom && areNewValues) {
-                fillCodeArray((byte) cmd[0][0], (byte) cmd[1][0]);
-                fillDataArray(cmd[0][1], cmd[1][1]);
-                sendData(data, codes);
+            int[] cmd = interpretStick(throttle, angle, strength, MIN_MOTOR_VALUE, MAX_MOTOR_VALUE);
+            SteerRequest request = new SteerRequest(cmd[1], cmd[0], steerRequest.getPitch(), steerRequest.getRoll());
+            if (stickTouchedBottom && areNewValues(request)) {
+                sendCommandCall(request);
             }
         });
 
         direction = view.findViewById(R.id.directionStick);
         direction.setOnMoveListener((angle, strength) -> {
-            int[][] cmd = interpretDirectionStick(direction, angle, strength);
-
-            boolean areNewValues = areNewValues(new int[]{ cmd[0][0],cmd[1][0]}, new String[]{String.valueOf(cmd[0][1]), String.valueOf(cmd[1][1])});
-            if (tasks.isArmed() && stickTouchedBottom && areNewValues) {
-                fillCodeArray((byte) cmd[0][0], (byte) cmd[1][0]);
-                fillDataArray(cmd[0][1], cmd[1][1]);
-                sendData(data, codes);
+            int[] cmd = interpretStick(throttle, angle, strength, MIN_DIRECTION_VALUE, MAX_DIRECTION_VALUE);
+            SteerRequest request = new SteerRequest(steerRequest.getThrottle(), steerRequest.getYaw(), cmd[1], cmd[0]);
+            if (stickTouchedBottom && areNewValues(request)) {
+                sendCommandCall(request);
             }
-
         });
-
     }
 
-    private boolean areNewValues(int[] newCodes, String[]newData){
-        try{
-            for(int i = 0; i<newCodes.length; i++){
-                if(newCodes[i] != codes[i] || !newData[i].equals(data[i])){
-                    Log.i(TAG, "new values");
-                    return true;
-                }
-            }
-        }catch(Exception ex){
-            Log.e(TAG, ex.getMessage(), ex);
-            return false;
-        }
+    private boolean areNewValues(SteerRequest request) {
+        return steerRequest.compareTo(request) == 0;
+    }
 
-        return false;
+    private void sendCommandCall(SteerRequest request) {
+        this.steerRequest = request;
+        manager.call(steerRequest, OpenDroneUtils.API_STEER);
+    }
+
+    private void sendCommandCall(int throttle, int yaw, int pitch, int roll) {
+        SteerRequest request = new SteerRequest(throttle, yaw, pitch, roll);
+        sendCommandCall(request);
     }
 
     private void sendData(String[] data, int[] codes) {
         try {
             OpenDroneFrame f = new OpenDroneFrame((byte) 1, data, codes);
             Log.i(TAG, f.toString());
-            tasks.sendMessage(f.toString());
         } catch (Exception ex) {
             Log.e(TAG_ERROR, "OpenDroneFrameError", ex);
         }
@@ -386,12 +393,14 @@ public class FlyManualFlight extends Fragment implements TCPMessageReceiver {
         cameraView = view.findViewById(R.id.cameraView);
         errorTxtView = view.findViewById(R.id.errorTxtView);
         tutorialImg = view.findViewById(R.id.mfTutorialImage);
+        settingsBtn = view.findViewById(R.id.setttingsBtn);
 
         parser = new RaspiStatParser(view, getContext());
 
         homeBtn.setOnClickListener(v -> displayHomeConfirmationDialog());
         stopRotorBtn.setOnClickListener(v -> sendArmOrAbortMessage());
         changeViewBtn.setOnClickListener(v -> changeView());
+        settingsBtn.setOnClickListener(v -> showSettings());
     }
 
     private void startInitMapViewThread() {
@@ -452,108 +461,73 @@ public class FlyManualFlight extends Fragment implements TCPMessageReceiver {
     }
 
     private void sendGoHomeMessage() {
-        fillDataArray(1);
-        fillCodeArray(OpenDroneUtils.CODE_GO_HOME);
-        sendData(data, codes);
+        manager.call(new GoHomeRequest(true), OpenDroneUtils.API_GO_HOME);
     }
 
     private void sendArmOrAbortMessage() {
-        if (tasks.isArmed()) {
+        manager.isArmed();
+        if (isArmed) {
             displayStopRotorDialog();
         } else {
             sendArmMessage();
-            arm();
         }
+
     }
 
     private void sendArmMessage() {
-        fillCodeArray(OpenDroneUtils.CODE_ARM);
-        fillDataArray(1);
-        sendData(data, codes);
+        manager.call(new ArmRequest(true), OpenDroneUtils.API_ARM);
+        manager.isArmed();
     }
 
-    private void arm(){
+    private void arm() {
         Log.i(TAG, "ARM");
-        if(!isPro()){
+        if (!isPro()) {
             ((MainActivity) getActivity()).canOpenDrawer = false;
         }
         setImageBtnImage(stopRotorBtn, R.drawable.ic_stoprotor);
-        tasks.setArmed(true);
         Toast.makeText(getContext(), getResources().getString(R.string.manualflight_move_stick_down), Toast.LENGTH_LONG).show();
     }
 
-    private void unarm(){
+    private void unarm() {
         Log.i(TAG, "UNARM");
         setImageBtnImage(stopRotorBtn, R.drawable.ic_arm);
         ((MainActivity) getActivity()).canOpenDrawer = true;
-        tasks.setArmed(false);
     }
 
     private void sendAbortMessage() {
-        fillDataArray(1);
-        fillCodeArray(OpenDroneUtils.CODE_ABORT);
-        sendData(data, codes);
+        manager.call(new ArmRequest(false), OpenDroneUtils.API_ARM);
+        manager.isArmed();
         Log.i(TAG, "CRASH");
         unarm();
     }
 
-    private int getPercentFromSticks(int center, int value){
-        int percent = center+value/2;
-        if(percent < 0){
+    private int getPercentFromSticks(int center, int value) {
+        int percent = center + value / 2;
+        if (percent < 0) {
             percent = 0;
         }
-        if(percent>100){
+        if (percent > 100) {
             percent = 100;
         }
         return percent;
     }
 
-    private int[][] interpretThrottleStick(JoystickView stick, int angle, int strength) {
-        int[][] values = new int[2][2];
+    private int[] interpretStick(JoystickView stick, int angle, int strength, int minValue, int maxValue) {
+        int[] values = new int[2];
         double rad = angle * Math.PI / 180;
         int percent;
-        int powerDifference = MAX_MOTOR_VALUE - MIN_MOTOR_VALUE;
+        int powerDifference = maxValue - minValue;
 
-        //Calculation for the x-axis
         double hypothenusis = strength;
         int adjacentX = (int) (Math.cos(rad) * hypothenusis);
         percent = getPercentFromSticks(50, adjacentX);
-        values[0][0] = OpenDroneUtils.CODE_YAW;
-        values[0][1] = MIN_MOTOR_VALUE+(int)(powerDifference * (percent/100.0));
-        //Calculation for the y-axis
-        int opposite = (int) (Math.sin(rad) * hypothenusis);
-        //values[1][1] = opposite;
-        percent = getPercentFromSticks(50, opposite);
-
-        values[1][0] = OpenDroneUtils.CODE_THROTTLE;
-        values[1][1] = MIN_MOTOR_VALUE+(int)(powerDifference * (percent/100.0));
-
-        if(values[1][1] <= MIN_MOTOR_VALUE+(MIN_MOTOR_VALUE*TOLERANCE_PERCENT/100) && values[1][1] >= MIN_MOTOR_VALUE){
-            stickTouchedBottom=true;
-        }
-
-
-        return values;
-    }
-
-    private int[][] interpretDirectionStick(JoystickView stick, int angle, int strength) {
-        int[][] values = new int[2][2];
-        double rad = angle * Math.PI / 180;
-        int percent;
-        int powerDifference = MAX_DIRECTION_VALUE - MIN_DIRECTION_VALUE;
-
-        //Calculation for the x-axis
-        double hypothenusis = strength;
-        int adjacentX = (int) (Math.cos(rad) * hypothenusis);
-        percent = getPercentFromSticks(50, adjacentX);
-        values[0][0] = OpenDroneUtils.CODE_ROLL;
-        values[0][1] = MIN_DIRECTION_VALUE + (int) (powerDifference * (percent / 100.0));
+        values[0] = minValue + (int) (powerDifference * (percent / 100.0));// yaw | roll
 
         //Calculation for the y-axis
         int opposite = (int) (Math.sin(rad) * hypothenusis);
         percent = getPercentFromSticks(50, opposite);
-        values[1][0] = OpenDroneUtils.CODE_PITCH;
-        values[1][1] = MIN_DIRECTION_VALUE + (int) (powerDifference * (percent / 100.0));
+        values[1] = minValue + (int) (powerDifference * (percent / 100.0)); //throttle | pitch
+        stickTouchedBottom = true;
         return values;
     }
 
@@ -715,8 +689,23 @@ public class FlyManualFlight extends Fragment implements TCPMessageReceiver {
     }
 
     @Override
-    public void onMessageReceived(String... values) {
-        interpretData(values[0]);
+    public void onMessageReceived(Boolean arm) {
+        if (arm) {
+            arm();
+        } else {
+            unarm();
+        }
     }
 
+    @Override
+    public void onCheckedChanged(RadioGroup group, int checkedId) {
+        int childCount = group.getChildCount();
+        for (int i = 0; i < childCount; i++) {
+            RadioButton button = (RadioButton) group.getChildAt(i);
+            if (button.getId() == checkedId) {
+                sp.edit().putInt(OpenDroneUtils.SP_FLIGHTMODE, checkedId).apply();
+                Log.i(TAG, "Selected: " + button.getText());
+            }
+        }
+    }
 }

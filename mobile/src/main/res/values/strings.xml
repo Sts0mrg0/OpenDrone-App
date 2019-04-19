@@ -120,4 +120,9 @@
     <string name="settings_start_tutorial">Start Tutorial</string>
     <string name="txt_test_motor_instructions">Press a number. The right motor on the drone should begin to spin.</string>
     <string name="fly_forward">Flying forward in</string>
+    <string name="flightmode_race">Race</string>
+    <string name="flightmode_ah">Altitude Hold</string>
+    <string name="flightmode_gps">GPS</string>
+    <string name="flightmode_heading">Flight Mode</string>
+    <string name="dialog_close">close</string>
 </resources>

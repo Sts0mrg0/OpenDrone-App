@@ -44,8 +44,10 @@ import at.opendrone.opendrone.flightplan.FlightPlanListFragment;
 import at.opendrone.opendrone.fly.FlyManualFlight;
 import at.opendrone.opendrone.network.ConnectDisconnectTasks;
 import at.opendrone.opendrone.network.OpenDroneFrame;
+import at.opendrone.opendrone.network.RESTManager;
 import at.opendrone.opendrone.network.TCPHandler;
 import at.opendrone.opendrone.network.TCPMessageReceiver;
+import at.opendrone.opendrone.network.requests.IRequest;
 import at.opendrone.opendrone.raspistats.RaspiStat;
 import at.opendrone.opendrone.raspistats.RaspiStatParser;
 import at.opendrone.opendrone.settings.AdjustPIDFragment;
@@ -66,6 +68,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private FrameLayout fragmentContainer;
     private int lastFragment;
 
+    private RESTManager manager;
 
     public boolean canOpenDrawer = true;
 
@@ -119,7 +122,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onResume() {
         super.onResume();
-
+        //manager = new RESTManager(getApplicationContext());
     }
 
     private void findViews() {

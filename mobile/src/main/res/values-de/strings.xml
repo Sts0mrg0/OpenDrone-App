@@ -120,4 +120,9 @@
     <string name="settings_start_tutorial">Tutorial starten</string>
     <string name="txt_test_motor_instructions">Drücke auf eine Nummer. Der richtige Motor auf der Drohne sollte beginnen sich zu drehen.</string>
     <string name="fly_forward">Fliege vorwärts in</string>
+    <string name="flightmode_race">Race</string>
+    <string name="flightmode_ah">Altitude Hold</string>
+    <string name="flightmode_gps">GPS</string>
+    <string name="flightmode_heading">Flugmodus</string>
+    <string name="dialog_close">schliessen</string>
 </resources>
