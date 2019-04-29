@@ -61,7 +61,7 @@ public class FlyManualFlight extends Fragment implements TCPMessageReceiver {
     private static final String TAG = "manualFlighty";
     private static final String TAG_ERROR = "errortcpreceive";
     private static final int MIN_MOTOR_VALUE = 1050;
-    private static final int MAX_MOTOR_VALUE = 1800;
+    private static final int MAX_MOTOR_VALUE = 2000;
     private static final int MIN_DIRECTION_VALUE = 1000;
     private static final int MAX_DIRECTION_VALUE = 2000;
     private static final int TOLERANCE_PERCENT = 5;

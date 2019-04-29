@@ -220,7 +220,6 @@ public class ConnectDisconnectTasks {
                 }
             });
             //setButtonText();
-            startSendingIAmStillThere();
             mTCPHandler.run();
 
             return null;
