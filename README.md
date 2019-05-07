@@ -12,7 +12,7 @@ Open Drone Open-source Project
 LICENSE GNU GPLv3  
   
 WEB http://opendrone.at/  
-WIKI  http://wiki.opendrone.at/
+WIKI  https://github.com/OpenDroneAT/OpenDrone-FlightController/wiki#our-fly-opendrone-wiki
 
 We here at OpenDrone love Open Source and Drones. So why not combine them?  
 So this is an open source project for a self-flying and navigating drone.  
