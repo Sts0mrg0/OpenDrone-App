@@ -35,6 +35,8 @@ Used technologies:
 * Create/Modify Flightplans ✔   
 * GUI for Manual Flight ✔  
 * Communication ⏳  
+* GUI for Autonomous Flight ⏳  
+* Cross-Platform App ⏳  
 ---  
 ## Requirements  
 ### App  
