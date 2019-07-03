@@ -39,6 +39,9 @@ public class OpenDroneUtils {
     public static final int CODE_CALIBRATE = 20;
     public static final int CODE_I_AM_STILL_THERE = 1337;
 
+    public static final int CODE_ALT_CONTROL = 47;
+    public static final int CODE_NO_ALT_CONTROL = 48;
+
     public static final int CODE_PID_P = 333;
     public static final int CODE_PID_I = 334;
     public static final int CODE_PID_D = 335;

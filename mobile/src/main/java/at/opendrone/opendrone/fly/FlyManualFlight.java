@@ -77,11 +77,12 @@ public class FlyManualFlight extends Fragment implements TCPMessageReceiver {
     private ImageButton homeBtn;
     private ImageButton stopRotorBtn;
     private ImageButton changeViewBtn;
+    private ImageButton altControlBtn;
     private MapView mapView;
     private FrameLayout cameraView;
 
     private boolean mapViewShown = false;
-
+    private boolean isAltControlEnabled = false;
     private SharedPreferences sp;
 
     private RaspiStatParser parser;
@@ -386,12 +387,14 @@ public class FlyManualFlight extends Fragment implements TCPMessageReceiver {
         cameraView = view.findViewById(R.id.cameraView);
         errorTxtView = view.findViewById(R.id.errorTxtView);
         tutorialImg = view.findViewById(R.id.mfTutorialImage);
+        altControlBtn = view.findViewById(R.id.altControlBtn);
 
         parser = new RaspiStatParser(view, getContext());
 
         homeBtn.setOnClickListener(v -> displayHomeConfirmationDialog());
         stopRotorBtn.setOnClickListener(v -> sendArmOrAbortMessage());
         changeViewBtn.setOnClickListener(v -> changeView());
+        altControlBtn.setOnClickListener(v -> toggleAltControl());
     }
 
     private void startInitMapViewThread() {
@@ -416,6 +419,20 @@ public class FlyManualFlight extends Fragment implements TCPMessageReceiver {
         } else {
             showMapView();
         }
+    }
+
+    private void toggleAltControl() {
+        if (isAltControlEnabled) {
+            this.isAltControlEnabled = false;
+            altControlBtn.setImageDrawable(getActivity().getDrawable(R.drawable.ic_alt_control));
+            Log.i(TAG, "Control not enbaled");
+        } else {
+            this.isAltControlEnabled = true;
+            altControlBtn.setImageDrawable(getActivity().getDrawable(R.drawable.ic_no_alt_control));
+            Log.i(TAG, "Control enabled");
+        }
+        this.sendData(new String[]{"1"}, new int[]{OpenDroneUtils.CODE_ALT_CONTROL});
+
     }
 
     private void setImageBtnImage(ImageButton btn, int drawableID) {

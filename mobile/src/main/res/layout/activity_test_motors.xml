@@ -43,12 +43,12 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <at.opendrone.opendrone.utils.CustomFontTextView
-        android:id="@+id/motor4TxtView"
+        android:id="@+id/motor2TxtView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:text="4"
+        android:text="2"
         android:textColor="@color/primaryTextColor"
         android:textSize="24sp"
         app:customFont="Roboto-Bold.ttf"
@@ -56,12 +56,12 @@
         app:layout_constraintEnd_toStartOf="@+id/imageView2" />
 
     <at.opendrone.opendrone.utils.CustomFontTextView
-        android:id="@+id/motor2TxtView"
+        android:id="@+id/motor1TxtView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginBottom="8dp"
-        android:text="2"
+        android:text="1"
         android:textColor="@color/primaryTextColor"
         android:textSize="24sp"
         app:customFont="Roboto-Bold.ttf"
@@ -82,12 +82,12 @@
         app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
     <at.opendrone.opendrone.utils.CustomFontTextView
-        android:id="@+id/motor1TxtView"
+        android:id="@+id/motor4TxtView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="1"
+        android:text="4"
         android:textColor="@color/primaryTextColor"
         android:textSize="24sp"
         app:customFont="Roboto-Bold.ttf"
@@ -98,12 +98,11 @@
         android:id="@+id/motor1Img"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:src="@drawable/circle_direction_cw"
+        android:src="@drawable/circle_direction_ccw"
         app:layout_constraintBottom_toBottomOf="@+id/motor1TxtView"
         app:layout_constraintEnd_toEndOf="@+id/motor1TxtView"
         app:layout_constraintStart_toStartOf="@+id/motor1TxtView"
-        app:layout_constraintTop_toTopOf="@+id/motor1TxtView"
-        android:rotation="-180" />
+        app:layout_constraintTop_toTopOf="@+id/motor1TxtView" />
 
     <ImageView
         android:id="@+id/motor3Img"
@@ -113,8 +112,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/motor3TxtView"
         app:layout_constraintEnd_toEndOf="@+id/motor3TxtView"
         app:layout_constraintStart_toStartOf="@+id/motor3TxtView"
-        app:layout_constraintTop_toTopOf="@+id/motor3TxtView"
-        android:rotation="-180" />
+        app:layout_constraintTop_toTopOf="@+id/motor3TxtView" />
 
     <ImageView
         android:id="@+id/motor4Img"
@@ -130,7 +128,7 @@
         android:id="@+id/motor2Img"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:src="@drawable/circle_direction_ccw"
+        android:src="@drawable/circle_direction_cw"
         app:layout_constraintBottom_toBottomOf="@+id/motor2TxtView"
         app:layout_constraintEnd_toEndOf="@+id/motor2TxtView"
         app:layout_constraintStart_toStartOf="@+id/motor2TxtView"

@@ -54,6 +54,7 @@ public class TCPHandler {
                     mBufferOut.println(message);
                     mBufferOut.flush();
                     failed = false;
+                    Log.i(TAG, failed + "");
                 }else{
                     Log.i(TAG, "BUFFER IS NULL");
                     failed = true;

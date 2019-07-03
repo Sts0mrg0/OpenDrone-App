@@ -81,6 +81,7 @@ public class ConnectDisconnectTasks {
     }
 
     public void sendMessage(String message){
+        Log.i(TAG, message);
         mTCPHandler.sendMessage(message);
     }
 
