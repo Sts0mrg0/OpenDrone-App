@@ -6,19 +6,18 @@
 
   
 # !! Work in Progress !!  
-## Infomation
+## Information
   
-Open Drone Open-source Project  
+Drone Open-Source Project  
 LICENSE GNU GPLv3  
   
-WEB http://opendrone.at/  
-WIKI  https://github.com/OpenDroneAT/OpenDrone-FlightController/wiki#our-fly-opendrone-wiki
+[On the web](http://opendrone.at/ "Opendrone.at")  
 
-We here at OpenDrone love Open Source and Drones. So why not combine them?  
-So this is an open source project for a self-flying and navigating drone.  
-We also got an Open-source Frame Created with ❤️ by our 3D Printer  
+[Our wiki](https://github.com/OpenDroneAT/OpenDrone-FlightController/wiki#our-fly-opendrone-wiki)
 
-Check out our website http://opendrone.at/  
+We here at OpenDrone love open-source and drones. So why not combine them?  
+This is an open-source project for a self-flying and navigating drone.  
+We also have an open-source frame Created with ❤️ by our 3D printer  
 
 Used technologies:  
 * Android - Our App runs on Android  
